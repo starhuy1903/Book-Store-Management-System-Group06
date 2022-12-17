@@ -1,25 +1,20 @@
 package entity;
 
 public class Publisher implements Comparable<Publisher>{
-    int id;
-    String name;
-    String status;
+    private Long id;
+    private String name;
+    private String status;
     
-    @Override public int compareTo(Publisher a)
-    {
-        return a.name.compareTo(this.name);
-    }
-
     public Publisher() {
     }
     
-    public Publisher(int id, String name, String status) {
+    public Publisher(Long id, String name, String status) {
         this.id = id;
         this.name = name;
         this.status = status;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -31,7 +26,7 @@ public class Publisher implements Comparable<Publisher>{
         return status;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,5 +41,9 @@ public class Publisher implements Comparable<Publisher>{
     @Override
     public String toString() {
         return "name=" + name + ", status=" + status ;
+    }
+    
+    @Override public int compareTo(Publisher a) {
+        return a.name.compareTo(this.name);
     }
 }
