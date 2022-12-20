@@ -178,7 +178,13 @@ public class Login extends javax.swing.JFrame {
                break;
             }
         if(!checkLogin)  JLabelInvalid.setText("Username or Password is wrong"); 
-            
+        
+        if(checkLogin) {
+            ControllScreen controllScreen=new ControllScreen();
+            new Login().setVisible(false);
+            controllScreen.setVisible(true);
+            dispose();
+        }
          
          
          //System.out.println(users.get(i).getUsername() + " " +  users.get(i).getPassword());
