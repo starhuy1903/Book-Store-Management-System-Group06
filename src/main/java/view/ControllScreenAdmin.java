@@ -8,12 +8,12 @@ package view;
  *
  * @author Dai Hai
  */
-public class ControllScreen extends javax.swing.JFrame {
+public class ControllScreenAdmin extends javax.swing.JFrame {
 
     /**
      * Creates new form ControllScreen
      */
-    public ControllScreen() {
+    public ControllScreenAdmin() {
         initComponents();
     }
 
@@ -72,12 +72,8 @@ public class ControllScreen extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-        Login login = new Login();
-        
-        login.setVisible(true);
-        setVisible(false);
-        
-        dispose();
+
+            System.exit(0);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
@@ -102,20 +98,21 @@ public class ControllScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ControllScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ControllScreenAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ControllScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ControllScreenAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ControllScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ControllScreenAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ControllScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ControllScreenAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ControllScreen().setVisible(true);
+                new ControllScreenAdmin().setVisible(true);
             }
         });
     }

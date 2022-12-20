@@ -173,16 +173,15 @@ public class Login extends javax.swing.JFrame {
         for(int i=0;i<users.size();i++)           
            if((usernameString.equals(users.get(i).getUsername())) && (passwordString.equals(users.get(i).getPassword()))){
                //System.out.println("Valid");
-               JLabelInvalid.setText("Valid");
                checkLogin=true;
                break;
             }
         if(!checkLogin)  JLabelInvalid.setText("Username or Password is wrong"); 
         
         if(checkLogin) {
-            ControllScreen controllScreen=new ControllScreen();
+            ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin();
             new Login().setVisible(false);
-            controllScreen.setVisible(true);
+            controllScreenAdmin.setVisible(true);
             dispose();
         }
          
