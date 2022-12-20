@@ -27,7 +27,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         btnLogout = new javax.swing.JButton();
-        btnProfile = new javax.swing.JButton();
+        btnEditProfile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,10 +38,10 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnProfile.setText("Profile");
-        btnProfile.addActionListener(new java.awt.event.ActionListener() {
+        btnEditProfile.setText("Edit Profile");
+        btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProfileActionPerformed(evt);
+                btnEditProfileActionPerformed(evt);
             }
         });
 
@@ -50,8 +50,8 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(309, Short.MAX_VALUE)
-                .addComponent(btnProfile)
+                .addContainerGap(294, Short.MAX_VALUE)
+                .addComponent(btnEditProfile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogout)
                 .addGap(25, 25, 25))
@@ -62,7 +62,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogout)
-                    .addComponent(btnProfile))
+                    .addComponent(btnEditProfile))
                 .addContainerGap(343, Short.MAX_VALUE))
         );
 
@@ -73,13 +73,16 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
 
-            System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
+    private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnProfileActionPerformed
+        AdminProfile editProfile = new AdminProfile();
+        editProfile.setVisible(true);
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_btnEditProfileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,7 +121,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditProfile;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnProfile;
     // End of variables declaration//GEN-END:variables
 }

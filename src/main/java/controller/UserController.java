@@ -17,6 +17,7 @@ public class UserController {
         UserDAO da = new UserDAO();
         return da.getAll();
     }
+ 
     
     public boolean getByUsernameAndPassword(String userName, String pass){
         //System.out.println("user= "+userName+ " pass= "+pass);

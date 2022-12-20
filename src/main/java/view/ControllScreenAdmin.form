@@ -24,8 +24,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="309" max="32767" attributes="0"/>
-              <Component id="btnProfile" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="294" max="32767" attributes="0"/>
+              <Component id="btnEditProfile" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
@@ -38,7 +38,7 @@
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnLogout" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnProfile" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditProfile" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="343" max="32767" attributes="0"/>
           </Group>
@@ -54,12 +54,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnProfile">
+    <Component class="javax.swing.JButton" name="btnEditProfile">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Profile"/>
+        <Property name="text" type="java.lang.String" value="Edit Profile"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProfileActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditProfileActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

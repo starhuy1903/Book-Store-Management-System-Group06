@@ -31,7 +31,7 @@ public class UserDAO extends SystemDAO<User, Long>{
 
     @Override
     public void update(User user) {
-         String sql = "UPDATE " + TABLE_USER + " SET " + COLUMN_USERNAME + "=?, " + COLUMN_PASSWORD + "=?";
+        String sql = "UPDATE " + TABLE_USER + " SET " + COLUMN_USERNAME + "=?, " + COLUMN_PASSWORD + "=?";
         XJdbc.update(sql, user.getUsername(),user.getPassword());
     }
 
