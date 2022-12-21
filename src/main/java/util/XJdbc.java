@@ -46,7 +46,7 @@ public class XJdbc {
         try {
             PreparedStatement stmt = XJdbc.getStmt(sql, args);
             System.out.println("sql= "+ sql);
-            System.out.println("args= ");
+            //System.out.println("args= ");
             try {
                 stmt.executeUpdate();
                 System.out.println("update xong");

@@ -5,6 +5,8 @@
 package view;
 import controller.*;
 import entity.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -13,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
+import java.util.List;
 /**
  *
  * @author Dai Hai
@@ -22,6 +25,30 @@ public class AdminProfile extends javax.swing.JFrame {
     /**
      * Creates new form AdminProfile
      */
+    
+    public String hashPassword(String password) {
+        String resultString=null;
+        
+        try {
+            
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(password.getBytes());
+            byte[] bytes=m.digest();
+            
+            StringBuilder s = new StringBuilder();
+            
+            for(int i=0;i<bytes.length;i++){
+                s.append(Integer.toString((bytes[i]&0xff) + 0x100,16).substring(1));
+            }
+            
+            resultString=s.toString();
+            
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultString;
+    }
     
     Admin admin=new Admin();
 
@@ -33,17 +60,11 @@ public class AdminProfile extends javax.swing.JFrame {
         admin.setDate_of_birth(ad.getDate_of_birth());
         admin.setUser_id(ad.getUser_id());
         
-        System.out.println("adPro= " + admin.getName()+ " " + admin.getDate_of_birth());
+        //System.out.println("adPro= " + admin.getName()+ " " + admin.getDate_of_birth());
         
         jTextFieldName.setText(admin.getName());
         
-        
-        //DateFormat date_format = new SimpleDateFormat("yyyy-mm-dd");
-        //String date_string = date_format.format(admin.getDate_of_birth());
-        //System.out.println("date: " + admin.getDate_of_birth() + " , " + date_string);
-        
         jTextFieldBirth.setText(admin.getDate_of_birth().toString());
-        
         
     }
     
@@ -231,6 +252,7 @@ public class AdminProfile extends javax.swing.JFrame {
         
         String nameString=jTextFieldName.getText();
         String birtString=jTextFieldBirth.getText();
+        String passString=jTextFieldPassword.getText();
         
         boolean check=true;
         
@@ -253,6 +275,10 @@ public class AdminProfile extends javax.swing.JFrame {
             check=false;
         }
         
+        if(passString==null || passString.length()==0) {
+            check=false;
+        }
+        
         if(!check) {
             jLabelCheck.setText("INVALID INPUT");
         }
@@ -260,17 +286,31 @@ public class AdminProfile extends javax.swing.JFrame {
         else {
             
             try {
+                UserController userController= new UserController();
                 AdminController adminController=new AdminController();
-                //admin.setName(nameString);
-                //System.out.println("admin birth= " + admin.getDate_of_birth());
+                
+                User user=new User();
+                
+                
+                List<User> userList= userController.getAll();
+                
+                for(int i=0;i<userList.size();i++)
+                    if(admin.getUser_id()==userList.get(i).getId())
+                    {
+                        user=userList.get(i);
+                        break;
+                    }
+                user.setPassword(passString);
+                
                 admin.setName(nameString);
-                System.out.println("birthP:" + birtString);
+                //System.out.println("birthP:" + birtString);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
                 Date date = format.parse(birtString);
                 java.sql.Date dateSql = new java.sql.Date(date.getTime());
                 admin.setDate_of_birth(dateSql);
-                System.out.println("admin birth= " + admin.getDate_of_birth());
-                //adminController.update(admin);
+                adminController.update(admin);
+                userController.update(user);
+                //System.out.println("admin birth= " + admin.getDate_of_birth());
             } catch (ParseException ex) {
                 Logger.getLogger(AdminProfile.class.getName()).log(Level.SEVERE, null, ex);
             }

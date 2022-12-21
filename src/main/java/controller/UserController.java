@@ -19,11 +19,16 @@ public class UserController {
     }
  
     
-    public boolean getByUsernameAndPassword(String userName, String pass){
-        //System.out.println("user= "+userName+ " pass= "+pass);
-        UserDAO da = new UserDAO();
-        User check = da.getByUsernameAndPassword(userName, pass);
-        System.out.println("Id"+" = "+check.getId());
-        return  check!=null ? true: false;
+//    public boolean getByUsernameAndPassword(String userName, String pass){
+//        //System.out.println("user= "+userName+ " pass= "+pass);
+//        UserDAO da = new UserDAO();
+//        User check = da.getByUsernameAndPassword(userName, pass);
+//        System.out.println("Id"+" = "+check.getId());
+//        return  check!=null ? true: false;
+//    }
+    
+    public  void update(User user) {
+        UserDAO dao = new UserDAO();
+        dao.update(user);
     }
 }

@@ -174,21 +174,25 @@ public class Login extends javax.swing.JFrame {
                if(users.get(i).getId()==admin.getUser_id()) {
                     checkAdmin=true;
                     
+                    ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin(admin);
+                    setVisible(false);
+                    controllScreenAdmin.setVisible(true);
+                    dispose();
                     //dispose();
                }
                break;
             }
         if(!checkLogin)  JLabelInvalid.setText("Username or Password is wrong"); 
         
-        if(checkLogin) {
-            System.out.println("Yes");
-       
-            ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin(admin);
-            setVisible(false);
-            controllScreenAdmin.setVisible(true);
-            dispose();
-
-        }
+//        if(checkLogin) {
+//            System.out.println("Yes");
+//       
+//            ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin(admin);
+//            setVisible(false);
+//            controllScreenAdmin.setVisible(true);
+//            dispose();
+//
+//        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jTextFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasswordActionPerformed
