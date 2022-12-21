@@ -238,9 +238,9 @@ public class AdminProfile extends javax.swing.JFrame {
         
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            sdf.parse(birtString);
-            
             sdf.setLenient(false);
+            
+            sdf.parse(birtString);
             
             System.out.println("true");
         } catch (ParseException ex) {
@@ -249,6 +249,10 @@ public class AdminProfile extends javax.swing.JFrame {
             check=false;
         }
        
+        if(nameString==null || nameString.length()==0) {
+            check=false;
+        }
+        
         if(!check) {
             jLabelCheck.setText("INVALID INPUT");
         }
@@ -266,7 +270,7 @@ public class AdminProfile extends javax.swing.JFrame {
                 java.sql.Date dateSql = new java.sql.Date(date.getTime());
                 admin.setDate_of_birth(dateSql);
                 System.out.println("admin birth= " + admin.getDate_of_birth());
-                adminController.update(admin);
+                //adminController.update(admin);
             } catch (ParseException ex) {
                 Logger.getLogger(AdminProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
