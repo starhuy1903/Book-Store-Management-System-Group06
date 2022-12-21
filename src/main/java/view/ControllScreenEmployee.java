@@ -47,6 +47,7 @@ public class ControllScreenEmployee extends javax.swing.JFrame {
         btnEditProfile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Employee Screen");
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {

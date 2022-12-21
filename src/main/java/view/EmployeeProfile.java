@@ -107,6 +107,7 @@ public class EmployeeProfile extends javax.swing.JFrame {
         jLabel3.setText("Birth :");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Employee Profile");
 
         jLabelName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelName.setText("Name :");

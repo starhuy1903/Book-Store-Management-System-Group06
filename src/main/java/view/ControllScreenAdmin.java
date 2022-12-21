@@ -45,6 +45,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
         btnEditProfile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin Screen");
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
