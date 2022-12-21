@@ -4,6 +4,8 @@
  */
 package view;
 
+import entity.*;
+
 /**
  *
  * @author Dai Hai
@@ -13,7 +15,20 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
     /**
      * Creates new form ControllScreen
      */
+    Admin adminScreen = new Admin();
+    
     public ControllScreenAdmin() {
+        initComponents();
+    }
+    
+    public ControllScreenAdmin(Admin ad) {
+        adminScreen.setId(ad.getId());
+        adminScreen.setName(ad.getName());
+        adminScreen.setDate_of_birth(ad.getDate_of_birth());
+        adminScreen.setUser_id(ad.getUser_id());
+        
+        System.out.println("ad= " + adminScreen.getName()+ " " + adminScreen.getDate_of_birth());
+        
         initComponents();
     }
 
@@ -78,7 +93,8 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
 
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // TODO add your handling code here:
-        AdminProfile editProfile = new AdminProfile();
+        System.out.println("adm "  + adminScreen.getName() + " " + adminScreen.getDate_of_birth());
+        AdminProfile editProfile = new AdminProfile(adminScreen);
         editProfile.setVisible(true);
         setVisible(false);
         dispose();
@@ -116,6 +132,8 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ControllScreenAdmin().setVisible(true);
+                
+                
             }
         });
     }

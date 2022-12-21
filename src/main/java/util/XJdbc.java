@@ -45,8 +45,11 @@ public class XJdbc {
     public static void update(String sql, Object... args) {
         try {
             PreparedStatement stmt = XJdbc.getStmt(sql, args);
+            System.out.println("sql= "+ sql);
+            System.out.println("args= ");
             try {
                 stmt.executeUpdate();
+                System.out.println("update xong");
             } finally {
                 stmt.getConnection().close();
             }

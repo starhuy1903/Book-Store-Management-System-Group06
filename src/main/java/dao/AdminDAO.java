@@ -8,6 +8,7 @@ import util.XJdbc;
 import java.sql.*;
 import java.util.*;
 import entity.*;
+import java.sql.Date;
 /**
  *
  * @author Dai Hai
@@ -26,9 +27,13 @@ public class AdminDAO {
     }
     
     
-    public void update(Admin admin) {
-        String sql = "UPDATE " + TABLE_ADMIN + " SET " + COLUMN_NAME + "=?" + COLUMN_DOB + "=?, "+ COLUMN_USERID + "=?";
-        XJdbc.update(sql, admin.getName(),admin.getDate_of_birth(), admin.getUser_id());
+    public void update(Admin admin) throws SQLException {
+        java.sql.Date dateCreated = new java.sql.Date(admin.getDate_of_birth().getTime());
+        System.out.println("update= " + admin.getName()+ " , " + admin.getDate_of_birth());
+        String sql = "UPDATE " + TABLE_ADMIN + " SET " + COLUMN_NAME + "=?, " + COLUMN_DOB + "=?";
+        XJdbc.update(sql, admin.getName(),admin.getDate_of_birth());
+        
+
     }
     
     Admin getBySql(String sql, Object... args) {

@@ -40,8 +40,6 @@ public class Login extends javax.swing.JFrame {
             
             resultString=s.toString();
             
-            
-            
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -153,6 +151,8 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         //System.out.println("Click"); 
         UserController userController = new UserController();
+        AdminController adminController=new AdminController();
+        Admin admin=adminController.getAll();
         
         String usernameString=jTextFieldUsername.getText();
         String passwordString=jTextFieldPassword.getText();
@@ -165,23 +165,30 @@ public class Login extends javax.swing.JFrame {
         System.out.println("hash= "+ hashString);
         
         boolean checkLogin=false;
+        boolean checkAdmin=false;
+        
         for(int i=0;i<users.size();i++)           
            if((usernameString.equals(users.get(i).getUsername())) && (passwordString.equals(users.get(i).getPassword()))){
                //System.out.println("Valid");
                checkLogin=true;
+               if(users.get(i).getId()==admin.getUser_id()) {
+                    checkAdmin=true;
+                    
+                    //dispose();
+               }
                break;
             }
         if(!checkLogin)  JLabelInvalid.setText("Username or Password is wrong"); 
         
         if(checkLogin) {
-            ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin();
-            new Login().setVisible(false);
+            System.out.println("Yes");
+       
+            ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin(admin);
+            setVisible(false);
             controllScreenAdmin.setVisible(true);
             dispose();
+
         }
-         
-         
-         //System.out.println(users.get(i).getUsername() + " " +  users.get(i).getPassword());
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jTextFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasswordActionPerformed
