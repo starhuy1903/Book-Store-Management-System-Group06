@@ -6,19 +6,26 @@ package controller;
 
 import dao.AdminDAO;
 import entity.Admin;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Dai Hai
  */
 public class AdminController {
-    public  Admin getAll() {
+    public  Admin getAdmin() {
         AdminDAO da = new AdminDAO();
-        return da.getAll();
+        return da.getAdmin();
     }
     
     public void update(Admin admin) {
-        AdminDAO da = new AdminDAO(); 
-        da.update(admin);
+        try {
+            AdminDAO da = new AdminDAO();
+            da.update(admin);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

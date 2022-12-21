@@ -152,7 +152,10 @@ public class Login extends javax.swing.JFrame {
         //System.out.println("Click"); 
         UserController userController = new UserController();
         AdminController adminController=new AdminController();
-        Admin admin=adminController.getAll();
+        EmployeeController employeeController=new EmployeeController();
+        
+        
+        Admin admin=adminController.getAdmin();
         
         String usernameString=jTextFieldUsername.getText();
         String passwordString=jTextFieldPassword.getText();
@@ -165,34 +168,34 @@ public class Login extends javax.swing.JFrame {
         System.out.println("hash= "+ hashString);
         
         boolean checkLogin=false;
-        boolean checkAdmin=false;
+        //boolean checkAdmin=false;
         
         for(int i=0;i<users.size();i++)           
            if((usernameString.equals(users.get(i).getUsername())) && (passwordString.equals(users.get(i).getPassword()))){
                //System.out.println("Valid");
                checkLogin=true;
                if(users.get(i).getId()==admin.getUser_id()) {
-                    checkAdmin=true;
+                    //checkAdmin=true;
                     
                     ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin(admin);
                     setVisible(false);
                     controllScreenAdmin.setVisible(true);
                     dispose();
                     //dispose();
+                }
+               else {
+                   Employee employee = employeeController.getEmployee(users.get(i).getId());
+                   
+                   ControllScreenEmployee controllScreenEmployee=new ControllScreenEmployee(employee);
+                   setVisible(false);
+                   controllScreenEmployee.setVisible(true);
+                   dispose();
                }
                break;
             }
         if(!checkLogin)  JLabelInvalid.setText("Username or Password is wrong"); 
         
-//        if(checkLogin) {
-//            System.out.println("Yes");
-//       
-//            ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin(admin);
-//            setVisible(false);
-//            controllScreenAdmin.setVisible(true);
-//            dispose();
-//
-//        }
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jTextFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasswordActionPerformed

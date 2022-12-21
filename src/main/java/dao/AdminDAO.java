@@ -21,7 +21,7 @@ public class AdminDAO {
     private static final String COLUMN_DOB = "date_of_birth";
     private static final String COLUMN_USERID = "user_id";
     
-    public Admin getAll() {
+    public Admin getAdmin() {
         String sql = "SELECT * FROM " + TABLE_ADMIN;
             return this.getBySql(sql);
     }
@@ -32,8 +32,6 @@ public class AdminDAO {
         System.out.println("update= " + admin.getName()+ " , " + admin.getDate_of_birth());
         String sql = "UPDATE " + TABLE_ADMIN + " SET " + COLUMN_NAME + "=?, " + COLUMN_DOB + "=?";
         XJdbc.update(sql, admin.getName(),admin.getDate_of_birth());
-        
-
     }
     
     Admin getBySql(String sql, Object... args) {

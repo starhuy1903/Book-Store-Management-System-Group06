@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author Dai Hai
  */
-public class AdminProfile extends javax.swing.JFrame {
+public class EmployeeProfile extends javax.swing.JFrame {
 
     /**
      * Creates new form AdminProfile
@@ -50,25 +50,26 @@ public class AdminProfile extends javax.swing.JFrame {
         return resultString;
     }
     
-    Admin admin=new Admin();
+    Employee employee=new Employee();
 
-    public AdminProfile(Admin ad) {
+    public EmployeeProfile(Employee em) {
         initComponents();
-        admin.setId(ad.getId());
         
-        admin.setName(ad.getName());
-        admin.setDate_of_birth(ad.getDate_of_birth());
-        admin.setUser_id(ad.getUser_id());
+        employee.setId(em.getId());
+        employee.setName(em.getName());
+        employee.setDate_of_birth(em.getDate_of_birth());
+        employee.setBank_account(em.getBank_account());
+        employee.setIs_activate_account(em.isIs_activate_account());
+        employee.setUserId(em.getUserId());
         
-        //System.out.println("adPro= " + admin.getName()+ " " + admin.getDate_of_birth());
+        System.out.println("emPro= " + employee.getName()+ " " + employee.getDate_of_birth());
         
-        jTextFieldName.setText(admin.getName());
-        
-        jTextFieldBirth.setText(admin.getDate_of_birth().toString());
-        
+        jTextFieldName.setText(employee.getName());
+        jTextFieldBirth.setText(employee.getDate_of_birth().toString());
+        jTextFieldBank.setText(employee.getBank_account());
     }
     
-    public AdminProfile() {
+    public EmployeeProfile() {
         initComponents();
     }
 
@@ -93,6 +94,8 @@ public class AdminProfile extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
         jLabelCheck = new javax.swing.JLabel();
+        jTextFieldBank = new javax.swing.JTextField();
+        jLabelBank = new javax.swing.JLabel();
 
         jTextFieldBirth1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +162,16 @@ public class AdminProfile extends javax.swing.JFrame {
         jLabelCheck.setForeground(new java.awt.Color(255, 51, 0));
         jLabelCheck.setToolTipText("");
 
+        jTextFieldBank.setToolTipText("");
+        jTextFieldBank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldBankActionPerformed(evt);
+            }
+        });
+
+        jLabelBank.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelBank.setText("Bank account:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,7 +194,11 @@ public class AdminProfile extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabelBank)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldBank, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(135, 135, 135)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -205,11 +222,15 @@ public class AdminProfile extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelBank)
+                    .addComponent(jTextFieldBank, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(jLabelCheck)
                 .addGap(61, 61, 61)
                 .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,8 +253,8 @@ public class AdminProfile extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-        ControllScreenAdmin screenAdmin = new ControllScreenAdmin(admin);
-        screenAdmin.setVisible(true);
+        ControllScreenEmployee screenEmployee = new ControllScreenEmployee(employee);
+        screenEmployee.setVisible(true);
         setVisible(false);
         dispose();
         initComponents();
@@ -252,6 +273,7 @@ public class AdminProfile extends javax.swing.JFrame {
         
         String nameString=jTextFieldName.getText();
         String birtString=jTextFieldBirth.getText();
+        String bankString=jTextFieldBank.getText();
         String passString=jTextFieldPassword.getText();
         
         boolean check=true;
@@ -275,8 +297,13 @@ public class AdminProfile extends javax.swing.JFrame {
             check=false;
         }
         
+        if(bankString==null || bankString.length()==0) {
+            check=false;
+        }
+        
+        
 //        if(passString==null || passString.length()==0) {
-//            check=false;
+//            passString=jTextFieldPassword.getText();
 //        }
         
         if(!check) {
@@ -287,7 +314,7 @@ public class AdminProfile extends javax.swing.JFrame {
             
             try {
                 UserController userController= new UserController();
-                AdminController adminController=new AdminController();
+                EmployeeController employeeController=new EmployeeController();
                 
                 User user=new User();
                 
@@ -295,32 +322,38 @@ public class AdminProfile extends javax.swing.JFrame {
                 List<User> userList= userController.getAll();
                 
                 for(int i=0;i<userList.size();i++)
-                    if(admin.getUser_id()==userList.get(i).getId())
+                    if(employee.getUserId()==userList.get(i).getId())
                     {
                         user=userList.get(i);
-                        
                         if(passString==null || passString.length()==0) 
                             passString=userList.get(i).getPassword();
                         
                         break;
                     }
+                
+                
                 user.setPassword(passString);
                 
-                admin.setName(nameString);
+                employee.setName(nameString);
+                employee.setBank_account(bankString);
                 //System.out.println("birthP:" + birtString);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
                 Date date = format.parse(birtString);
                 java.sql.Date dateSql = new java.sql.Date(date.getTime());
-                admin.setDate_of_birth(dateSql);
-                adminController.update(admin);
+                employee.setDate_of_birth(dateSql);
+                employeeController.update(employee);
                 userController.update(user);
                 //System.out.println("admin birth= " + admin.getDate_of_birth());
             } catch (ParseException ex) {
-                Logger.getLogger(AdminProfile.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EmployeeProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
            
         }
     }//GEN-LAST:event_btnOKActionPerformed
+
+    private void jTextFieldBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBankActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBankActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,20 +372,21 @@ public class AdminProfile extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminProfile().setVisible(true);
+                new EmployeeProfile().setVisible(true);
             }
         });
     }
@@ -364,8 +398,10 @@ public class AdminProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelBank;
     private javax.swing.JLabel jLabelCheck;
     private javax.swing.JLabel jLabelName;
+    private javax.swing.JTextField jTextFieldBank;
     private javax.swing.JTextField jTextFieldBirth;
     private javax.swing.JTextField jTextFieldBirth1;
     private javax.swing.JTextField jTextFieldName;
