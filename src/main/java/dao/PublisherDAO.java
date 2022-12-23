@@ -3,6 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.*;
 import entity.Publisher;
+import enumeration.PublisherStatus;
 import util.XJdbc;
 
 public class PublisherDAO extends SystemDAO<Publisher, Long> {
@@ -53,7 +54,7 @@ public class PublisherDAO extends SystemDAO<Publisher, Long> {
                 Publisher entity = new Publisher();
                 entity.setId(rs.getLong(COLUMN_ID));
                 entity.setName(rs.getString(COLUMN_NAME));
-                entity.setStatus(rs.getString(COLUMN_STATUS));
+                entity.setStatus(PublisherStatus.valueOf(rs.getString(COLUMN_STATUS)));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
