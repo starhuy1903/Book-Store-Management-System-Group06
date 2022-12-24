@@ -13,17 +13,17 @@ import java.sql.Date;
 public class Admin {
     private Long id;
     private String name;
-    private Date date_of_birth;
-    private Long user_id;
+    private Date dateOfBirth;
+    private Long userId;
 
     public Admin() {
     }
 
-    public Admin(Long id, String name, Date date_of_birth, Long user_id) {
+    public Admin(Long id, String name, Date dateOfBirth, Long userId) {
         this.id = id;
         this.name = name;
-        this.date_of_birth = date_of_birth;
-        this.user_id = user_id;
+        this.dateOfBirth = dateOfBirth;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -42,20 +42,20 @@ public class Admin {
         this.name = name;
     }
 
-    public Date getDate_of_birth() {
-        return date_of_birth;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
-        this.date_of_birth = date_of_birth;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     

@@ -6,9 +6,7 @@ package dao;
 
 import util.XJdbc;
 import java.sql.*;
-import java.util.*;
 import entity.*;
-import java.sql.Date;
 
 /**
  *
@@ -26,17 +24,16 @@ public class EmployeeDAO {
     
     public Employee getEmployee(Long id) {
         String sql = "SELECT * FROM " + TABLE_EMPLOYEE + " WHERE " + COLUMN_USERID + " = ?";
-        System.out.println("sql Em=" + sql);
+        
         Employee employee = this.getBySql(sql, id);
         return employee;
     }
     
     public void update(Employee employee) throws SQLException {
-        java.sql.Date dateCreated = new java.sql.Date(employee.getDate_of_birth().getTime());
-        System.out.println("update= " + employee.getName()+ " , " + employee.getDate_of_birth());
+        
         String sql = "UPDATE " + TABLE_EMPLOYEE + " SET " + COLUMN_NAME + "=?, " + COLUMN_DOB + "=?, " + COLUMN_BANK + "=?, " + COLUMN_ACTIVE + "=?, " + COLUMN_USERID + "=?"
                  + " WHERE " + COLUMN_ID + " = ?";
-        XJdbc.update(sql, employee.getName(),employee.getDate_of_birth(), employee.getBank_account(), employee.isIs_activate_account(), employee.getUserId(), 
+        XJdbc.update(sql, employee.getName(),employee.getDateOfBirth(), employee.getBankAccount(), employee.isActivateAccount(), employee.getUserId(), 
                 employee.getId());
     }
     
@@ -49,9 +46,9 @@ public class EmployeeDAO {
                 Employee entity = new Employee();
                 entity.setId(rs.getLong(COLUMN_ID));
                 entity.setName(rs.getString(COLUMN_NAME));
-                entity.setDate_of_birth(rs.getDate(COLUMN_DOB));
-                entity.setBank_account(rs.getString(COLUMN_BANK));
-                entity.setIs_activate_account(rs.getBoolean(COLUMN_ACTIVE));
+                entity.setDateOfBirth(rs.getDate(COLUMN_DOB));
+                entity.setBankAccount(rs.getString(COLUMN_BANK));
+                entity.setIsActivateAccount(rs.getBoolean(COLUMN_ACTIVE));
                 entity.setUserId(rs.getLong(COLUMN_USERID));
                 employee=entity;
             }

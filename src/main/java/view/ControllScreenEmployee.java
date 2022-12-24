@@ -24,13 +24,11 @@ public class ControllScreenEmployee extends javax.swing.JFrame {
     public ControllScreenEmployee(Employee employee) {
         employeeScreen.setId(employee.getId());
         employeeScreen.setName(employee.getName());
-        employeeScreen.setDate_of_birth(employee.getDate_of_birth());
-        employeeScreen.setBank_account(employee.getBank_account());
-        employeeScreen.setIs_activate_account(employee.isIs_activate_account());
+        employeeScreen.setDateOfBirth(employee.getDateOfBirth());
+        employeeScreen.setBankAccount(employee.getBankAccount());
+        employeeScreen.setIsActivateAccount(employee.isActivateAccount());
         employeeScreen.setUserId(employee.getUserId());
-        
-        //System.out.println("ad= " + adminScreen.getName()+ " " + adminScreen.getDate_of_birth());
-        
+   
         initComponents();
     }
 
@@ -96,7 +94,6 @@ public class ControllScreenEmployee extends javax.swing.JFrame {
 
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // TODO add your handling code here:
-        //System.out.println("adm "  + adminScreen.getName() + " " + adminScreen.getDate_of_birth());
         EmployeeProfile editProfile = new EmployeeProfile(employeeScreen);
         editProfile.setVisible(true);
         setVisible(false);

@@ -24,10 +24,8 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
     public ControllScreenAdmin(Admin ad) {
         adminScreen.setId(ad.getId());
         adminScreen.setName(ad.getName());
-        adminScreen.setDate_of_birth(ad.getDate_of_birth());
-        adminScreen.setUser_id(ad.getUser_id());
-        
-        System.out.println("ad= " + adminScreen.getName()+ " " + adminScreen.getDate_of_birth());
+        adminScreen.setDateOfBirth(ad.getDateOfBirth());
+        adminScreen.setUserId(ad.getUserId());
         
         initComponents();
     }
@@ -94,7 +92,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
 
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // TODO add your handling code here:
-        System.out.println("adm "  + adminScreen.getName() + " " + adminScreen.getDate_of_birth());
+      
         AdminProfile editProfile = new AdminProfile(adminScreen);
         editProfile.setVisible(true);
         setVisible(false);
@@ -132,9 +130,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ControllScreenAdmin().setVisible(true);
-                
-                
+                new ControllScreenAdmin().setVisible(true); 
             }
         });
     }

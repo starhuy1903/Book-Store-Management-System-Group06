@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class XJdbc {
     private static final String DB_URL = "jdbc:mysql://localhost/book_store_g6";
     private static final String USER = "root";
-    private static final String PASS = "14022002";
+    private static final String PASS = "";
     
     public static Connection getConnection(){
         Connection connection = null;
@@ -45,11 +45,8 @@ public class XJdbc {
     public static void update(String sql, Object... args) {
         try {
             PreparedStatement stmt = XJdbc.getStmt(sql, args);
-            System.out.println("sql= "+ sql);
-            //System.out.println("args= ");
             try {
                 stmt.executeUpdate();
-                System.out.println("update xong");
             } finally {
                 stmt.getConnection().close();
             }

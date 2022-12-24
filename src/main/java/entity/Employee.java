@@ -13,20 +13,20 @@ import java.sql.Date;
 public class Employee {
     private Long id;
     private String name;
-    private Date date_of_birth;
-    private String bank_account;
-    private boolean is_activate_account;
+    private Date dateOfBirth;
+    private String bankAccount;
+    private boolean isActivateAccount;
     private Long userId;
 
     public Employee() {
     }
 
-    public Employee(Long id, String name, Date date_of_birth, String bank_account, boolean is_activate_account, Long userId) {
+    public Employee(Long id, String name, Date DateOfBirth, String bankAccount, boolean isActivateAccount, Long userId) {
         this.id = id;
         this.name = name;
-        this.date_of_birth = date_of_birth;
-        this.bank_account = bank_account;
-        this.is_activate_account = is_activate_account;
+        this.dateOfBirth = DateOfBirth;
+        this.bankAccount = bankAccount;
+        this.isActivateAccount = isActivateAccount;
         this.userId = userId;
     }
 
@@ -46,28 +46,28 @@ public class Employee {
         this.name = name;
     }
 
-    public Date getDate_of_birth() {
-        return date_of_birth;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
-        this.date_of_birth = date_of_birth;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getBank_account() {
-        return bank_account;
+    public String getBankAccount() {
+        return bankAccount;
     }
 
-    public void setBank_account(String bank_account) {
-        this.bank_account = bank_account;
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
-    public boolean isIs_activate_account() {
-        return is_activate_account;
+    public boolean isActivateAccount() {
+        return isActivateAccount;
     }
 
-    public void setIs_activate_account(boolean is_activate_account) {
-        this.is_activate_account = is_activate_account;
+    public void setIsActivateAccount(boolean isActivateAccount) {
+        this.isActivateAccount = isActivateAccount;
     }
 
     public Long getUserId() {

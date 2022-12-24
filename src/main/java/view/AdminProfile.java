@@ -5,13 +5,8 @@
 package view;
 import controller.*;
 import entity.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.*;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
@@ -26,29 +21,6 @@ public class AdminProfile extends javax.swing.JFrame {
      * Creates new form AdminProfile
      */
     
-    public String hashPassword(String password) {
-        String resultString=null;
-        
-        try {
-            
-            MessageDigest m = MessageDigest.getInstance("MD5");
-            m.update(password.getBytes());
-            byte[] bytes=m.digest();
-            
-            StringBuilder s = new StringBuilder();
-            
-            for(int i=0;i<bytes.length;i++){
-                s.append(Integer.toString((bytes[i]&0xff) + 0x100,16).substring(1));
-            }
-            
-            resultString=s.toString();
-            
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return resultString;
-    }
     
     Admin admin=new Admin();
 
@@ -57,14 +29,15 @@ public class AdminProfile extends javax.swing.JFrame {
         admin.setId(ad.getId());
         
         admin.setName(ad.getName());
-        admin.setDate_of_birth(ad.getDate_of_birth());
-        admin.setUser_id(ad.getUser_id());
+        admin.setDateOfBirth(ad.getDateOfBirth());
+        //admin.setDateOfBirth(ad.getDateOfBirth()));
+        admin.setUserId(ad.getUserId());
         
         //System.out.println("adPro= " + admin.getName()+ " " + admin.getDate_of_birth());
         
         jTextFieldName.setText(admin.getName());
         
-        jTextFieldBirth.setText(admin.getDate_of_birth().toString());
+        jTextFieldBirth.setText(admin.getDateOfBirth().toString());
         
     }
     
@@ -256,9 +229,7 @@ public class AdminProfile extends javax.swing.JFrame {
         String passString=jTextFieldPassword.getText();
         
         boolean check=true;
-        
-        
-        
+
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             sdf.setLenient(false);
@@ -276,14 +247,9 @@ public class AdminProfile extends javax.swing.JFrame {
             check=false;
         }
         
-//        if(passString==null || passString.length()==0) {
-//            check=false;
-//        }
-        
         if(!check) {
             jLabelCheck.setText("INVALID INPUT");
         }
-        
         else {
             
             try {
@@ -296,7 +262,7 @@ public class AdminProfile extends javax.swing.JFrame {
                 List<User> userList= userController.getAll();
                 
                 for(int i=0;i<userList.size();i++)
-                    if(admin.getUser_id()==userList.get(i).getId())
+                    if(admin.getUserId() == userList.get(i).getId())
                     {
                         user=userList.get(i);
                         
@@ -308,14 +274,14 @@ public class AdminProfile extends javax.swing.JFrame {
                 user.setPassword(passString);
                 
                 admin.setName(nameString);
-                //System.out.println("birthP:" + birtString);
+               
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
                 Date date = format.parse(birtString);
                 java.sql.Date dateSql = new java.sql.Date(date.getTime());
-                admin.setDate_of_birth(dateSql);
+                admin.setDateOfBirth(dateSql);
                 adminController.update(admin);
                 userController.update(user);
-                //System.out.println("admin birth= " + admin.getDate_of_birth());
+                
             } catch (ParseException ex) {
                 Logger.getLogger(AdminProfile.class.getName()).log(Level.SEVERE, null, ex);
             }

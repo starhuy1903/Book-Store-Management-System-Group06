@@ -6,7 +6,6 @@ package dao;
 
 
 import entity.User;
-import enumeration.UserRole;
 import util.XJdbc;
 import java.sql.*;
 import java.util.*;
@@ -32,7 +31,6 @@ public class UserDAO extends SystemDAO<User, Long>{
     @Override
     public void update(User user) {
         String sql = "UPDATE " + TABLE_USER + " SET " + COLUMN_USERNAME + "=?, " + COLUMN_PASSWORD + "=? WHERE " + COLUMN_ID + "=?";
-        System.out.println("update user= " + sql);
         XJdbc.update(sql, user.getUsername(),user.getPassword(), user.getId());
     }
 
@@ -56,9 +54,7 @@ public class UserDAO extends SystemDAO<User, Long>{
     }
     
     public User getByUsernameAndPassword(String userName, String pass) {
-        System.out.println("username2= "+userName+ " pass2= "+ pass);
         String sql = "SELECT * FROM " + TABLE_USER + " WHERE " + COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
-        System.out.println("string= "+sql);
         List<User> list = this.getBySql(sql, userName,pass);
         System.out.println("list= "+list.get(1));
         return !list.isEmpty() ? list.get(1) : null;
@@ -74,7 +70,6 @@ public class UserDAO extends SystemDAO<User, Long>{
                 entity.setId(rs.getLong(COLUMN_ID));
                 entity.setUsername(rs.getString(COLUMN_USERNAME));
                 entity.setPassword(rs.getString(COLUMN_PASSWORD));
-                //entity.setAuthority(UserRole.valueOf(rs.getString(COLUMN_AUTHORITY)));
                 entity.setAuthority(rs.getString(COLUMN_AUTHORITY));
                 list.add(entity);
             }

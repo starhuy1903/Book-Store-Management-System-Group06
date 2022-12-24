@@ -23,29 +23,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
     }
     
-    public String hashPassword(String password) {
-        String resultString=null;
-        
-        try {
-            
-            MessageDigest m = MessageDigest.getInstance("MD5");
-            m.update(password.getBytes());
-            byte[] bytes=m.digest();
-            
-            StringBuilder s = new StringBuilder();
-            
-            for(int i=0;i<bytes.length;i++){
-                s.append(Integer.toString((bytes[i]&0xff) + 0x100,16).substring(1));
-            }
-            
-            resultString=s.toString();
-            
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return resultString;
-    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,7 +132,6 @@ public class Login extends javax.swing.JFrame {
         AdminController adminController=new AdminController();
         EmployeeController employeeController=new EmployeeController();
         
-        
         Admin admin=adminController.getAdmin();
         
         String usernameString=jTextFieldUsername.getText();
@@ -162,26 +139,17 @@ public class Login extends javax.swing.JFrame {
         
         System.out.println(usernameString+ " "+ passwordString);
         List<User> users= userController.getAll();
-        
-        String hashString=hashPassword(passwordString);
-        
-        System.out.println("hash= "+ hashString);
-        
+
         boolean checkLogin=false;
-        //boolean checkAdmin=false;
         
         for(int i=0;i<users.size();i++)           
            if((usernameString.equals(users.get(i).getUsername())) && (passwordString.equals(users.get(i).getPassword()))){
-               //System.out.println("Valid");
                checkLogin=true;
-               if(users.get(i).getId()==admin.getUser_id()) {
-                    //checkAdmin=true;
-                    
+               if(users.get(i).getId() == admin.getUserId()) {
                     ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin(admin);
                     setVisible(false);
                     controllScreenAdmin.setVisible(true);
                     dispose();
-                    //dispose();
                 }
                else {
                    Employee employee = employeeController.getEmployee(users.get(i).getId());

@@ -57,16 +57,14 @@ public class EmployeeProfile extends javax.swing.JFrame {
         
         employee.setId(em.getId());
         employee.setName(em.getName());
-        employee.setDate_of_birth(em.getDate_of_birth());
-        employee.setBank_account(em.getBank_account());
-        employee.setIs_activate_account(em.isIs_activate_account());
+        employee.setDateOfBirth(em.getDateOfBirth());
+        employee.setBankAccount(em.getBankAccount());
+        employee.setIsActivateAccount(em.isActivateAccount());
         employee.setUserId(em.getUserId());
         
-        System.out.println("emPro= " + employee.getName()+ " " + employee.getDate_of_birth());
-        
         jTextFieldName.setText(employee.getName());
-        jTextFieldBirth.setText(employee.getDate_of_birth().toString());
-        jTextFieldBank.setText(employee.getBank_account());
+        jTextFieldBirth.setText(employee.getDateOfBirth().toString());
+        jTextFieldBank.setText(employee.getBankAccount());
     }
     
     public EmployeeProfile() {
@@ -279,18 +277,14 @@ public class EmployeeProfile extends javax.swing.JFrame {
         
         boolean check=true;
         
-        
-        
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             sdf.setLenient(false);
             
             sdf.parse(birtString);
             
-            System.out.println("true");
         } catch (ParseException ex) {
             
-            System.out.println("false");
             check=false;
         }
        
@@ -301,11 +295,6 @@ public class EmployeeProfile extends javax.swing.JFrame {
         if(bankString==null || bankString.length()==0) {
             check=false;
         }
-        
-        
-//        if(passString==null || passString.length()==0) {
-//            passString=jTextFieldPassword.getText();
-//        }
         
         if(!check) {
             jLabelCheck.setText("INVALID INPUT");
@@ -323,12 +312,11 @@ public class EmployeeProfile extends javax.swing.JFrame {
                 List<User> userList= userController.getAll();
                 
                 for(int i=0;i<userList.size();i++)
-                    if(employee.getUserId()==userList.get(i).getId())
+                    if(employee.getUserId() == userList.get(i).getId())
                     {
                         user=userList.get(i);
                         if(passString==null || passString.length()==0) 
                             passString=userList.get(i).getPassword();
-                        
                         break;
                     }
                 
@@ -336,15 +324,13 @@ public class EmployeeProfile extends javax.swing.JFrame {
                 user.setPassword(passString);
                 
                 employee.setName(nameString);
-                employee.setBank_account(bankString);
-                //System.out.println("birthP:" + birtString);
+                employee.setBankAccount(bankString);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
                 Date date = format.parse(birtString);
                 java.sql.Date dateSql = new java.sql.Date(date.getTime());
-                employee.setDate_of_birth(dateSql);
+                employee.setDateOfBirth(dateSql);
                 employeeController.update(employee);
                 userController.update(user);
-                //System.out.println("admin birth= " + admin.getDate_of_birth());
             } catch (ParseException ex) {
                 Logger.getLogger(EmployeeProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
