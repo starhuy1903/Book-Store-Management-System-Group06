@@ -8,25 +8,21 @@ import java.sql.Date;
 
 /**
  *
- * @author Huy
+ * @author Dai Hai
  */
-public class Employee {
+public class Admin {
     private Long id;
     private String name;
     private Date dateOfBirth;
-    private String bankAccount;
-    private boolean isActivateAccount;
     private Long userId;
 
-    public Employee() {
+    public Admin() {
     }
 
-    public Employee(Long id, String name, Date DateOfBirth, String bankAccount, boolean isActivateAccount, Long userId) {
+    public Admin(Long id, String name, Date dateOfBirth, Long userId) {
         this.id = id;
         this.name = name;
-        this.dateOfBirth = DateOfBirth;
-        this.bankAccount = bankAccount;
-        this.isActivateAccount = isActivateAccount;
+        this.dateOfBirth = dateOfBirth;
         this.userId = userId;
     }
 
@@ -54,22 +50,6 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getBankAccount() {
-        return bankAccount;
-    }
-
-    public void setBankAccount(String bankAccount) {
-        this.bankAccount = bankAccount;
-    }
-
-    public boolean isActivateAccount() {
-        return isActivateAccount;
-    }
-
-    public void setIsActivateAccount(boolean isActivateAccount) {
-        this.isActivateAccount = isActivateAccount;
-    }
-
     public Long getUserId() {
         return userId;
     }
@@ -77,6 +57,8 @@ public class Employee {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    
     
     
 }

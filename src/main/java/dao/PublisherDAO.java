@@ -64,4 +64,5 @@ public class PublisherDAO extends SystemDAO<Publisher, Long> {
             throw new RuntimeException(e);
         }
     }
+    
 }

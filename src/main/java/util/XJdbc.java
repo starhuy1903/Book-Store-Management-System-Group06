@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * @author Huy
  */
 public class XJdbc {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/book_store_g6";
+    private static final String DB_URL = "jdbc:mysql://localhost/book_store_g6";
     private static final String USER = "root";
     private static final String PASS = "";
     

@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package enumeration;
+package view;
 
 /**
  *
- * @author Huy
+ * @author Dai Hai
  */
-public enum UserRole {
-    STAFF, ADMIN
+public class Main {
+    Login login=new Login();
 }
