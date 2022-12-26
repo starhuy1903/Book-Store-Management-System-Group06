@@ -48,7 +48,7 @@ public class XJdbc {
             try {
                 stmt.executeUpdate();
             } finally {
-                stmt.getConnection().close();
+                stmt.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -71,7 +71,7 @@ public class XJdbc {
             if (rs.next()) {
                 return rs.getObject(1);
             }
-            rs.getStatement().getConnection().close();
+            rs.getStatement().close();
             return null;
         } catch (Exception e) {
             throw new RuntimeException(e);

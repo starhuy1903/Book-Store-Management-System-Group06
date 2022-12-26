@@ -4,7 +4,7 @@
  */
 package entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -13,18 +13,26 @@ import java.sql.Date;
 public class Employee {
     private Long id;
     private String name;
-    private Date dateOfBirth;
+    private Date dob;
     private String bankAccount;
     private boolean isActivateAccount;
     private Long userId;
 
     public Employee() {
     }
+    
+    public Employee(String name, Date dob, String bankAccount, Long userId) {
+        this.name = name;
+        this.dob = dob;
+        this.bankAccount = bankAccount;
+        this.isActivateAccount = true;
+        this.userId = userId;
+    }
 
-    public Employee(Long id, String name, Date DateOfBirth, String bankAccount, boolean isActivateAccount, Long userId) {
+    public Employee(Long id, String name, Date dob, String bankAccount, boolean isActivateAccount, Long userId) {
         this.id = id;
         this.name = name;
-        this.dateOfBirth = DateOfBirth;
+        this.dob = dob;
         this.bankAccount = bankAccount;
         this.isActivateAccount = isActivateAccount;
         this.userId = userId;
@@ -47,11 +55,11 @@ public class Employee {
     }
 
     public Date getDateOfBirth() {
-        return dateOfBirth;
+        return dob;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setDateOfBirth(Date dob) {
+        this.dob = dob;
     }
 
     public String getBankAccount() {
@@ -77,6 +85,4 @@ public class Employee {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    
-    
 }

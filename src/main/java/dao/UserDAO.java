@@ -4,7 +4,6 @@
  */
 package dao;
 
-
 import entity.User;
 import util.XJdbc;
 import java.sql.*;
@@ -14,9 +13,10 @@ import java.util.*;
  *
  * @author Dai Hai
  */
-public class UserDAO extends SystemDAO<User, Long>{
+public class UserDAO extends SystemDAO<User, Long> {
+
     private static final String TABLE_USER = "user";
-    
+
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password_identity";
@@ -24,14 +24,14 @@ public class UserDAO extends SystemDAO<User, Long>{
 
     @Override
     public void create(User user) {
-        String sql = "INSERT INTO " + TABLE_USER + " (" + COLUMN_ID + ", " + COLUMN_USERNAME + ", " + COLUMN_PASSWORD + ", " + COLUMN_AUTHORITY + ") VALUES (?, ?, ?, ?)";
-        XJdbc.update(sql, user.getId(), user.getUsername(),user.getPassword(), user.getAuthority());
+        String sql = "INSERT INTO " + TABLE_USER + " (" + COLUMN_USERNAME + ", " + COLUMN_PASSWORD + ", " + COLUMN_AUTHORITY + ") VALUES (?, ?, ?)";
+        XJdbc.update(sql, user.getUsername(), user.getPassword(), user.getAuthority());
     }
 
     @Override
     public void update(User user) {
         String sql = "UPDATE " + TABLE_USER + " SET " + COLUMN_USERNAME + "=?, " + COLUMN_PASSWORD + "=? WHERE " + COLUMN_ID + "=?";
-        XJdbc.update(sql, user.getUsername(),user.getPassword(), user.getId());
+        XJdbc.update(sql, user.getUsername(), user.getPassword(), user.getId());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UserDAO extends SystemDAO<User, Long>{
     @Override
     public List<User> getAll() {
         String sql = "SELECT * FROM " + TABLE_USER;
-            return this.getBySql(sql);
+        return this.getBySql(sql);
     }
 
     @Override
@@ -52,12 +52,17 @@ public class UserDAO extends SystemDAO<User, Long>{
         List<User> list = this.getBySql(sql, id);
         return !list.isEmpty() ? list.get(0) : null;
     }
-    
+
     public User getByUsernameAndPassword(String userName, String pass) {
         String sql = "SELECT * FROM " + TABLE_USER + " WHERE " + COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
-        List<User> list = this.getBySql(sql, userName,pass);
-        System.out.println("list= "+list.get(1));
+        List<User> list = this.getBySql(sql, userName, pass);
         return !list.isEmpty() ? list.get(1) : null;
+    }
+
+    public User getByUsername(String username) {
+        String sql = "SELECT * FROM " + TABLE_USER + " WHERE " + COLUMN_USERNAME + " = ?";
+        List<User> list = this.getBySql(sql, username);
+        return !list.isEmpty() ? list.get(0) : null;
     }
 
     @Override
@@ -73,7 +78,7 @@ public class UserDAO extends SystemDAO<User, Long>{
                 entity.setAuthority(rs.getString(COLUMN_AUTHORITY));
                 list.add(entity);
             }
-            rs.getStatement().getConnection().close();
+            rs.getStatement().close();
             return list;
         } catch (SQLException e) {
             e.printStackTrace();

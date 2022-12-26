@@ -6,10 +6,7 @@ package view;
 import controller.*;
 import entity.*;
 import java.util.List;
-import java.security.NoSuchAlgorithmException;
-import  java.security.MessageDigest;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 /**
  *
  * @author Huy
@@ -152,7 +149,7 @@ public class Login extends javax.swing.JFrame {
                     dispose();
                 }
                else {
-                   Employee employee = employeeController.getEmployee(users.get(i).getId());
+                   Employee employee = employeeController.getById(users.get(i).getId());
                    
                    ControllScreenEmployee controllScreenEmployee=new ControllScreenEmployee(employee);
                    setVisible(false);
@@ -198,10 +195,8 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-                new Login().setVisible(true);
-                
+            public void run() {                
+                new Login().setVisible(true);              
             }
         });
     }

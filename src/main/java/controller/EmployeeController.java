@@ -7,25 +7,31 @@ package controller;
 import dao.*;
 import entity.*;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Dai Hai
  */
 public class EmployeeController {
-    
-    public  Employee getEmployee(Long id) {
+
+    public Employee getById(Long id) {
         EmployeeDAO da = new EmployeeDAO();
-        return da.getEmployee(id);
+        return da.getById(id);
     }
-    
+
+    public void addEmployee(String name, Date dob, String bankAccount, Long userId) {
+        EmployeeDAO employeeDAO = new EmployeeDAO();
+
+        Employee employee = new Employee(name, dob, bankAccount, userId);
+        employeeDAO.create(employee);
+    }
+
     public void update(Employee employee) {
-        try {
-            EmployeeDAO dao = new EmployeeDAO();
-            dao.update(employee);
-        } catch (SQLException ex) {
-            Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } 
+        EmployeeDAO dao = new EmployeeDAO();
+        dao.update(employee);
+
+    }
 }
