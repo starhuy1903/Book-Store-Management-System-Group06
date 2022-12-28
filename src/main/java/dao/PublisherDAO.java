@@ -22,8 +22,8 @@ public class PublisherDAO extends SystemDAO<Publisher, Long> {
     
     @Override
     public void update(Publisher publisher) {
-        String sql = "UPDATE " + TABLE_PUBLISHER + " SET " + COLUMN_NAME + "=?, " + COLUMN_STATUS + "=?";
-        XJdbc.update(sql, publisher.getName(),publisher.getStatus());
+        String sql = "UPDATE " + TABLE_PUBLISHER + " SET " + COLUMN_NAME + "=?, " + COLUMN_STATUS + "=?"+ " WHERE " + COLUMN_ID + " = ?";
+        XJdbc.update(sql, publisher.getName(),publisher.getStatus().name(),publisher.getId());
     }
     
     @Override

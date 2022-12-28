@@ -5,12 +5,20 @@
 package dao;
 
 import java.util.List;
+import util.XJdbc;
 
 /**
  *
  * @author Huy
  */
 public class BookDAO extends SystemDAO {
+
+    private static final String TABLE_BOOK = "book";
+
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_STATUS = "status";
+    private static final String COLUMN_PUBLISHER = "publisher_id";
 
     @Override
     public void create(Object entity) {
@@ -20,6 +28,12 @@ public class BookDAO extends SystemDAO {
     @Override
     public void update(Object entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void updateStatusWithCondition(String status, String conditionColumn, String condition) {
+        String sql = "UPDATE " + TABLE_BOOK + " SET " + COLUMN_STATUS + " = ? WHERE " + conditionColumn + " = ?";
+        System.out.println("hi");
+        XJdbc.update(sql, status, condition);
     }
 
     @Override
@@ -41,5 +55,5 @@ public class BookDAO extends SystemDAO {
     protected List getBySql(String sql, Object... args) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
