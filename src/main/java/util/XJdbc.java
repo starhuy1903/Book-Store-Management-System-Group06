@@ -13,13 +13,14 @@ import java.util.logging.Logger;
  * @author Huy
  */
 public class XJdbc {
+
     private static final String DB_URL = "jdbc:mysql://localhost/book_store_g6";
     private static final String USER = "root";
     private static final String PASS = "";
-    
-    public static Connection getConnection(){
+
+    public static Connection getConnection() {
         Connection connection = null;
-        try {           
+        try {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             return connection;
         } catch (SQLException ex) {
@@ -27,7 +28,7 @@ public class XJdbc {
         }
         return connection;
     }
-    
+
     public static PreparedStatement getStmt(String sql, Object... args) throws SQLException {
         Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
         PreparedStatement pstmt;
@@ -41,8 +42,9 @@ public class XJdbc {
         }
         return pstmt;
     }
-    
-    public static void update(String sql, Object... args) {
+
+    public static void update(String sql, Object... args) //            throws java.sql.SQLIntegrityConstraintViolationException {
+    {
         try {
             PreparedStatement stmt = XJdbc.getStmt(sql, args);
             try {
@@ -50,11 +52,13 @@ public class XJdbc {
             } finally {
                 stmt.getConnection().close();
             }
+//        } catch (java.sql.SQLIntegrityConstraintViolationException e) {
+//            throw new java.sql.SQLIntegrityConstraintViolationException();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    
+
     public static ResultSet query(String sql, Object... args) {
         try {
             PreparedStatement stmt = XJdbc.getStmt(sql, args);

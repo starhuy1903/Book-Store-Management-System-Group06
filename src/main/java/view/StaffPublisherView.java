@@ -52,12 +52,14 @@ public class StaffPublisherView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         CancelBtn2 = new javax.swing.JButton();
         ConfirmBtn2 = new javax.swing.JButton();
-        CommonModal = new javax.swing.JDialog();
-        jLabel7 = new javax.swing.JLabel();
+        CommonModal = new javax.swing.JDialog(this);
+        CommonModalLabel = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable(model) {
+        getModel();
+        trs = new TableRowSorter(model);
+        jTable1 = new javax.swing.JTable() {
             @Override
             public Class
 
@@ -75,9 +77,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
                     return String.class
                     ;
 
-                    default
-
-                    :
+                    default:
                     return Boolean.class
                     ;
                 }
@@ -99,14 +99,15 @@ public class StaffPublisherView extends javax.swing.JFrame {
         };
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jSeparator1 = new javax.swing.JSeparator();
-        EditBtn = new javax.swing.JButton();
-        DeleteBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         FilterText = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
+        EditBtn = new javax.swing.JButton();
+        DeleteBtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -265,12 +266,15 @@ public class StaffPublisherView extends javax.swing.JFrame {
         CommonModal.setModal(true);
         CommonModal.setResizable(false);
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("placeholder");
-        jLabel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 20));
+        CommonModalLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CommonModalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CommonModalLabel.setText("placeholder");
+        CommonModalLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
         jButton2.setBackground(new java.awt.Color(102, 255, 102));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("OK");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -283,22 +287,25 @@ public class StaffPublisherView extends javax.swing.JFrame {
             CommonModalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CommonModalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(CommonModalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(CommonModalLayout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jButton2)
-                .addGap(150, 150, 150))
+                .addGap(200, 200, 200)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(200, 200, 200))
         );
         CommonModalLayout.setVerticalGroup(
             CommonModalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CommonModalLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CommonModalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
         );
+
+        CommonModal.pack();
+        CommonModal.setLocationRelativeTo(this);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Publishers");
@@ -306,8 +313,9 @@ public class StaffPublisherView extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Publisher", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(getModel());
+        jTable1.setModel(model);
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTable1.setFillsViewportHeight(true);
         jTable1.setRowHeight(30);
         jTable1.setShowGrid(false);
         jTable1.setShowHorizontalLines(true);
@@ -334,8 +342,8 @@ public class StaffPublisherView extends javax.swing.JFrame {
         class IntComparator implements Comparator {
 
             public int compare(Object o1, Object o2) {
-                Integer int1 = ((Long)o1).intValue();
-                Integer int2 = ((Long)o2).intValue();
+                Integer int1 = ((Long) o1).intValue();
+                Integer int2 = ((Long) o2).intValue();
                 return int1.compareTo(int2);
             }
 
@@ -347,6 +355,40 @@ public class StaffPublisherView extends javax.swing.JFrame {
         trs.setComparator(0, new IntComparator());
         trs.setSortable(StaffPublisherView.SELECT_COLUMN_INDEX, false);
         jTable1.setRowSorter(trs);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Search for: ");
+
+        FilterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterTextActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(FilterText, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(FilterText, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("With selected, ");
 
         EditBtn.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         EditBtn.setText("Apply modify");
@@ -368,41 +410,6 @@ public class StaffPublisherView extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Search for: ");
-
-        FilterText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FilterTextActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(FilterText, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FilterText, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("With selected, ");
-
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Create new");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -412,6 +419,32 @@ public class StaffPublisherView extends javax.swing.JFrame {
             }
         });
 
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(EditBtn)
+                .addGap(18, 18, 18)
+                .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(DeleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(EditBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -419,23 +452,17 @@ public class StaffPublisherView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(EditBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                     .addComponent(jSeparator1))
-                .addGap(30, 30, 30))
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,20 +471,14 @@ public class StaffPublisherView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(127, 127, 127)
                         .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
-                .addGap(25, 25, 25))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         jMenu1.setText("File");
@@ -472,8 +493,8 @@ public class StaffPublisherView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -502,16 +523,49 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private void FilterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterTextActionPerformed
         // TODO add your handling code here:
         trs.setRowFilter(RowFilter.regexFilter("(?i)" + FilterText.getText()));
-        System.out.println(FilterText.getText());
     }//GEN-LAST:event_FilterTextActionPerformed
 
     private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
         // TODO add your handling code here:
-         DeleteModal.setVisible(false);
+        DeleteModal.setVisible(false);
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void ConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmBtnActionPerformed
         // TODO add your handling code here:
+        List<Long> list = new ArrayList();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if ((Boolean) model.getValueAt(i, SELECT_COLUMN_INDEX)) {
+                list.add(Long.valueOf(model.getValueAt(i, ID_COLUMN_INDEX).toString()));
+            }
+        }
+        PublisherController pc = new PublisherController();
+        List<Long> fail = pc.deleteMany(list);
+
+        setModelData();
+        
+        if (!fail.isEmpty()) {
+            for (int i = 0; i < model.getRowCount(); i++) {
+                if (fail.contains(Long.valueOf(model.getValueAt(i, ID_COLUMN_INDEX).toString()))) {
+                    model.setValueAt(true, i, SELECT_COLUMN_INDEX);
+                }
+            }
+        }
+
+        String message = "<html>";
+        if (fail.size() < list.size()) {
+            message += "Removed " + (list.size() - fail.size()) + " Publisher<br>";
+        }
+        if (fail.size() == 1) {
+            message += "Failed to remove " + fail.size() + " Publisher, there could be books belong to this Publisher";
+        }
+        if (fail.size() > 1) {
+            message += "Failed to remove " + fail.size() + " Publisher, there could be books belong to these Publisher";
+        }
+        message += "</html>";
+        DeleteModal.setVisible(false);
+        CommonModalLabel.setText(message);
+        CommonModal.setVisible(true);
+
     }//GEN-LAST:event_ConfirmBtnActionPerformed
 
     private void CancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtn2ActionPerformed
@@ -522,18 +576,21 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private void ConfirmBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmBtn2ActionPerformed
         // TODO add your handling code here:
         List<Publisher> list = new ArrayList();
-        TableModel tm = jTable1.getModel();
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            if ((Boolean) jTable1.getModel().getValueAt(i, SELECT_COLUMN_INDEX)) {   
-                Publisher pub = new Publisher(Long.valueOf(tm.getValueAt(i,ID_COLUMN_INDEX).toString()),tm.getValueAt(i,NAME_COLUMN_INDEX).toString(),PublisherStatus.valueOf(tm.getValueAt(i,STATUS_COLUMN_INDEX).toString()));
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if ((Boolean) model.getValueAt(i, SELECT_COLUMN_INDEX)) {
+                Publisher pub = new Publisher(Long.valueOf(model.getValueAt(i, ID_COLUMN_INDEX).toString()), model.getValueAt(i, NAME_COLUMN_INDEX).toString(), PublisherStatus.valueOf(model.getValueAt(i, STATUS_COLUMN_INDEX).toString()));
                 list.add(pub);
             }
         }
         PublisherController pc = new PublisherController();
         pc.editMany(list);
-        setModelData((DefaultTableModel) jTable1.getModel());
-        
+
+        setModelData();
+
         EditModal.setVisible(false);
+        CommonModalLabel.setText("Modification are applied");
+        CommonModal.setVisible(true);
     }//GEN-LAST:event_ConfirmBtn2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -542,6 +599,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        CommonModal.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -578,14 +636,16 @@ public class StaffPublisherView extends javax.swing.JFrame {
             }
         });
     }
-    
-    private DefaultTableModel model = getModel();
-    private TableRowSorter trs = new TableRowSorter(model);
+
+    private DefaultTableModel model;
+
+    private TableRowSorter trs;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelBtn;
     private javax.swing.JButton CancelBtn2;
     private javax.swing.JDialog CommonModal;
+    private javax.swing.JLabel CommonModalLabel;
     private javax.swing.JButton ConfirmBtn;
     private javax.swing.JButton ConfirmBtn2;
     private javax.swing.JButton DeleteBtn;
@@ -602,12 +662,12 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -619,23 +679,20 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private static final int NAME_COLUMN_INDEX = 1;
     private static final int STATUS_COLUMN_INDEX = 2;
     private static final int SELECT_COLUMN_INDEX = 3;
-    
-    private DefaultTableModel getModel() {
-        DefaultTableModel model = new DefaultTableModel(StaffPublisherView.COLUMN_NAME, 0);
-        setModelData(model);
-        return model;
+
+    private void getModel() {
+        model = new DefaultTableModel(StaffPublisherView.COLUMN_NAME, 0);
+        setModelData();
     }
-    
-    private void setModelData(DefaultTableModel model) {
+
+    private void setModelData() {
         PublisherController pc = new PublisherController();
         List<Publisher> list = pc.getAll();
-        
+
         model.setRowCount(0);
-        
         for (int i = 0; i < list.size(); i++) {
             Object[] obj = {list.get(i).getId(), list.get(i).getName(), list.get(i).getStatus(), Boolean.FALSE};
             model.addRow(obj);
         }
-        
     }
 }

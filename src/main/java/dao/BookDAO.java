@@ -4,7 +4,11 @@
  */
 package dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.XJdbc;
 
 /**
@@ -32,7 +36,6 @@ public class BookDAO extends SystemDAO {
 
     public void updateStatusWithCondition(String status, String conditionColumn, String condition) {
         String sql = "UPDATE " + TABLE_BOOK + " SET " + COLUMN_STATUS + " = ? WHERE " + conditionColumn + " = ?";
-        System.out.println("hi");
         XJdbc.update(sql, status, condition);
     }
 
@@ -56,4 +59,17 @@ public class BookDAO extends SystemDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public int countByColumn(String collumn, String value) {
+        String sql = "SELECT COUNT(id) AS count FROM " + TABLE_BOOK + " WHERE " + collumn + " = ?";
+        try {
+            ResultSet rs = XJdbc.query(sql, value);
+            while(rs.next()) {
+                return rs.getInt("count");
+            }
+            return 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
 }
