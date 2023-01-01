@@ -55,6 +55,8 @@ public class StaffPublisherView extends javax.swing.JFrame {
         CommonModal = new javax.swing.JDialog(this);
         CommonModalLabel = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        CreateModal = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         getModel();
@@ -62,7 +64,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable() {
             @Override
             public Class
-
+            // lấy class của column để render checkbox và soft
             getColumnClass(int column) {
                 switch (column) {
                     case 0:
@@ -83,6 +85,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
                 }
             }
 
+            // giá trị quyết định hàng nào được edit
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 switch (columnIndex) {
                     case StaffPublisherView.ID_COLUMN_INDEX:
@@ -307,6 +310,34 @@ public class StaffPublisherView extends javax.swing.JFrame {
         CommonModal.pack();
         CommonModal.setLocationRelativeTo(this);
 
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 548, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 402, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout CreateModalLayout = new javax.swing.GroupLayout(CreateModal.getContentPane());
+        CreateModal.getContentPane().setLayout(CreateModalLayout);
+        CreateModalLayout.setHorizontalGroup(
+            CreateModalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CreateModalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        CreateModalLayout.setVerticalGroup(
+            CreateModalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CreateModalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Publishers");
 
@@ -321,24 +352,29 @@ public class StaffPublisherView extends javax.swing.JFrame {
         jTable1.setShowHorizontalLines(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        // align center cho cột
         DefaultTableCellRenderer centerer = new DefaultTableCellRenderer();
         centerer.setHorizontalAlignment(JLabel.CENTER);
         jTable1.getColumnModel().getColumn(StaffPublisherView.ID_COLUMN_INDEX).setCellRenderer(centerer);
         jTable1.getColumnModel().getColumn(StaffPublisherView.STATUS_COLUMN_INDEX).setCellRenderer(centerer);
 
+        // align center cho header của cột
         ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
+        // set width cho cột
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
 
+        // đổi kiểu edit cột status thành select
         TableColumn statusColumn = jTable1.getColumnModel().getColumn(StaffPublisherView.STATUS_COLUMN_INDEX);
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("ENABLED");
         comboBox.addItem("DISABLED");
         statusColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
+        // hàm compare cho sort id
         class IntComparator implements Comparator {
 
             public int compare(Object o1, Object o2) {
@@ -648,6 +684,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private javax.swing.JLabel CommonModalLabel;
     private javax.swing.JButton ConfirmBtn;
     private javax.swing.JButton ConfirmBtn2;
+    private javax.swing.JDialog CreateModal;
     private javax.swing.JButton DeleteBtn;
     private javax.swing.JDialog DeleteModal;
     private javax.swing.JButton EditBtn;
@@ -668,6 +705,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
