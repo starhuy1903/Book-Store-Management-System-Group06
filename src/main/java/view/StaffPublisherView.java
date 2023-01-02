@@ -7,9 +7,11 @@ package view;
 import controller.PublisherController;
 import entity.Publisher;
 import enumeration.PublisherStatus;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -55,8 +57,14 @@ public class StaffPublisherView extends javax.swing.JFrame {
         CommonModal = new javax.swing.JDialog(this);
         CommonModalLabel = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        CreateModal = new javax.swing.JDialog();
+        CreateModal = new javax.swing.JDialog(this);
         jPanel4 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        ConfirmBtn3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         getModel();
@@ -109,13 +117,14 @@ public class StaffPublisherView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         EditBtn = new javax.swing.JButton();
         DeleteBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        CreateBtn = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         DeleteModal.setTitle("Warning");
+        DeleteModal.setIconImage(null);
         DeleteModal.setModal(true);
         DeleteModal.setResizable(false);
 
@@ -310,33 +319,91 @@ public class StaffPublisherView extends javax.swing.JFrame {
         CommonModal.pack();
         CommonModal.setLocationRelativeTo(this);
 
+        CreateModal.setModal(true);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Create a new publisher");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setText("Choose an initial status");
+
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setText("Enter Publisher name");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENABLED", "DISABLED" }));
+
+        ConfirmBtn3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ConfirmBtn3.setText("Create Publisher");
+        ConfirmBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfirmBtn3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ConfirmBtn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 402, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(ConfirmBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(84, 84, 84)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(278, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout CreateModalLayout = new javax.swing.GroupLayout(CreateModal.getContentPane());
         CreateModal.getContentPane().setLayout(CreateModalLayout);
         CreateModalLayout.setHorizontalGroup(
             CreateModalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CreateModalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CreateModalLayout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         CreateModalLayout.setVerticalGroup(
             CreateModalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CreateModalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        CreateModal.pack();
+        CreateModal.setLocationRelativeTo(this);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Publishers");
@@ -446,12 +513,12 @@ public class StaffPublisherView extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Create new");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CreateBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CreateBtn.setText("Create new");
+        CreateBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CreateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CreateBtnActionPerformed(evt);
             }
         });
 
@@ -470,11 +537,11 @@ public class StaffPublisherView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(CreateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(CreateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(DeleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(EditBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -574,34 +641,40 @@ public class StaffPublisherView extends javax.swing.JFrame {
                 list.add(Long.valueOf(model.getValueAt(i, ID_COLUMN_INDEX).toString()));
             }
         }
-        PublisherController pc = new PublisherController();
-        List<Long> fail = pc.deleteMany(list);
 
-        setModelData();
-        
-        if (!fail.isEmpty()) {
-            for (int i = 0; i < model.getRowCount(); i++) {
-                if (fail.contains(Long.valueOf(model.getValueAt(i, ID_COLUMN_INDEX).toString()))) {
-                    model.setValueAt(true, i, SELECT_COLUMN_INDEX);
+        if (!list.isEmpty()) {
+            PublisherController pc = new PublisherController();
+            List<Long> fail = pc.deleteMany(list);
+
+            setModelData();
+
+            if (!fail.isEmpty()) {
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    if (fail.contains(Long.valueOf(model.getValueAt(i, ID_COLUMN_INDEX).toString()))) {
+                        model.setValueAt(true, i, SELECT_COLUMN_INDEX);
+                    }
                 }
             }
-        }
 
-        String message = "<html>";
-        if (fail.size() < list.size()) {
-            message += "Removed " + (list.size() - fail.size()) + " Publisher<br>";
+            String message = "<html>";
+            if (fail.size() < list.size()) {
+                message += "Removed " + (list.size() - fail.size()) + " Publisher<br>";
+            }
+            if (fail.size() == 1) {
+                message += "Failed to remove " + fail.size() + " Publisher, there could be books belong to this Publisher";
+            }
+            if (fail.size() > 1) {
+                message += "Failed to remove " + fail.size() + " Publisher, there could be books belong to these Publisher";
+            }
+            message += "</html>";
+            DeleteModal.setVisible(false);
+            CommonModalLabel.setText(message);
+            CommonModal.setVisible(true);
+        } else {
+            DeleteModal.setVisible(false);
+            CommonModalLabel.setText("No record was selected");
+            CommonModal.setVisible(true);
         }
-        if (fail.size() == 1) {
-            message += "Failed to remove " + fail.size() + " Publisher, there could be books belong to this Publisher";
-        }
-        if (fail.size() > 1) {
-            message += "Failed to remove " + fail.size() + " Publisher, there could be books belong to these Publisher";
-        }
-        message += "</html>";
-        DeleteModal.setVisible(false);
-        CommonModalLabel.setText(message);
-        CommonModal.setVisible(true);
-
     }//GEN-LAST:event_ConfirmBtnActionPerformed
 
     private void CancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtn2ActionPerformed
@@ -619,24 +692,56 @@ public class StaffPublisherView extends javax.swing.JFrame {
                 list.add(pub);
             }
         }
-        PublisherController pc = new PublisherController();
-        pc.editMany(list);
 
-        setModelData();
+        if (!list.isEmpty()) {
+            PublisherController pc = new PublisherController();
+            pc.editMany(list);
 
-        EditModal.setVisible(false);
-        CommonModalLabel.setText("Modification are applied");
-        CommonModal.setVisible(true);
+            setModelData();
+
+            EditModal.setVisible(false);
+            CommonModalLabel.setText("Modification are applied");
+            CommonModal.setVisible(true);
+        } else {
+            EditModal.setVisible(false);
+            CommonModalLabel.setText("No record was selected");
+            CommonModal.setVisible(true);
+        }
     }//GEN-LAST:event_ConfirmBtn2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CreateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        CreateModal.setVisible(true);
+    }//GEN-LAST:event_CreateBtnActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         CommonModal.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void ConfirmBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmBtn3ActionPerformed
+        // TODO add your handling code here:
+        String newName = jTextField1.getText();
+        String newStatus = (String) jComboBox1.getSelectedItem();
+
+        System.out.println(newName);
+        System.out.println(newStatus);
+
+        if (newName.isEmpty()) {
+            CommonModalLabel.setText("Please enter Publisher name");
+            CommonModal.setVisible(true);
+        } else {
+            Publisher pub = new Publisher(newName, PublisherStatus.valueOf(newStatus));
+            PublisherController pc = new PublisherController();
+            pc.create(pub);
+
+            setModelData();
+
+            CreateModal.setVisible(false);
+            CommonModalLabel.setText("Publisher is created");
+            CommonModal.setVisible(true);
+        }
+    }//GEN-LAST:event_ConfirmBtn3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -684,6 +789,8 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private javax.swing.JLabel CommonModalLabel;
     private javax.swing.JButton ConfirmBtn;
     private javax.swing.JButton ConfirmBtn2;
+    private javax.swing.JButton ConfirmBtn3;
+    private javax.swing.JButton CreateBtn;
     private javax.swing.JDialog CreateModal;
     private javax.swing.JButton DeleteBtn;
     private javax.swing.JDialog DeleteModal;
@@ -691,14 +798,17 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private javax.swing.JDialog EditModal;
     private javax.swing.JTextField FilterText;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -710,6 +820,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private static final String[] COLUMN_NAME = {"Id", "Name", "Status", ""};

@@ -47,6 +47,11 @@ public class Publisher implements Comparable<Publisher> {
         this.status = status;
     }
 
+    public Publisher(String name, PublisherStatus status) {
+        this.name = name;
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }

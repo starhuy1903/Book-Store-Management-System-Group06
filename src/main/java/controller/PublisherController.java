@@ -9,8 +9,13 @@ import enumeration.PublisherStatus;
 public class PublisherController {
 
     public List<Publisher> getAll() {
-        PublisherDAO da = new PublisherDAO();
-        return da.getAll();
+        PublisherDAO pd = new PublisherDAO();
+        return pd.getAll();
+    }
+    
+    public void create(Publisher publisher){
+        PublisherDAO pd = new PublisherDAO();
+        pd.create(publisher);
     }
 
     public void edit(Publisher publisher) {
