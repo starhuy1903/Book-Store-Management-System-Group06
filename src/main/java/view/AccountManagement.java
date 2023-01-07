@@ -4,10 +4,8 @@
  */
 package view;
 
-import controller.EmployeeController;
 import controller.AccountController;
 import entity.Account;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
@@ -270,9 +268,7 @@ public class AccountManagement extends javax.swing.JFrame {
         String role = accountTable.getValueAt(selectedRow, ROLE_COLUMN).toString();
         Boolean isActive = (Boolean) accountTable.getValueAt(selectedRow, ACTIVE_COLUMN);
         
-        System.out.println(role);
-        System.out.println(accountTable.getValueAt(selectedRow, 2));
-        if(username.isEmpty() || password.isEmpty()) {
+        if(username.isEmpty() || password.isEmpty() || role.isEmpty()) {
             // show warning
             return;
         }
@@ -295,9 +291,7 @@ public class AccountManagement extends javax.swing.JFrame {
         AccountController accController = new AccountController();
         accController.delete(username);
         
-        refreshTable();
-       
-//        System.out.println(accountTable.getValueAt(accountTable.getSelectedRow(), 0).toString());
+        refreshTable();   
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void createBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createBtnMouseClicked
@@ -346,8 +340,6 @@ public class AccountManagement extends javax.swing.JFrame {
     private void searchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchBtnMouseClicked
         // TODO add your handling code here:
         String value = searchInput.getText();
-        System.out.println(value);
-        System.out.println("huynguyen".contains(value));
         AccountController accountController = new AccountController();
         List<Account> accs = accountController.getAll();
         if(value.isEmpty()) {
