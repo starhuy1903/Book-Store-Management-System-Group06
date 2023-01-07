@@ -3,14 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+
 import controller.*;
 import entity.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Date;
-import java.util.List;
+
 /**
  *
  * @author Dai Hai
@@ -20,27 +17,21 @@ public class AdminProfile extends javax.swing.JFrame {
     /**
      * Creates new form AdminProfile
      */
-    
-    
-    Admin admin=new Admin();
+    Admin admin = new Admin();
 
     public AdminProfile(Admin ad) {
         initComponents();
         admin.setId(ad.getId());
-        
+
         admin.setName(ad.getName());
         admin.setDateOfBirth(ad.getDateOfBirth());
-        //admin.setDateOfBirth(ad.getDateOfBirth()));
-        admin.setUserId(ad.getUserId());
-        
-        //System.out.println("adPro= " + admin.getName()+ " " + admin.getDate_of_birth());
-        
+        admin.setAccount(ad.getAccount());
+
         jTextFieldName.setText(admin.getName());
-        
-        jTextFieldBirth.setText(admin.getDateOfBirth().toString());
-        
+//        jTextFieldBirth.setText(admin.getDateOfBirth().toString());  
+        dobInput.setDate(admin.getDateOfBirth());
     }
-    
+
     public AdminProfile() {
         initComponents();
     }
@@ -57,15 +48,15 @@ public class AdminProfile extends javax.swing.JFrame {
         jTextFieldBirth1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabelName = new javax.swing.JLabel();
-        jTextFieldBirth = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
-        jTextFieldPassword = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
         jLabelCheck = new javax.swing.JLabel();
+        dobInput = new com.toedter.calendar.JDateChooser();
+        passInput = new javax.swing.JPasswordField();
 
         jTextFieldBirth1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,12 +74,6 @@ public class AdminProfile extends javax.swing.JFrame {
         jLabelName.setText("Name :");
         jLabelName.setAlignmentY(1.0F);
         jLabelName.setPreferredSize(new java.awt.Dimension(35, 20));
-
-        jTextFieldBirth.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBirthActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Birth (yyyy-mm-dd) :");
@@ -108,13 +93,6 @@ public class AdminProfile extends javax.swing.JFrame {
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
-            }
-        });
-
-        jTextFieldPassword.setToolTipText("");
-        jTextFieldPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPasswordActionPerformed(evt);
             }
         });
 
@@ -146,16 +124,15 @@ public class AdminProfile extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel4)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(passInput)
+                                        .addComponent(dobInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(135, 135, 135)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -175,15 +152,15 @@ public class AdminProfile extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                    .addComponent(passInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(jLabelCheck)
                 .addGap(61, 61, 61)
                 .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,10 +172,6 @@ public class AdminProfile extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBirthActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBirthActionPerformed
 
     private void jTextFieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameActionPerformed
         // TODO add your handling code here:
@@ -217,75 +190,30 @@ public class AdminProfile extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldBirth1ActionPerformed
 
-    private void jTextFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPasswordActionPerformed
-
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
-        
-        String nameString=jTextFieldName.getText();
-        String birtString=jTextFieldBirth.getText();
-        String passString=jTextFieldPassword.getText();
-        
-        boolean check=true;
 
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            sdf.setLenient(false);
-            
-            sdf.parse(birtString);
-            
-            System.out.println("true");
-        } catch (ParseException ex) {
-            
-            System.out.println("false");
-            check=false;
-        }
-       
-        if(nameString==null || nameString.length()==0) {
-            check=false;
-        }
-        
-        if(!check) {
+        String nameString = jTextFieldName.getText();
+        Date dob = dobInput.getDate();
+        String passString = new String(passInput.getPassword());
+
+        if (nameString.isEmpty() || dob == null) {
             jLabelCheck.setText("INVALID INPUT");
         }
         else {
-            
-            try {
-                AccountController userController= new AccountController();
-                AdminController adminController=new AdminController();
+                AccountController accController = new AccountController();
+                AdminController adminController = new AdminController();
+
+                Account acc = admin.getAccount();
                 
-                Account user=new Account();
-                
-                
-                List<Account> userList= userController.getAll();
-                
-                for(int i=0;i<userList.size();i++)
-                    if(admin.getUserId() == userList.get(i).getId())
-                    {
-                        user=userList.get(i);
-                        
-                        if(passString==null || passString.length()==0) 
-                            passString=userList.get(i).getPassword();
-                        
-                        break;
-                    }
-                user.setPassword(passString);
-                
+                if(!passString.isEmpty()) {
+                    acc.setPassword(passString);
+                    accController.update(acc);
+                }
+
                 admin.setName(nameString);
-               
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
-                Date date = format.parse(birtString);
-                java.sql.Date dateSql = new java.sql.Date(date.getTime());
-                admin.setDateOfBirth(dateSql);
+                admin.setDateOfBirth(dob);
                 adminController.update(admin);
-                userController.update(user);
-                
-            } catch (ParseException ex) {
-                Logger.getLogger(AdminProfile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
         }
     }//GEN-LAST:event_btnOKActionPerformed
 
@@ -327,15 +255,15 @@ public class AdminProfile extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnOK;
+    private com.toedter.calendar.JDateChooser dobInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelCheck;
     private javax.swing.JLabel jLabelName;
-    private javax.swing.JTextField jTextFieldBirth;
     private javax.swing.JTextField jTextFieldBirth1;
     private javax.swing.JTextField jTextFieldName;
-    private javax.swing.JTextField jTextFieldPassword;
+    private javax.swing.JPasswordField passInput;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,8 +26,7 @@ public class ControllScreenEmployee extends javax.swing.JFrame {
         employeeScreen.setName(employee.getName());
         employeeScreen.setDateOfBirth(employee.getDateOfBirth());
         employeeScreen.setBankAccount(employee.getBankAccount());
-        employeeScreen.setIsActivateAccount(employee.isActivateAccount());
-//        employeeScreen.setUserId(employee.getUserId());
+        employeeScreen.setAccount(employee.getAccount());
    
         initComponents();
     }

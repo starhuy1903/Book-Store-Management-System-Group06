@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+
 import controller.*;
 import entity.*;
-import java.util.List;
 
 /**
  *
@@ -19,8 +19,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-    
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,21 +29,15 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextFieldPassword = new javax.swing.JTextField();
         jTextFieldUsername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         JLabelInvalid = new javax.swing.JLabel();
+        jTextFieldPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTextFieldPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPasswordActionPerformed(evt);
-            }
-        });
 
         jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,14 +74,13 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                            .addComponent(jTextFieldPassword))))
                 .addContainerGap(46, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -106,8 +98,8 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -124,48 +116,44 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUsernameActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        //System.out.println("Click"); 
-        AccountController userController = new AccountController();
-        AdminController adminController=new AdminController();
-        EmployeeController employeeController=new EmployeeController();
-        
-        Admin admin=adminController.getAdmin();
-        
-        String usernameString=jTextFieldUsername.getText();
-        String passwordString=jTextFieldPassword.getText();
-        
-        System.out.println(usernameString+ " "+ passwordString);
-        List<Account> users= userController.getAll();
 
-        boolean checkLogin=false;
-        
-        for(int i=0;i<users.size();i++)           
-           if((usernameString.equals(users.get(i).getUsername())) && (passwordString.equals(users.get(i).getPassword()))){
-               checkLogin=true;
-               if(users.get(i).getId() == admin.getUserId()) {
-                    ControllScreenAdmin controllScreenAdmin=new ControllScreenAdmin(admin);
-                    setVisible(false);
-                    controllScreenAdmin.setVisible(true);
-                    dispose();
+        AccountController accController = new AccountController();
+        AdminController adminController = new AdminController();
+        EmployeeController employeeController = new EmployeeController();
+
+        String usernameString = jTextFieldUsername.getText();
+        String passwordString = new String(jTextFieldPassword.getPassword());
+
+        Account foundAccount = accController.getAccountByUsername(usernameString);
+        if (foundAccount == null) {
+            JLabelInvalid.setText("Username not exist");
+            return;
+        }
+
+        boolean checkLogin = passwordString.equals(foundAccount.getPassword());
+        if (checkLogin) {
+            if (foundAccount.getRole().equals("ADMIN")) {
+                // TODO: implement getAdminByUserId
+                Admin admin = adminController.getAdmin().get(0);
+                ControllScreenAdmin controllScreenAdmin = new ControllScreenAdmin(admin);
+                setVisible(false);
+                controllScreenAdmin.setVisible(true);
+                dispose();
+            } else {
+                Employee foundEmployee = employeeController.findByUserId(foundAccount.getId());
+                if(foundEmployee == null) {
+                    JLabelInvalid.setText("Employee not found");
+                    return;
                 }
-               else {
-                   Employee employee = employeeController.getById(users.get(i).getId());
-                   
-                   ControllScreenEmployee controllScreenEmployee=new ControllScreenEmployee(employee);
-                   setVisible(false);
-                   controllScreenEmployee.setVisible(true);
-                   dispose();
-               }
-               break;
+                ControllScreenEmployee controllScreenEmployee = new ControllScreenEmployee(foundEmployee);
+                setVisible(false);
+                controllScreenEmployee.setVisible(true);
+                dispose();
             }
-        if(!checkLogin)  JLabelInvalid.setText("Username or Password is wrong"); 
-        
-
+        } else {
+             JLabelInvalid.setText("Password is wrong");
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void jTextFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasswordActionPerformed
-      
-    }//GEN-LAST:event_jTextFieldPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,8 +183,8 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {                
-                new Login().setVisible(true);              
+            public void run() {
+                new Login().setVisible(true);
             }
         });
     }
@@ -207,7 +195,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextFieldPassword;
+    private javax.swing.JPasswordField jTextFieldPassword;
     private javax.swing.JTextField jTextFieldUsername;
     // End of variables declaration//GEN-END:variables
 }

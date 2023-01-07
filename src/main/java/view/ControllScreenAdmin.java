@@ -25,7 +25,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
         adminScreen.setId(ad.getId());
         adminScreen.setName(ad.getName());
         adminScreen.setDateOfBirth(ad.getDateOfBirth());
-        adminScreen.setUserId(ad.getUserId());
+        adminScreen.setAccount(ad.getAccount());
         
         initComponents();
     }

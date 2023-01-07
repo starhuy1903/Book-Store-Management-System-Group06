@@ -15,27 +15,24 @@ public class Employee {
     private String name;
     private Date dob;
     private String bankAccount;
-    private boolean isActivateAccount;
-    private Account user;
+    private Account account;
 
     public Employee() {
     }
     
-    public Employee(String name, Date dob, String bankAccount, Account user) {
+    public Employee(String name, Date dob, String bankAccount, Account acc) {
         this.name = name;
         this.dob = dob;
         this.bankAccount = bankAccount;
-        this.isActivateAccount = true;
-        this.user = user;
+        this.account = acc;
     }
 
-    public Employee(Long id, String name, Date dob, String bankAccount, boolean isActivateAccount, Account user) {
+    public Employee(Long id, String name, Date dob, String bankAccount, Account acc) {
         this.id = id;
         this.name = name;
         this.dob = dob;
         this.bankAccount = bankAccount;
-        this.isActivateAccount = isActivateAccount;
-        this.user = user;
+        this.account = acc;
     }
 
     public Long getId() {
@@ -70,19 +67,11 @@ public class Employee {
         this.bankAccount = bankAccount;
     }
 
-    public boolean isActivateAccount() {
-        return isActivateAccount;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setIsActivateAccount(boolean isActivateAccount) {
-        this.isActivateAccount = isActivateAccount;
-    }
-
-    public Account getUser() {
-        return user;
-    }
-
-    public void setUser(Account user) {
-        this.user = user;
+    public void setAccount(Account acc) {
+        this.account = acc;
     }
 }

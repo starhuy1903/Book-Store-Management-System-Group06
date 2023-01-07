@@ -29,7 +29,10 @@ public class EmployeeController {
 //        employeeDAO.create(employee);
     }
     
-//    public List<EmployeeAccount> 
+    public Employee findByUserId(Long userId) {
+        EmployeeDAO employeeDAO = new EmployeeDAO();
+        return employeeDAO.getByUserId(userId);
+    }
 
     public void update(Employee employee) {
         EmployeeDAO dao = new EmployeeDAO();

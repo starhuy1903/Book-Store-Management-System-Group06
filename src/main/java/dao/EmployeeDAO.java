@@ -22,14 +22,19 @@ public class EmployeeDAO extends SystemDAO<Employee, Long> {
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_DOB = "date_of_birth";
     private static final String COLUMN_BANK = "bank_account";
-    private static final String COLUMN_ACTIVE = "is_activate_account";
     private static final String COLUMN_USERID = "user_id";
+
+    public Employee getByUserId(Long userId) {
+        String sql = "SELECT * FROM " + TABLE_EMPLOYEE + " JOIN account ON (employee.user_id=account.id)" + " WHERE " + COLUMN_USERID + " = ?";
+        List<Employee> list = this.getBySql(sql, userId);
+        return !list.isEmpty() ? list.get(0) : null;
+    }
 
     @Override
     public Employee getById(Long id) {
-        String sql = "SELECT * FROM " + TABLE_EMPLOYEE + " JOIN user ON (employee.user_id=user.id)" + " WHERE " + COLUMN_USERID + " = ?";
+        String sql = "SELECT * FROM " + TABLE_EMPLOYEE + " JOIN user ON (employee.user_id=account.id)" + " WHERE " + COLUMN_ID + " = ?";
         List<Employee> list = this.getBySql(sql, id);
-        return !list.isEmpty() ? list.get(1) : null;
+        return !list.isEmpty() ? list.get(0) : null;
     }
 
     @Override
@@ -40,16 +45,15 @@ public class EmployeeDAO extends SystemDAO<Employee, Long> {
 
     @Override
     public void create(Employee employee) {
-        String sql = "INSERT INTO " + TABLE_EMPLOYEE + " (" + COLUMN_NAME + ", " + COLUMN_DOB + ", " + COLUMN_BANK + ", " + COLUMN_ACTIVE + ", " + COLUMN_USERID + ") VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + TABLE_EMPLOYEE + " (" + COLUMN_NAME + ", " + COLUMN_DOB + ", " + COLUMN_BANK + ", " + COLUMN_USERID + ") VALUES (?, ?, ?, ?, ?)";
 //        XJdbc.update(sql, employee.getName(), employee.getDateOfBirth(), employee.getBankAccount(), employee.isActivateAccount(), employee.getUserId());
     }
 
     @Override
     public void update(Employee employee) {
-        String sql = "UPDATE " + TABLE_EMPLOYEE + " SET " + COLUMN_NAME + "=?, " + COLUMN_DOB + "=?, " + COLUMN_BANK + "=?, " + COLUMN_ACTIVE + "=?, " + COLUMN_USERID + "=?"
-                + " WHERE " + COLUMN_ID + " = ?";
-//        XJdbc.update(sql, employee.getName(), employee.getDateOfBirth(), employee.getBankAccount(), employee.isActivateAccount(), employee.getUserId(),
-//                employee.getId());
+        String sql = "UPDATE " + TABLE_EMPLOYEE + " SET " + COLUMN_NAME + "=?, " + COLUMN_DOB + "=?, " + COLUMN_BANK + "=? WHERE " + COLUMN_ID + " = ?";
+        XJdbc.update(sql, employee.getName(), employee.getDateOfBirth(), employee.getBankAccount(),
+                employee.getId());
     }
 
     @Override
@@ -64,17 +68,20 @@ public class EmployeeDAO extends SystemDAO<Employee, Long> {
         try {
             ResultSet rs = XJdbc.query(sql, args);
             while (rs.next()) {
-                
+
                 Employee entity = new Employee();
                 entity.setId(rs.getLong(COLUMN_ID));
                 entity.setName(rs.getString(COLUMN_NAME));
                 entity.setDateOfBirth(rs.getDate(COLUMN_DOB));
                 entity.setBankAccount(rs.getString(COLUMN_BANK));
-                entity.setIsActivateAccount(rs.getBoolean(COLUMN_ACTIVE));
-//                entity.setUserId(rs.getLong(COLUMN_USERID));
-                
-//                entity.setUserId(rs.getLong(COLUMN_USERID));
-//entity.setUserId(rs.getLong(COLUMN_USERID));
+
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                Boolean isActive = rs.getBoolean("is_active");
+                Account acc = new Account(username, password, role, isActive);
+
+                entity.setAccount(acc);
                 list.add(entity);
             }
             rs.getStatement().close();

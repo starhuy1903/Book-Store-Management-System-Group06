@@ -3,19 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+
 import controller.*;
 import entity.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Date;
-import java.util.List;
+
 /**
  *
  * @author Dai Hai
@@ -25,48 +17,22 @@ public class EmployeeProfile extends javax.swing.JFrame {
     /**
      * Creates new form AdminProfile
      */
-    
-    public String hashPassword(String password) {
-        String resultString=null;
-        
-        try {
-            
-            MessageDigest m = MessageDigest.getInstance("MD5");
-            m.update(password.getBytes());
-            byte[] bytes=m.digest();
-            
-            StringBuilder s = new StringBuilder();
-            
-            for(int i=0;i<bytes.length;i++){
-                s.append(Integer.toString((bytes[i]&0xff) + 0x100,16).substring(1));
-            }
-            
-            resultString=s.toString();
-            
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return resultString;
-    }
-    
-    Employee employee=new Employee();
+    Employee employee = new Employee();
 
     public EmployeeProfile(Employee em) {
         initComponents();
-        
+
         employee.setId(em.getId());
         employee.setName(em.getName());
         employee.setDateOfBirth(em.getDateOfBirth());
         employee.setBankAccount(em.getBankAccount());
-        employee.setIsActivateAccount(em.isActivateAccount());
-//        employee.setUserId(em.getUserId());
-        
+        employee.setAccount(em.getAccount());
+
         jTextFieldName.setText(employee.getName());
-        jTextFieldBirth.setText(employee.getDateOfBirth().toString());
+        jTextFieldBirth.setDate(employee.getDateOfBirth());
         jTextFieldBank.setText(employee.getBankAccount());
     }
-    
+
     public EmployeeProfile() {
         initComponents();
     }
@@ -83,17 +49,17 @@ public class EmployeeProfile extends javax.swing.JFrame {
         jTextFieldBirth1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabelName = new javax.swing.JLabel();
-        jTextFieldBirth = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
-        jTextFieldPassword = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
         jLabelCheck = new javax.swing.JLabel();
         jTextFieldBank = new javax.swing.JTextField();
         jLabelBank = new javax.swing.JLabel();
+        jTextFieldPassword = new javax.swing.JPasswordField();
+        jTextFieldBirth = new com.toedter.calendar.JDateChooser();
 
         jTextFieldBirth1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,12 +77,6 @@ public class EmployeeProfile extends javax.swing.JFrame {
         jLabelName.setText("Name :");
         jLabelName.setAlignmentY(1.0F);
         jLabelName.setPreferredSize(new java.awt.Dimension(35, 20));
-
-        jTextFieldBirth.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBirthActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Birth (yyyy-mm-dd) :");
@@ -136,13 +96,6 @@ public class EmployeeProfile extends javax.swing.JFrame {
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
-            }
-        });
-
-        jTextFieldPassword.setToolTipText("");
-        jTextFieldPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPasswordActionPerformed(evt);
             }
         });
 
@@ -184,20 +137,20 @@ public class EmployeeProfile extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextFieldBirth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabelBank)
+                                        .addComponent(jLabel4))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabelBank)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldBank, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextFieldBank, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldPassword))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(135, 135, 135)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -217,19 +170,19 @@ public class EmployeeProfile extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                    .addComponent(jTextFieldBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelBank)
                     .addComponent(jTextFieldBank, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addComponent(jLabelCheck)
                 .addGap(61, 61, 61)
                 .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,10 +194,6 @@ public class EmployeeProfile extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBirthActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBirthActionPerformed
 
     private void jTextFieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameActionPerformed
         // TODO add your handling code here:
@@ -263,78 +212,31 @@ public class EmployeeProfile extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldBirth1ActionPerformed
 
-    private void jTextFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPasswordActionPerformed
-
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
-        
-        String nameString=jTextFieldName.getText();
-        String birtString=jTextFieldBirth.getText();
-        String bankString=jTextFieldBank.getText();
-        String passString=jTextFieldPassword.getText();
-        
-        boolean check=true;
-        
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            sdf.setLenient(false);
-            
-            sdf.parse(birtString);
-            
-        } catch (ParseException ex) {
-            
-            check=false;
-        }
-       
-        if(nameString==null || nameString.length()==0) {
-            check=false;
-        }
-        
-        if(bankString==null || bankString.length()==0) {
-            check=false;
-        }
-        
-        if(!check) {
+
+        String nameString = jTextFieldName.getText();
+        Date dobInput = jTextFieldBirth.getDate();
+        String bankString = jTextFieldBank.getText();
+        String passString = new String(jTextFieldPassword.getPassword());
+
+        if (nameString.isEmpty() || bankString.isEmpty() || dobInput == null) {
             jLabelCheck.setText("INVALID INPUT");
-        }
-        
-        else {
-            
-//            try {
-//                AccountController userController= new AccountController();
-//                EmployeeController employeeController=new EmployeeController();
-//                
-//                Account user=new Account();
-//                
-//                
-//                List<Account> userList= userController.getAll();
-//                
-//                for(int i=0;i<userList.size();i++)
-//                    if(employee.getUserId() == userList.get(i).getId())
-//                    {
-//                        user=userList.get(i);
-//                        if(passString==null || passString.length()==0) 
-//                            passString=userList.get(i).getPassword();
-//                        break;
-//                    }
-//                
-//                
-//                user.setPassword(passString);
-//                
-//                employee.setName(nameString);
-//                employee.setBankAccount(bankString);
-//                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
-//                Date date = format.parse(birtString);
-//                java.sql.Date dateSql = new java.sql.Date(date.getTime());
-//                employee.setDateOfBirth(dateSql);
-//                employeeController.update(employee);
-//                userController.update(user);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(EmployeeProfile.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-           
+        } else {
+            AccountController accController = new AccountController();
+            EmployeeController employeeController = new EmployeeController();
+
+            Account acc = employee.getAccount();
+
+            if (!passString.isEmpty()) {
+                acc.setPassword(passString);
+                accController.update(acc);
+            }
+
+            employee.setName(nameString);
+            employee.setDateOfBirth(dobInput);
+            employee.setBankAccount(bankString);
+            employeeController.update(employee);
         }
     }//GEN-LAST:event_btnOKActionPerformed
 
@@ -389,9 +291,9 @@ public class EmployeeProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCheck;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JTextField jTextFieldBank;
-    private javax.swing.JTextField jTextFieldBirth;
+    private com.toedter.calendar.JDateChooser jTextFieldBirth;
     private javax.swing.JTextField jTextFieldBirth1;
     private javax.swing.JTextField jTextFieldName;
-    private javax.swing.JTextField jTextFieldPassword;
+    private javax.swing.JPasswordField jTextFieldPassword;
     // End of variables declaration//GEN-END:variables
 }

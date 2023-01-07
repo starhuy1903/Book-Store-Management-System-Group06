@@ -4,7 +4,8 @@
  */
 package entity;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  *
@@ -14,16 +15,16 @@ public class Admin {
     private Long id;
     private String name;
     private Date dateOfBirth;
-    private Long userId;
+    private Account account;
 
     public Admin() {
     }
 
-    public Admin(Long id, String name, Date dateOfBirth, Long userId) {
+    public Admin(Long id, String name, Date dateOfBirth, Account account) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
-        this.userId = userId;
+        this.account = account;
     }
 
     public Long getId() {
@@ -50,12 +51,12 @@ public class Admin {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     
