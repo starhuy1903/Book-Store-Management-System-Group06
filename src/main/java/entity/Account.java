@@ -34,6 +34,13 @@ public class Account {
         this.isActive = true;
         this.role = "STAFF";
     }
+    
+    public Account(String username, String password, String role, Boolean isActive) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.isActive = isActive;
+    }
 
     public Long getId() {
         return id;

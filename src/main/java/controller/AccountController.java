@@ -24,13 +24,15 @@ public class AccountController {
         return da.getAll();
     }
 
-    public void addAccount(String username, String password) {
+    public void addAccount(Account acc) {
         AccountDAO da = new AccountDAO();
+        
+        da.create(acc);
 
-        if (validateUsername(username)) {
-            Account user = new Account(username, password);
-            da.create(user);
-        }
+//        if (validateUsername(username)) {
+//            Account user = new Account(username, password);
+//            da.create(user);
+//        }
     }
 
     public Account getAccountByUsername(String username) {

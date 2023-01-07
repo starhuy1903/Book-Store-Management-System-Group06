@@ -24,9 +24,9 @@ public class AccountDAO extends SystemDAO<Account, Long> {
     private static final String COLUMN_IS_ACTIVE = "is_active";
 
     @Override
-    public void create(Account user) {
-        String sql = "INSERT INTO " + TABLE_USER + " (" + COLUMN_USERNAME + ", " + COLUMN_PASSWORD + ", " + COLUMN_ROLE + ") VALUES (?, ?, ?)";
-        XJdbc.update(sql, user.getUsername(), user.getPassword(), user.getRole());
+    public void create(Account acc) {
+        String sql = "INSERT INTO " + TABLE_USER + " (" + COLUMN_USERNAME + ", " + COLUMN_PASSWORD + ", " + COLUMN_ROLE + ", " + COLUMN_IS_ACTIVE + ") VALUES (?, ?, ?, ?)";         
+        XJdbc.update(sql, acc.getUsername(), acc.getPassword(), acc.getRole(), acc.getIsActive());
     }
 
     @Override

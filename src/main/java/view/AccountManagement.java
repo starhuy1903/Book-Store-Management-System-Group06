@@ -22,7 +22,7 @@ public class AccountManagement extends javax.swing.JFrame {
      */
     public AccountManagement() {
         initComponents();
-        addListToTable();
+        setDataToTable();
     }
 
     /**
@@ -34,27 +34,74 @@ public class AccountManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
-        jDatePickerUtil2 = new org.jdatepicker.util.JDatePickerUtil();
-        utilCalendarModel1 = new org.jdatepicker.impl.UtilCalendarModel();
-        utilCalendarModel2 = new org.jdatepicker.impl.UtilCalendarModel();
+        editModal = new javax.swing.JDialog();
+        jLabel5 = new javax.swing.JLabel();
+        modalCreateBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        usernameInput = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        activeCheckbox = new javax.swing.JCheckBox();
+        roleSelect = new javax.swing.JComboBox<>();
+        passInput = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         editBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         deleteBtn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         resetBtn = new javax.swing.JButton();
-        passwordLabel = new javax.swing.JLabel();
-        passwordInput = new javax.swing.JPasswordField();
         nameInput = new javax.swing.JTextField();
-        usernameInput = new javax.swing.JTextField();
         bankAccountInput = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        saveBtn = new javax.swing.JButton();
+        createBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         accountTable = new javax.swing.JTable();
         dobInput = new com.toedter.calendar.JDateChooser();
+
+        editModal.setMinimumSize(new java.awt.Dimension(550, 550));
+        editModal.setPreferredSize(new java.awt.Dimension(650, 650));
+        editModal.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel5.setText("Create Account");
+        editModal.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 32, -1, -1));
+
+        modalCreateBtn.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        modalCreateBtn.setText("Create");
+        modalCreateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modalCreateBtnActionPerformed(evt);
+            }
+        });
+        editModal.getContentPane().add(modalCreateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 379, 331, 39));
+
+        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jLabel6.setText("Username");
+        editModal.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 85, -1, -1));
+        editModal.getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 111, 331, 35));
+
+        jLabel8.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jLabel8.setText("Password");
+        editModal.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 158, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jLabel9.setText("Role");
+        editModal.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 237, -1, -1));
+
+        activeCheckbox.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        activeCheckbox.setSelected(true);
+        activeCheckbox.setText("Active");
+        activeCheckbox.setToolTipText("");
+        editModal.getContentPane().add(activeCheckbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 314, -1, -1));
+
+        roleSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "STAFF" }));
+        roleSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleSelectActionPerformed(evt);
+            }
+        });
+        editModal.getContentPane().add(roleSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 331, 36));
+        editModal.getContentPane().add(passInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 330, 40));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,9 +125,6 @@ public class AccountManagement extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel4.setText("Username");
-
         resetBtn.setText("Reset");
         resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,18 +132,9 @@ public class AccountManagement extends javax.swing.JFrame {
             }
         });
 
-        passwordLabel.setForeground(new java.awt.Color(255, 153, 0));
-        passwordLabel.setText("Password");
-
         nameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameInputActionPerformed(evt);
-            }
-        });
-
-        usernameInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameInputActionPerformed(evt);
             }
         });
 
@@ -112,15 +147,15 @@ public class AccountManagement extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 153, 0));
         jLabel1.setText("Name");
 
-        saveBtn.setText("Save");
-        saveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        createBtn.setText("Create");
+        createBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                saveBtnMouseClicked(evt);
+                createBtnMouseClicked(evt);
             }
         });
-        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+        createBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveBtnActionPerformed(evt);
+                createBtnActionPerformed(evt);
             }
         });
 
@@ -149,86 +184,73 @@ public class AccountManagement extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bankAccountInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(143, 143, 143)
+                .addComponent(deleteBtn)
+                .addGap(64, 64, 64))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(71, Short.MAX_VALUE)
-                        .addComponent(saveBtn)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addComponent(resetBtn)
+                        .addGap(174, 174, 174))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(editBtn)
-                        .addGap(30, 30, 30)
-                        .addComponent(deleteBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bankAccountInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(passwordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                            .addComponent(passwordInput)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(resetBtn)))
-                .addGap(54, 54, 54))
+                        .addGap(31, 31, 31)
+                        .addComponent(createBtn)
+                        .addGap(156, 156, 156))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bankAccountInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resetBtn)
-                    .addComponent(deleteBtn)
-                    .addComponent(editBtn)
-                    .addComponent(saveBtn))
-                .addGap(33, 33, 33)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(96, 96, 96)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bankAccountInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(resetBtn)
+                        .addGap(28, 28, 28)
+                        .addComponent(deleteBtn)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createBtn)
+                    .addComponent(editBtn))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,40 +272,39 @@ public class AccountManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameInputActionPerformed
 
-    private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameInputActionPerformed
-
     private void bankAccountInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankAccountInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bankAccountInputActionPerformed
 
-    private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
+    private void createBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createBtnMouseClicked
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_saveBtnMouseClicked
+    }//GEN-LAST:event_createBtnMouseClicked
 
-    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+    private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
+        editModal.setVisible(true);
+    }//GEN-LAST:event_createBtnActionPerformed
+
+    private void modalCreateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modalCreateBtnActionPerformed
         // TODO add your handling code here:
-        AccountController userController = new AccountController();
-        EmployeeController employeeController = new EmployeeController();
-
-        String name = nameInput.getText();
+        AccountController accController = new AccountController();
+        
+        // take value from input
         String username = usernameInput.getText();
-//        Date dob = dobInput.getDate();
-//        String bankAccount = bankAccountInput.getText();
-        String password = new String(passwordInput.getPassword());
+        String password = new String(passInput.getPassword());
+        String role = (String)roleSelect.getSelectedItem();
+        Boolean isActive = activeCheckbox.isSelected();
+        
+        Account newAcc = new Account(username, password, role, isActive);
+        
+        accController.addAccount(newAcc);
+        setDataToTable();
+        resetCreateModal();
+    }//GEN-LAST:event_modalCreateBtnActionPerformed
 
-        if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
-            // show warning
-        } else {
-            userController.addAccount(username, password);
-            Account savedUser = userController.getAccountByUsername(username);
-            if (savedUser != null) {
-//                employeeController.addEmployee(name);
-            }
-        }
-    }//GEN-LAST:event_saveBtnActionPerformed
+    private void roleSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleSelectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roleSelectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,11 +342,20 @@ public class AccountManagement extends javax.swing.JFrame {
         });
     }
     
-    private void addListToTable() {
+    private void resetCreateModal() {
+        usernameInput.setText("");
+        passInput.setText("");
+        roleSelect.setSelectedIndex(0);
+        activeCheckbox.setEnabled(true);
+        
+        editModal.setVisible(false);    
+    }
+    
+    private void setDataToTable() {
         AccountController accountController = new AccountController();
         List<Account> accs = accountController.getAll();
-        
         DefaultTableModel model = (DefaultTableModel) accountTable.getModel();
+        model.setRowCount(0);
         Object[] row;
         for(int i = 0; i < accs.size(); i++) {
             row = new Object[4];
@@ -335,32 +365,32 @@ public class AccountManagement extends javax.swing.JFrame {
             row[3] = accs.get(i).getIsActive();
             
             model.addRow(row);
-        }
-      
-        
+        }    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accountTable;
+    private javax.swing.JCheckBox activeCheckbox;
     private javax.swing.JTextField bankAccountInput;
+    private javax.swing.JButton createBtn;
     private javax.swing.JButton deleteBtn;
     private com.toedter.calendar.JDateChooser dobInput;
     private javax.swing.JButton editBtn;
-    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
-    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil2;
+    private javax.swing.JDialog editModal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton modalCreateBtn;
     private javax.swing.JTextField nameInput;
-    private javax.swing.JPasswordField passwordInput;
-    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JPasswordField passInput;
     private javax.swing.JButton resetBtn;
-    private javax.swing.JButton saveBtn;
+    private javax.swing.JComboBox<String> roleSelect;
     private javax.swing.JTextField usernameInput;
-    private org.jdatepicker.impl.UtilCalendarModel utilCalendarModel1;
-    private org.jdatepicker.impl.UtilCalendarModel utilCalendarModel2;
     // End of variables declaration//GEN-END:variables
 }
