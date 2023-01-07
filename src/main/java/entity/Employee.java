@@ -16,26 +16,26 @@ public class Employee {
     private Date dob;
     private String bankAccount;
     private boolean isActivateAccount;
-    private Long userId;
+    private Account user;
 
     public Employee() {
     }
     
-    public Employee(String name, Date dob, String bankAccount, Long userId) {
+    public Employee(String name, Date dob, String bankAccount, Account user) {
         this.name = name;
         this.dob = dob;
         this.bankAccount = bankAccount;
         this.isActivateAccount = true;
-        this.userId = userId;
+        this.user = user;
     }
 
-    public Employee(Long id, String name, Date dob, String bankAccount, boolean isActivateAccount, Long userId) {
+    public Employee(Long id, String name, Date dob, String bankAccount, boolean isActivateAccount, Account user) {
         this.id = id;
         this.name = name;
         this.dob = dob;
         this.bankAccount = bankAccount;
         this.isActivateAccount = isActivateAccount;
-        this.userId = userId;
+        this.user = user;
     }
 
     public Long getId() {
@@ -78,11 +78,11 @@ public class Employee {
         this.isActivateAccount = isActivateAccount;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Account getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(Account user) {
+        this.user = user;
     }
 }

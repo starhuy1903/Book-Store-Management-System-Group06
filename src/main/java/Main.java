@@ -1,4 +1,5 @@
-import view.UsersManagement;
+import controller.AccountController;
+import view.AccountManagement;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -10,9 +11,12 @@ import view.UsersManagement;
  * @author Dai Hai
  */
 public class Main {
-    UsersManagement screen = new UsersManagement();
+    AccountManagement screen = new AccountManagement();
+    
     public static void main(String args[]) {
-//        screen = new UsersManagement();
+//        screen = new AccountManagement();
+        AccountController c = new AccountController();
+        System.out.println(c.getAll().get(0));
   
     }    
 }

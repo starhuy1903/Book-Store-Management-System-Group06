@@ -253,13 +253,13 @@ public class AdminProfile extends javax.swing.JFrame {
         else {
             
             try {
-                UserController userController= new UserController();
+                AccountController userController= new AccountController();
                 AdminController adminController=new AdminController();
                 
-                User user=new User();
+                Account user=new Account();
                 
                 
-                List<User> userList= userController.getAll();
+                List<Account> userList= userController.getAll();
                 
                 for(int i=0;i<userList.size();i++)
                     if(admin.getUserId() == userList.get(i).getId())

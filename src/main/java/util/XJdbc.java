@@ -15,18 +15,18 @@ import java.util.logging.Logger;
 public class XJdbc {
     private static final String DB_URL = "jdbc:mysql://localhost/book_store_g6";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "12341234";
     
-    public static Connection getConnection(){
-        Connection connection = null;
-        try {           
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            return connection;
-        } catch (SQLException ex) {
-            Logger.getLogger(XJdbc.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return connection;
-    }
+//    public static Connection getConnection(){
+//        Connection connection = null;
+//        try {           
+//            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+//            return connection;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(XJdbc.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return connection;
+//    }
     
     public static PreparedStatement getStmt(String sql, Object... args) throws SQLException {
         Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -42,14 +42,15 @@ public class XJdbc {
         return pstmt;
     }
     
-    public static void update(String sql, Object... args) {
+    public static Boolean update(String sql, Object... args) {
         try {
             PreparedStatement stmt = XJdbc.getStmt(sql, args);
             try {
-                stmt.executeUpdate();
+                Boolean success = stmt.executeUpdate() == 1 ? true : false;
+                return success;
             } finally {
                 stmt.close();
-            }
+            }          
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

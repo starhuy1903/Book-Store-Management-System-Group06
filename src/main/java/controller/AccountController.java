@@ -17,24 +17,24 @@ import view.Login;
  *
  * @author Dai Hai
  */
-public class UserController {
+public class AccountController {
 
-    public List<User> getAll() {
-        UserDAO da = new UserDAO();
+    public List<Account> getAll() {
+        AccountDAO da = new AccountDAO();
         return da.getAll();
     }
 
-    public void addUser(String username, String password) {
-        UserDAO da = new UserDAO();
+    public void addAccount(String username, String password) {
+        AccountDAO da = new AccountDAO();
 
         if (validateUsername(username)) {
-            User user = new User(username, password);
+            Account user = new Account(username, password);
             da.create(user);
         }
     }
 
-    public User getUserByUsername(String username) {
-        UserDAO da = new UserDAO();
+    public Account getAccountByUsername(String username) {
+        AccountDAO da = new AccountDAO();
         return da.getByUsername(username);
     }
 
@@ -61,13 +61,13 @@ public class UserController {
         return resultString;
     }
 
-    public void update(User user) {
-        UserDAO dao = new UserDAO();
+    public void update(Account user) {
+        AccountDAO dao = new AccountDAO();
         dao.update(user);
     }
 
     private boolean validateUsername(String username) {
-        UserDAO da = new UserDAO();
+        AccountDAO da = new AccountDAO();
         if (da.getByUsername(username) != null) {
             return false;
         }

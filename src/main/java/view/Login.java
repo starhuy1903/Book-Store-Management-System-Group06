@@ -125,7 +125,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         //System.out.println("Click"); 
-        UserController userController = new UserController();
+        AccountController userController = new AccountController();
         AdminController adminController=new AdminController();
         EmployeeController employeeController=new EmployeeController();
         
@@ -135,7 +135,7 @@ public class Login extends javax.swing.JFrame {
         String passwordString=jTextFieldPassword.getText();
         
         System.out.println(usernameString+ " "+ passwordString);
-        List<User> users= userController.getAll();
+        List<Account> users= userController.getAll();
 
         boolean checkLogin=false;
         

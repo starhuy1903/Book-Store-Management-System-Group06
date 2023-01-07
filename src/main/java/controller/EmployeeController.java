@@ -25,9 +25,11 @@ public class EmployeeController {
     public void addEmployee(String name, Date dob, String bankAccount, Long userId) {
         EmployeeDAO employeeDAO = new EmployeeDAO();
 
-        Employee employee = new Employee(name, dob, bankAccount, userId);
-        employeeDAO.create(employee);
+//        Employee employee = new Employee(name, dob, bankAccount, userId);
+//        employeeDAO.create(employee);
     }
+    
+//    public List<EmployeeAccount> 
 
     public void update(Employee employee) {
         EmployeeDAO dao = new EmployeeDAO();

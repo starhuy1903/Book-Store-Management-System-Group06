@@ -60,7 +60,7 @@ public class EmployeeProfile extends javax.swing.JFrame {
         employee.setDateOfBirth(em.getDateOfBirth());
         employee.setBankAccount(em.getBankAccount());
         employee.setIsActivateAccount(em.isActivateAccount());
-        employee.setUserId(em.getUserId());
+//        employee.setUserId(em.getUserId());
         
         jTextFieldName.setText(employee.getName());
         jTextFieldBirth.setText(employee.getDateOfBirth().toString());
@@ -302,38 +302,38 @@ public class EmployeeProfile extends javax.swing.JFrame {
         
         else {
             
-            try {
-                UserController userController= new UserController();
-                EmployeeController employeeController=new EmployeeController();
-                
-                User user=new User();
-                
-                
-                List<User> userList= userController.getAll();
-                
-                for(int i=0;i<userList.size();i++)
-                    if(employee.getUserId() == userList.get(i).getId())
-                    {
-                        user=userList.get(i);
-                        if(passString==null || passString.length()==0) 
-                            passString=userList.get(i).getPassword();
-                        break;
-                    }
-                
-                
-                user.setPassword(passString);
-                
-                employee.setName(nameString);
-                employee.setBankAccount(bankString);
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
-                Date date = format.parse(birtString);
-                java.sql.Date dateSql = new java.sql.Date(date.getTime());
-                employee.setDateOfBirth(dateSql);
-                employeeController.update(employee);
-                userController.update(user);
-            } catch (ParseException ex) {
-                Logger.getLogger(EmployeeProfile.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                AccountController userController= new AccountController();
+//                EmployeeController employeeController=new EmployeeController();
+//                
+//                Account user=new Account();
+//                
+//                
+//                List<Account> userList= userController.getAll();
+//                
+//                for(int i=0;i<userList.size();i++)
+//                    if(employee.getUserId() == userList.get(i).getId())
+//                    {
+//                        user=userList.get(i);
+//                        if(passString==null || passString.length()==0) 
+//                            passString=userList.get(i).getPassword();
+//                        break;
+//                    }
+//                
+//                
+//                user.setPassword(passString);
+//                
+//                employee.setName(nameString);
+//                employee.setBankAccount(bankString);
+//                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
+//                Date date = format.parse(birtString);
+//                java.sql.Date dateSql = new java.sql.Date(date.getTime());
+//                employee.setDateOfBirth(dateSql);
+//                employeeController.update(employee);
+//                userController.update(user);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(EmployeeProfile.class.getName()).log(Level.SEVERE, null, ex);
+//            }
            
         }
     }//GEN-LAST:event_btnOKActionPerformed

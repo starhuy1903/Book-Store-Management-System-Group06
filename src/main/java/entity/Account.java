@@ -5,42 +5,34 @@
 package entity;
 
 import enumeration.UserRole;
+import java.util.List;
+import java.util.Objects;
 
 /**
  *
  * @author Huy
  */
-public class User {
+public class Account {
     private Long id;
     private String username;
     private String password;
-    private String authority;
+    private String role;
+    private Boolean isActive;
     
-    public User() {}
+    public Account() {}
 
-    public User(Long id, String username, String password, String authority) {
-        this.id = id;
+    public Account(String username, String password, String role) {
         this.username = username;
         this.password = password;
-        this.authority = authority;
+        this.role = role;
+        this.isActive = true;
     }
 
-    public User(String username, String password) {
+    public Account(String username, String password) {
         this.username = username;
         this.password = password;
-        this.authority = "STAFF";
-    }
-
-    public User(Long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-    
-    public User(String username, String password, String authority) {
-        this.username = username;
-        this.password = password;
-        this.authority = authority;
+        this.isActive = true;
+        this.role = "STAFF";
     }
 
     public Long getId() {
@@ -67,17 +59,26 @@ public class User {
         this.password = password;
     }
 
-    public String getAuthority() {
-        return authority;
+    public String getRole() {
+        return role;
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
     
     @Override
     public String toString() {
-        return "username=" + username + ", password=" + password ;
+        return "Account{" + "id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ", isActive=" + isActive + '}';
     }
+    
     
 }
