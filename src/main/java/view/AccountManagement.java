@@ -9,6 +9,7 @@ import controller.AccountController;
 import entity.Account;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,9 +21,15 @@ public class AccountManagement extends javax.swing.JFrame {
     /**
      * Creates new form UsersManagement
      */
+    
+    private static final int USERNAME_COLUMN = 0;
+    private static final int PASSWORD_COLUMN = 1;
+    private static final int ROLE_COLUMN = 2;
+    private static final int ACTIVE_COLUMN = 3;
+    
     public AccountManagement() {
         initComponents();
-        setDataToTable();
+        refreshTable();
     }
 
     /**
@@ -44,19 +51,17 @@ public class AccountManagement extends javax.swing.JFrame {
         activeCheckbox = new javax.swing.JCheckBox();
         roleSelect = new javax.swing.JComboBox<>();
         passInput = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
         editBtn = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         deleteBtn = new javax.swing.JButton();
-        resetBtn = new javax.swing.JButton();
-        nameInput = new javax.swing.JTextField();
-        bankAccountInput = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         createBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         accountTable = new javax.swing.JTable();
-        dobInput = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        searchBtn = new javax.swing.JButton();
+        searchInput = new javax.swing.JTextField();
+        allBtn = new javax.swing.JButton();
 
         editModal.setMinimumSize(new java.awt.Dimension(550, 550));
         editModal.setPreferredSize(new java.awt.Dimension(650, 650));
@@ -105,47 +110,20 @@ public class AccountManagement extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel2.setText("Date of birth");
-
-        editBtn.setText("Edit");
+        editBtn.setText("Apply changes");
         editBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editBtnActionPerformed(evt);
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel3.setText("Bank Account");
-
+        deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
         deleteBtn.setText("Delete");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
             }
         });
-
-        resetBtn.setText("Reset");
-        resetBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetBtnActionPerformed(evt);
-            }
-        });
-
-        nameInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameInputActionPerformed(evt);
-            }
-        });
-
-        bankAccountInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bankAccountInputActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel1.setText("Name");
 
         createBtn.setText("Create");
         createBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -170,87 +148,115 @@ public class AccountManagement extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        accountTable.setColumnSelectionAllowed(true);
+        accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accountTableMouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(accountTable);
+        accountTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jScrollPane2.setViewportView(jScrollPane1);
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel4.setText("Account");
+
+        searchBtn.setText("Search");
+        searchBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchBtnMouseClicked(evt);
+            }
+        });
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
+
+        searchInput.setToolTipText("Enter username");
+
+        allBtn.setText("All");
+        allBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                allBtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(allBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(searchBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(allBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(searchInput)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bankAccountInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(143, 143, 143)
-                .addComponent(deleteBtn)
-                .addGap(64, 64, 64))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(79, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(resetBtn)
-                        .addGap(174, 174, 174))
+                        .addComponent(jLabel4)
+                        .addGap(298, 298, 298))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(editBtn)
-                        .addGap(31, 31, 31)
-                        .addComponent(createBtn)
-                        .addGap(156, 156, 156))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(editBtn)
+                                .addGap(28, 28, 28)
+                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(85, 85, 85))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(83, 83, 83))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bankAccountInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(resetBtn)
                         .addGap(28, 28, 28)
-                        .addComponent(deleteBtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createBtn)
-                    .addComponent(editBtn))
-                .addContainerGap(134, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(102, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))))
         );
 
         pack();
@@ -258,23 +264,41 @@ public class AccountManagement extends javax.swing.JFrame {
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         // TODO add your handling code here:
+        int selectedRow = accountTable.getSelectedRow();
+        String username = accountTable.getValueAt(selectedRow, USERNAME_COLUMN).toString();
+        String password = accountTable.getValueAt(selectedRow, PASSWORD_COLUMN).toString();
+        String role = accountTable.getValueAt(selectedRow, ROLE_COLUMN).toString();
+        Boolean isActive = (Boolean) accountTable.getValueAt(selectedRow, ACTIVE_COLUMN);
+        
+        System.out.println(role);
+        System.out.println(accountTable.getValueAt(selectedRow, 2));
+        if(username.isEmpty() || password.isEmpty()) {
+            // show warning
+            return;
+        }
+        
+        Account updatedAcc = new Account(username, password, role, isActive);
+        AccountController accController = new AccountController();
+        accController.update(updatedAcc);
+        
+        refreshTable();
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
+        String username = accountTable.getValueAt(accountTable.getSelectedRow(), 0).toString();
+        if(username.isEmpty()) {
+            // show warning
+            return;
+        }
+        
+        AccountController accController = new AccountController();
+        accController.delete(username);
+        
+        refreshTable();
+       
+//        System.out.println(accountTable.getValueAt(accountTable.getSelectedRow(), 0).toString());
     }//GEN-LAST:event_deleteBtnActionPerformed
-
-    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_resetBtnActionPerformed
-
-    private void nameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameInputActionPerformed
-
-    private void bankAccountInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankAccountInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bankAccountInputActionPerformed
 
     private void createBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createBtnMouseClicked
         // TODO add your handling code here:
@@ -295,16 +319,49 @@ public class AccountManagement extends javax.swing.JFrame {
         String role = (String)roleSelect.getSelectedItem();
         Boolean isActive = activeCheckbox.isSelected();
         
+        if(username.isEmpty() || password.isEmpty()) {
+            // show warning 
+            return;
+        }
+        
         Account newAcc = new Account(username, password, role, isActive);
         
         accController.addAccount(newAcc);
-        setDataToTable();
+        refreshTable();
         resetCreateModal();
     }//GEN-LAST:event_modalCreateBtnActionPerformed
 
     private void roleSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleSelectActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_roleSelectActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void accountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseClicked
+        // TODO add your handling code here:      
+    }//GEN-LAST:event_accountTableMouseClicked
+
+    private void searchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchBtnMouseClicked
+        // TODO add your handling code here:
+        String value = searchInput.getText();
+        System.out.println(value);
+        System.out.println("huynguyen".contains(value));
+        AccountController accountController = new AccountController();
+        List<Account> accs = accountController.getAll();
+        if(value.isEmpty()) {
+            return;
+        }
+        List<Account> result = accs.stream().filter(acc -> acc.getUsername().contains(value)).collect(Collectors.toList());
+        setDataToTable(result);
+    }//GEN-LAST:event_searchBtnMouseClicked
+
+    private void allBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allBtnMouseClicked
+        // TODO add your handling code here:
+        searchInput.setText("");
+        refreshTable();
+    }//GEN-LAST:event_allBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -346,51 +403,53 @@ public class AccountManagement extends javax.swing.JFrame {
         usernameInput.setText("");
         passInput.setText("");
         roleSelect.setSelectedIndex(0);
-        activeCheckbox.setEnabled(true);
+        activeCheckbox.setSelected(true);
         
         editModal.setVisible(false);    
     }
     
-    private void setDataToTable() {
-        AccountController accountController = new AccountController();
-        List<Account> accs = accountController.getAll();
+    private void setDataToTable(List<Account> list) {     
         DefaultTableModel model = (DefaultTableModel) accountTable.getModel();
         model.setRowCount(0);
         Object[] row;
-        for(int i = 0; i < accs.size(); i++) {
+        for(int i = 0; i < list.size(); i++) {
             row = new Object[4];
-            row[0] = accs.get(i).getUsername();
-            row[1] = accs.get(i).getPassword();
-            row[2] = accs.get(i).getRole();
-            row[3] = accs.get(i).getIsActive();
+            row[0] = list.get(i).getUsername();
+            row[1] = list.get(i).getPassword();
+            row[2] = list.get(i).getRole();
+            row[3] = list.get(i).getIsActive();
             
             model.addRow(row);
         }    
+    }
+    
+    private void refreshTable() {
+        AccountController accountController = new AccountController();
+        List<Account> accs = accountController.getAll();
+        setDataToTable(accs);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accountTable;
     private javax.swing.JCheckBox activeCheckbox;
-    private javax.swing.JTextField bankAccountInput;
+    private javax.swing.JButton allBtn;
     private javax.swing.JButton createBtn;
     private javax.swing.JButton deleteBtn;
-    private com.toedter.calendar.JDateChooser dobInput;
     private javax.swing.JButton editBtn;
     private javax.swing.JDialog editModal;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton modalCreateBtn;
-    private javax.swing.JTextField nameInput;
     private javax.swing.JPasswordField passInput;
-    private javax.swing.JButton resetBtn;
     private javax.swing.JComboBox<String> roleSelect;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchInput;
     private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,12 +27,8 @@ public class AccountController {
     public void addAccount(Account acc) {
         AccountDAO da = new AccountDAO();
         
-        da.create(acc);
-
-//        if (validateUsername(username)) {
-//            Account user = new Account(username, password);
-//            da.create(user);
-//        }
+        // TODO: verify username is uniq
+        da.create(acc);  
     }
 
     public Account getAccountByUsername(String username) {
@@ -63,9 +59,14 @@ public class AccountController {
         return resultString;
     }
 
-    public void update(Account user) {
+    public void update(Account acc) {
         AccountDAO dao = new AccountDAO();
-        dao.update(user);
+        dao.update(acc);
+    }
+    
+    public void delete(String username) {
+        AccountDAO dao = new AccountDAO();
+        dao.deleteByUsername(username);
     }
 
     private boolean validateUsername(String username) {

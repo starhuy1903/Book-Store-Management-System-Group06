@@ -30,15 +30,20 @@ public class AccountDAO extends SystemDAO<Account, Long> {
     }
 
     @Override
-    public void update(Account user) {
-        String sql = "UPDATE " + TABLE_USER + " SET " + COLUMN_USERNAME + "=?, " + COLUMN_PASSWORD + "=? WHERE " + COLUMN_ID + "=?";
-        XJdbc.update(sql, user.getUsername(), user.getPassword(), user.getId());
+    public void update(Account acc) {
+        String sql = "UPDATE " + TABLE_USER + " SET " + COLUMN_PASSWORD + "=?, " + COLUMN_ROLE + "=?, " + COLUMN_IS_ACTIVE + "=? WHERE " + COLUMN_USERNAME + "=?";
+        XJdbc.update(sql,acc.getPassword(), acc.getRole(), acc.getIsActive(), acc.getUsername());
     }
 
     @Override
     public void delete(Long id) {
         String sql = "DELETE FROM " + TABLE_USER + " WHERE " + COLUMN_ID + " = ?";
         XJdbc.update(sql, id);
+    }
+    
+    public void deleteByUsername(String username) {
+        String sql = "DELETE FROM " + TABLE_USER + " WHERE " + COLUMN_USERNAME + " = ?";
+        XJdbc.update(sql, username);
     }
 
     @Override
