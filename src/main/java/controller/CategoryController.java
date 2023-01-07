@@ -23,7 +23,7 @@ public class CategoryController {
         Category oldCategory = cd.getById(category.getId());
         if ((oldCategory.getStatus() == CategoryStatus.valueOf("ENABLED")) && (category.getStatus() == CategoryStatus.valueOf("DISABLED"))) {
             BookDAO bd = new BookDAO();
-            bd.updateStatusWithCondition("DISABLED", "publisher_id", Long.toString(category.getId()));
+            bd.updateStatusWithCondition("DISABLED", "category_id", Long.toString(category.getId()));
         }
         cd.update(category);
     }
