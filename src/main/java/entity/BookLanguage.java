@@ -12,6 +12,9 @@ public class BookLanguage {
     private Long language_id;
     private String language_code;
     private String language_name;
+    
+    public BookLanguage(){
+    }
 
     public BookLanguage(Long language_id, String language_code, String language_name) {
         this.language_id = language_id;

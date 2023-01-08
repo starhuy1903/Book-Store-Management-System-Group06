@@ -331,6 +331,11 @@ public class StaffAuthorView extends javax.swing.JFrame {
         jLabel9.setText("Enter Author name");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENABLED", "DISABLED" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         ConfirmBtn3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ConfirmBtn3.setText("Create Author");
@@ -736,6 +741,10 @@ public class StaffAuthorView extends javax.swing.JFrame {
             CommonModal.setVisible(true);
         }
     }//GEN-LAST:event_ConfirmBtn3ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

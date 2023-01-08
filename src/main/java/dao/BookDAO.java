@@ -31,7 +31,7 @@ public class BookDAO extends SystemDAO<Book, Long> {
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_ISBN13 = "isbn13";
-    private static final String COLUMN_LANGUAGE_ID = "status";
+    private static final String COLUMN_LANGUAGE_ID = "language_id";
     private static final String COLUMN_NUMPAGES = "num_pages";
     private static final String COLUMN_PUBLISHER_ID = "publisher_id";
     private static final String COLUMN_CATEGORY_ID = "category_id";
@@ -43,7 +43,8 @@ public class BookDAO extends SystemDAO<Book, Long> {
 
     public void create(Book book) {
         String sql = "INSERT INTO " + TABLE_BOOK + " (" + COLUMN_TITLE + ", " + COLUMN_ISBN13 + ", " + COLUMN_LANGUAGE_ID + ", " + COLUMN_NUMPAGES + ", " + COLUMN_PUBLISHER_ID + ", " + COLUMN_CATEGORY_ID + ", " + COLUMN_AUTHOR_ID + ", " + COLUMN_PUBLISHED_DATE + ", " + COLUMN_STOCK + ", " + COLUMN_STATUS + ", " + COLUMN_PRICE + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        XJdbc.update(sql, book.getTitle(), book.getIsbn13(), book.getBookLanguage().getLanguage_name(), book.getNumPages(), book.getPublisher().getName(), book.getCategory().getName(), book.getAuthor().getName(), java.sql.Date.valueOf(book.getPublishedDate()), book.getStock(), book.getStatus(), book.getPrice());
+        System.out.println("sql: " + sql);
+        XJdbc.update(sql, book.getTitle(), book.getIsbn13(), book.getBookLanguage().getLanguage_id(), book.getNumPages(), book.getPublisher().getId(), book.getCategory().getId(), book.getAuthor().getId(), java.sql.Date.valueOf(book.getPublishedDate()), book.getStock(), book.getStatus().name(), book.getPrice());
     }
 
     @Override
@@ -88,7 +89,8 @@ public class BookDAO extends SystemDAO<Book, Long> {
                 + " INNER JOIN " + TABLE_BOOK_CATEGORY + " ON " + TABLE_BOOK_CATEGORY + ".id = " + TABLE_BOOK + ".category_id"
                 + " INNER JOIN " + TABLE_BOOK_LANGUAGE + " ON " + TABLE_BOOK_LANGUAGE + ".language_id = " + TABLE_BOOK + ".language_id"
                 + " INNER JOIN " + TABLE_AUTHOR + " ON " + TABLE_AUTHOR + ".id = " + TABLE_BOOK + ".author_id"
-                + " INNER JOIN " + TABLE_PUBLISHER + " ON " + TABLE_PUBLISHER + ".id = " + TABLE_BOOK + ".publisher_id";
+                + " INNER JOIN " + TABLE_PUBLISHER + " ON " + TABLE_PUBLISHER + ".id = " + TABLE_BOOK + ".publisher_id"
+                + " ORDER BY id";
 
         return this.getBySql(sql);
     }
