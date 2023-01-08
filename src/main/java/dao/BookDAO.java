@@ -47,8 +47,9 @@ public class BookDAO extends SystemDAO<Book, Long> {
     }
 
     @Override
-    public void update(Book entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(Book book) {
+        String sql = "UPDATE " + TABLE_BOOK + " SET " + COLUMN_TITLE + "=?, " + COLUMN_ISBN13 + "=?," + COLUMN_LANGUAGE_ID + "=?," + COLUMN_NUMPAGES + "=?," + COLUMN_PUBLISHER_ID + "=?," + COLUMN_CATEGORY_ID + "=?," + COLUMN_AUTHOR_ID + "=?," + COLUMN_PUBLISHED_DATE + "=?," + COLUMN_STOCK + "=?," + COLUMN_STATUS + "=?," + COLUMN_PRICE + "=? WHERE " + COLUMN_ID + " = ?";
+        XJdbc.update(sql, book.getTitle(), book.getIsbn13(), book.getBookLanguage().getLanguage_id(), book.getNumPages(), book.getPublisher().getId(), book.getCategory().getId(), book.getAuthor().getId(), java.sql.Date.valueOf(book.getPublishedDate()), book.getStock(), book.getStatus().name(), book.getPrice(), book.getId());
     }
 
     public void updateStatusWithCondition(String status, String conditionColumn, String condition) {
@@ -58,7 +59,8 @@ public class BookDAO extends SystemDAO<Book, Long> {
 
     @Override
     public void delete(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM " + TABLE_BOOK + " WHERE " + COLUMN_ID + " = ?";
+        XJdbc.update(sql, id);
     }
 
     @Override
@@ -93,6 +95,7 @@ public class BookDAO extends SystemDAO<Book, Long> {
 
         return this.getBySql(sql);
     }
+
     public List<Book> getOutOfStock() {
         String sql = "SELECT "
                 + TABLE_BOOK + ".id, "
