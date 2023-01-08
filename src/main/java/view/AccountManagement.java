@@ -6,6 +6,7 @@ package view;
 
 import controller.AccountController;
 import entity.Account;
+import entity.Admin;
 import enumeration.ActiveStatus;
 import enumeration.Role;
 import java.util.List;
@@ -32,7 +33,16 @@ public class AccountManagement extends javax.swing.JFrame {
     
     private DefaultTableModel model;
     
+    private Admin currAdmin;
+    
     public AccountManagement() {
+        getModel();
+        initComponents();
+        refreshTable();
+    }
+    
+    public AccountManagement(Admin admin) {
+        currAdmin = admin;
         getModel();
         initComponents();
         refreshTable();
@@ -72,7 +82,6 @@ public class AccountManagement extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
 
         editModal.setMinimumSize(new java.awt.Dimension(550, 550));
-        editModal.setPreferredSize(new java.awt.Dimension(650, 650));
         editModal.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
@@ -123,7 +132,6 @@ public class AccountManagement extends javax.swing.JFrame {
         editModal.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, -1, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(650, 450));
 
         editBtn.setText("Apply changes");
         editBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +283,7 @@ public class AccountManagement extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
@@ -378,7 +387,7 @@ public class AccountManagement extends javax.swing.JFrame {
 
     private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
         // TODO add your handling code here:
-        new ControllScreenAdmin().backToMainMenu();
+        new ControllScreenAdmin(currAdmin).backToMainMenu();
         setVisible(false);
         dispose();    
     }//GEN-LAST:event_backBtnMouseClicked
@@ -453,8 +462,8 @@ public class AccountManagement extends javax.swing.JFrame {
     }
     
     private void getModel() {
-        String Columns[] = {"Username", "Password", "Role", "Active"};
-        model = new DefaultTableModel(Columns, 0);
+        String[] columns = {"Username", "Password", "Role", "Active"};
+        model = new DefaultTableModel(columns, 0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

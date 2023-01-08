@@ -27,8 +27,7 @@ public class AdminProfile extends javax.swing.JFrame {
         admin.setDateOfBirth(ad.getDateOfBirth());
         admin.setAccount(ad.getAccount());
 
-        jTextFieldName.setText(admin.getName());
-//        jTextFieldBirth.setText(admin.getDateOfBirth().toString());  
+        jTextFieldName.setText(admin.getName()); 
         dobInput.setDate(admin.getDateOfBirth());
     }
 
@@ -179,11 +178,9 @@ public class AdminProfile extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-        ControllScreenAdmin screenAdmin = new ControllScreenAdmin(admin);
-        screenAdmin.setVisible(true);
+        new ControllScreenAdmin(admin).setVisible(true);
         setVisible(false);
         dispose();
-        initComponents();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void jTextFieldBirth1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBirth1ActionPerformed

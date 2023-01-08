@@ -17,20 +17,20 @@ public class EmployeeProfile extends javax.swing.JFrame {
     /**
      * Creates new form AdminProfile
      */
-    Employee employee = new Employee();
+    Employee currEmployee = new Employee();
 
     public EmployeeProfile(Employee em) {
         initComponents();
 
-        employee.setId(em.getId());
-        employee.setName(em.getName());
-        employee.setDateOfBirth(em.getDateOfBirth());
-        employee.setBankAccount(em.getBankAccount());
-        employee.setAccount(em.getAccount());
+        currEmployee.setId(em.getId());
+        currEmployee.setName(em.getName());
+        currEmployee.setDateOfBirth(em.getDateOfBirth());
+        currEmployee.setBankAccount(em.getBankAccount());
+        currEmployee.setAccount(em.getAccount());
 
-        jTextFieldName.setText(employee.getName());
-        jTextFieldBirth.setDate(employee.getDateOfBirth());
-        jTextFieldBank.setText(employee.getBankAccount());
+        jTextFieldName.setText(currEmployee.getName());
+        jTextFieldBirth.setDate(currEmployee.getDateOfBirth());
+        jTextFieldBank.setText(currEmployee.getBankAccount());
     }
 
     public EmployeeProfile() {
@@ -201,11 +201,9 @@ public class EmployeeProfile extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-        ControllScreenEmployee screenEmployee = new ControllScreenEmployee(employee);
-        screenEmployee.setVisible(true);
+        new ControllScreenEmployee(currEmployee).setVisible(true);
         setVisible(false);
         dispose();
-        initComponents();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void jTextFieldBirth1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBirth1ActionPerformed
@@ -226,17 +224,17 @@ public class EmployeeProfile extends javax.swing.JFrame {
             AccountController accController = new AccountController();
             EmployeeController employeeController = new EmployeeController();
 
-            Account acc = employee.getAccount();
+            Account acc = currEmployee.getAccount();
 
             if (!passString.isEmpty()) {
                 acc.setPassword(passString);
                 accController.update(acc);
             }
 
-            employee.setName(nameString);
-            employee.setDateOfBirth(dobInput);
-            employee.setBankAccount(bankString);
-            employeeController.update(employee);
+            currEmployee.setName(nameString);
+            currEmployee.setDateOfBirth(dobInput);
+            currEmployee.setBankAccount(bankString);
+            employeeController.update(currEmployee);
         }
     }//GEN-LAST:event_btnOKActionPerformed
 
