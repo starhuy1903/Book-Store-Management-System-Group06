@@ -137,7 +137,7 @@ public class Login extends javax.swing.JFrame {
         String usernameString=jTextFieldUsername.getText();
         String passwordString=jTextFieldPassword.getText();
         
-        System.out.println(usernameString+ " "+ passwordString);
+        //System.out.println(usernameString+ " "+ passwordString);
         List<User> users= userController.getAll();
 
         boolean checkLogin=false;

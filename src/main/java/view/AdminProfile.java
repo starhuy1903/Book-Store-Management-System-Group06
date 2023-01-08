@@ -5,6 +5,7 @@
 package view;
 import controller.*;
 import entity.*;
+import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -248,7 +249,9 @@ public class AdminProfile extends javax.swing.JFrame {
         }
         
         if(!check) {
+            
             jLabelCheck.setText("INVALID INPUT");
+            jLabelCheck.setForeground(Color.RED);
         }
         else {
             
@@ -285,7 +288,8 @@ public class AdminProfile extends javax.swing.JFrame {
             } catch (ParseException ex) {
                 Logger.getLogger(AdminProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
-           
+           jLabelCheck.setText("COMPLETE");
+           jLabelCheck.setForeground(Color.green);
         }
     }//GEN-LAST:event_btnOKActionPerformed
 

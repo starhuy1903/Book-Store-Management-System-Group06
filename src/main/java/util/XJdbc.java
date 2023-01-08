@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class XJdbc {
     private static final String DB_URL = "jdbc:mysql://localhost/book_store_g6";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "14022002";
     
     public static Connection getConnection(){
         Connection connection = null;
