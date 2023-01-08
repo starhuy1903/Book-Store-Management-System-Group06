@@ -8,6 +8,7 @@ import controller.AuthorController;
 import entity.Author;
 import entity.Employee;
 import enumeration.AuthorStatus;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -647,6 +648,10 @@ public class StaffAuthorView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        // TODO add your handling code here:       
+    }   
+    
     private void EditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBtnActionPerformed
         // TODO add your handling code here:
         EditModal.setVisible(true);

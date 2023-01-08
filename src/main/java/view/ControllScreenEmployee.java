@@ -22,11 +22,6 @@ public class ControllScreenEmployee extends javax.swing.JFrame {
     }
     
     public ControllScreenEmployee(Employee employee) {
-//        currEmployee.setId(employee.getId());
-//        currEmployee.setName(employee.getName());
-//        currEmployee.setDateOfBirth(employee.getDateOfBirth());
-//        currEmployee.setBankAccount(employee.getBankAccount());
-//        currEmployee.setAccount(employee.getAccount());
         currEmployee = employee;
 
         initComponents();
@@ -242,6 +237,9 @@ public class ControllScreenEmployee extends javax.swing.JFrame {
 
     private void showBookTableBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showBookTableBtnMouseClicked
         // TODO add your handling code here:
+        new BooksView(currEmployee).setVisible(true);
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_showBookTableBtnMouseClicked
 
     private void showCategoryTableBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showCategoryTableBtnMouseClicked

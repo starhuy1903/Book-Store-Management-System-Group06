@@ -8,13 +8,10 @@ import controller.*;
 import entity.*;
 import enumeration.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
@@ -30,6 +27,8 @@ public class BooksView extends javax.swing.JFrame {
     /**
      * Creates new form BooksView
      */
+    private Employee currEmployee;
+    
     public BooksView() {
         getBookSelectDefaultData();
         initComponents();
@@ -39,6 +38,17 @@ public class BooksView extends javax.swing.JFrame {
         showAuthors(jComboBox4);
         showPublishers(jComboBox5);
 
+    }
+    
+    public BooksView(Employee employee) {
+        getBookSelectDefaultData();
+        initComponents();
+
+        showLanguage(jComboBox2);
+        showCategories(jComboBox3);
+        showAuthors(jComboBox4);
+        showPublishers(jComboBox5);
+        currEmployee = employee;
     }
 
     /**
@@ -149,6 +159,7 @@ public class BooksView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         EditBtn = new javax.swing.JButton();
         DeleteBtn = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         CreateModal.setModal(true);
 
@@ -749,6 +760,13 @@ public class BooksView extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        backBtn.setText("Back To Menu");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -756,9 +774,6 @@ public class BooksView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -773,7 +788,12 @@ public class BooksView extends javax.swing.JFrame {
                                 .addGap(63, 63, 63)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(39, 39, 39))
         );
         jPanel2Layout.setVerticalGroup(
@@ -792,7 +812,8 @@ public class BooksView extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -815,7 +836,7 @@ public class BooksView extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -922,8 +943,6 @@ public class BooksView extends javax.swing.JFrame {
 
         for (int i = 0; i < model.getRowCount(); i++) {
             if ((Boolean) model.getValueAt(i, 0)) {
-//                Book book = new Book(Long.valueOf(model.getValueAt(i,1)), model.getValueAt(i,2).toString(), model.getValueAt(i,3).toString());
-//                list.add(book);
                 String language = model.getValueAt(i,4).toString();
                 String[] languageParts = language.split(" ");
                 String publisher = model.getValueAt(i,6).toString();
@@ -1027,6 +1046,13 @@ public class BooksView extends javax.swing.JFrame {
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        new ControllScreenEmployee(currEmployee).backToMainMenu();
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_backBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1212,6 +1238,7 @@ public class BooksView extends javax.swing.JFrame {
     private javax.swing.JDialog DeleteModal;
     private javax.swing.JButton EditBtn;
     private javax.swing.JDialog EditModal;
+    private javax.swing.JButton backBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
