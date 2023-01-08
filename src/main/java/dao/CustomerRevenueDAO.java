@@ -16,7 +16,7 @@ import util.XJdbc;
  * @author huynguyen
  */
 public class CustomerRevenueDAO {
-     public List<CustomerRevenue> getAll() {
+    public List<CustomerRevenue> getAll() {
         String sql = "SELECT c.name, c.email, SUM(o.actual_total) AS price FROM book_store_g6.order as o\n" +
 "		JOIN customer AS c ON (o.customer_id = c.id)\n" +
 "        GROUP BY c.name, c.email;";

@@ -7,9 +7,11 @@ package view;
 import controller.BookRevenueController;
 import controller.CategoryRevenueController;
 import controller.CustomerRevenueController;
+import controller.EmployeeRevenueController;
 import entity.BookRevenue;
 import entity.CategoryRevenue;
 import entity.CustomerRevenue;
+import entity.EmployeeRevenue;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -68,7 +70,7 @@ public class RevenueStatistics extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jScrollPane4);
 
         revenueStatisticTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        revenueStatisticTitle.setText("Revenue Statistics");
+        revenueStatisticTitle.setText("Book Revenue");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -234,6 +236,10 @@ public class RevenueStatistics extends javax.swing.JFrame {
 
     private void showEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showEmployeeBtnActionPerformed
         // TODO add your handling code here:
+        revenueStatisticTitle.setText("Employee Revenue");
+        setToEmployeeRevenueModel();
+        setDataToEmployeeRevenue();
+        statisticTable.setModel(model);
     }//GEN-LAST:event_showEmployeeBtnActionPerformed
 
     private void setToBookRevenueModel() {
@@ -248,6 +254,11 @@ public class RevenueStatistics extends javax.swing.JFrame {
     
     private void setToCustomerRevenueModel() {
         String[] columns = {"Customer Name", "Phone Number", "Total Price"};
+        model = new DefaultTableModel(columns, 0);
+    }
+    
+    private void setToEmployeeRevenueModel() {
+        String[] columns = {"Name", "Date of birth", "Account", "Total Price"};
         model = new DefaultTableModel(columns, 0);
     }
 
@@ -291,6 +302,22 @@ public class RevenueStatistics extends javax.swing.JFrame {
             row[0] = list.get(i).getCustomerName();
             row[1] = list.get(i).getPhoneNumber();
             row[2] = list.get(i).getTotalPrice();
+
+            model.addRow(row);
+        }
+    }
+    
+    private void setDataToEmployeeRevenue() {
+        EmployeeRevenueController con = new EmployeeRevenueController();
+        List<EmployeeRevenue> list = con.get();
+        model.setRowCount(0);
+        Object[] row;
+        for (int i = 0; i < list.size(); i++) {
+            row = new Object[4];
+            row[0] = list.get(i).getName();
+            row[1] = list.get(i).getDob();
+            row[2] = list.get(i).getUsername();
+            row[3] = list.get(i).getTotalPrice();
 
             model.addRow(row);
         }
