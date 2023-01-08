@@ -5,7 +5,9 @@
 package view;
 
 import controller.BookRevenueController;
+import controller.CategoryRevenueController;
 import entity.BookRevenue;
+import entity.CategoryRevenue;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,26 +37,19 @@ public class RevenueStatistics extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backBtn1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane4 = new javax.swing.JScrollPane();
         statisticTable = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
+        revenueStatisticTitle = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        backBtn1 = new javax.swing.JButton();
+        showBookBtn = new javax.swing.JButton();
+        showCategoryBtn = new javax.swing.JButton();
+        showCustomerBtn = new javax.swing.JButton();
+        showEmployeeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        backBtn1.setText("Back to menu");
-        backBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backBtn1MouseClicked(evt);
-            }
-        });
-        backBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backBtn1ActionPerformed(evt);
-            }
-        });
 
         statisticTable.setModel(model);
         statisticTable.getTableHeader().setReorderingAllowed(false);
@@ -70,18 +65,98 @@ public class RevenueStatistics extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jScrollPane4);
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        jLabel5.setText("Revenue Statistics");
+        revenueStatisticTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        revenueStatisticTitle.setText("Revenue Statistics");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 534, Short.MAX_VALUE)
+            .addGap(0, 313, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 44, Short.MAX_VALUE)
+        );
+
+        backBtn1.setText("Back to menu");
+        backBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtn1MouseClicked(evt);
+            }
+        });
+        backBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtn1ActionPerformed(evt);
+            }
+        });
+
+        showBookBtn.setText("Book");
+        showBookBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showBookBtnActionPerformed(evt);
+            }
+        });
+
+        showCategoryBtn.setText("Category");
+        showCategoryBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showCategoryBtnActionPerformed(evt);
+            }
+        });
+
+        showCustomerBtn.setText("Customer");
+        showCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showCustomerBtnActionPerformed(evt);
+            }
+        });
+
+        showEmployeeBtn.setText("Employee");
+        showEmployeeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showEmployeeBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(backBtn1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(showBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(showCategoryBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(showCustomerBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(showEmployeeBtn)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(backBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(showCategoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(showCustomerBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(showBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(showEmployeeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,33 +164,28 @@ public class RevenueStatistics extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(75, 75, 75)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(backBtn1)
-                        .addGap(65, 480, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 57, Short.MAX_VALUE))))
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 47, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
+                .addComponent(revenueStatisticTitle)
                 .addGap(214, 214, 214))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel5)
+                .addComponent(revenueStatisticTitle)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(backBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,8 +206,37 @@ public class RevenueStatistics extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_statisticTableMouseClicked
 
+    private void showBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBookBtnActionPerformed
+        // TODO add your handling code here:
+        revenueStatisticTitle.setText("Book Revenue");
+        setToBookRevenueModel();
+        setDataToBookRevenue();
+        statisticTable.setModel(model);
+    }//GEN-LAST:event_showBookBtnActionPerformed
+
+    private void showCategoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCategoryBtnActionPerformed
+        // TODO add your handling code here:
+        revenueStatisticTitle.setText("Category Revenue");
+        setToCategoryRevenueModel();
+        setDataToCategoryRevenue();
+        statisticTable.setModel(model);
+    }//GEN-LAST:event_showCategoryBtnActionPerformed
+
+    private void showCustomerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCustomerBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showCustomerBtnActionPerformed
+
+    private void showEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showEmployeeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showEmployeeBtnActionPerformed
+
     private void setToBookRevenueModel() {
         String[] columns = {"Book Title", "Quantity", "Total Price"};
+        model = new DefaultTableModel(columns, 0);
+    }
+    
+    private void setToCategoryRevenueModel() {
+        String[] columns = {"Category", "Quantity", "Total Price"};
         model = new DefaultTableModel(columns, 0);
     }
 
@@ -147,8 +246,23 @@ public class RevenueStatistics extends javax.swing.JFrame {
         model.setRowCount(0);
         Object[] row;
         for (int i = 0; i < list.size(); i++) {
-            row = new Object[4];
+            row = new Object[3];
             row[0] = list.get(i).getTitle();
+            row[1] = list.get(i).getQuantity();
+            row[2] = list.get(i).getTotalPrice();
+
+            model.addRow(row);
+        }
+    }
+    
+    private void setDataToCategoryRevenue() {
+        CategoryRevenueController con = new CategoryRevenueController();
+        List<CategoryRevenue> list = con.get();
+        model.setRowCount(0);
+        Object[] row;
+        for (int i = 0; i < list.size(); i++) {
+            row = new Object[3];
+            row[0] = list.get(i).getName();
             row[1] = list.get(i).getQuantity();
             row[2] = list.get(i).getTotalPrice();
 
@@ -191,10 +305,15 @@ public class RevenueStatistics extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn1;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel revenueStatisticTitle;
+    private javax.swing.JButton showBookBtn;
+    private javax.swing.JButton showCategoryBtn;
+    private javax.swing.JButton showCustomerBtn;
+    private javax.swing.JButton showEmployeeBtn;
     private javax.swing.JTable statisticTable;
     // End of variables declaration//GEN-END:variables
 }
