@@ -4,9 +4,9 @@
  */
 package view;
 
-import controller.PublisherController;
-import entity.Publisher;
-import enumeration.PublisherStatus;
+import controller.AuthorController;
+import entity.Author;
+import enumeration.AuthorStatus;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -23,12 +23,12 @@ import javax.swing.table.TableRowSorter;
  *
  * @author XPS 9370
  */
-public class StaffPublisherView extends javax.swing.JFrame {
+public class StaffAuthorView extends javax.swing.JFrame {
 
     /**
-     * Creates new form StaffPublisherView
+     * Creates new form StaffAuthorView
      */
-    public StaffPublisherView() {
+    public StaffAuthorView() {
         initComponents();
     }
 
@@ -93,7 +93,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
             // giá trị quyết định hàng nào được edit
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 switch (columnIndex) {
-                    case StaffPublisherView.ID_COLUMN_INDEX:
+                    case StaffAuthorView.ID_COLUMN_INDEX:
                     return Boolean.FALSE
                     ;
 
@@ -131,7 +131,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<html>You are about to permanently delete the selected Publisher. <br>This action CAN NOT be reversed !</html>");
+        jLabel1.setText("<html>You are about to permanently delete the selected Author. <br>This action CAN NOT be reversed !</html>");
 
         CancelBtn.setBackground(new java.awt.Color(153, 153, 153));
         CancelBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -206,7 +206,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("<html>You are about to apply changes to the selected Publisher. <br>This action CAN NOT be reversed !</html>");
+        jLabel5.setText("<html>You are about to apply changes to the selected Author. <br>This action CAN NOT be reversed !</html>");
 
         CancelBtn2.setBackground(new java.awt.Color(153, 153, 153));
         CancelBtn2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -320,7 +320,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Create a new publisher");
+        jLabel7.setText("Create a new author");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Choose an initial status");
@@ -328,12 +328,12 @@ public class StaffPublisherView extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel9.setText("Enter Publisher name");
+        jLabel9.setText("Enter Author name");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENABLED", "DISABLED" }));
 
         ConfirmBtn3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ConfirmBtn3.setText("Create Publisher");
+        ConfirmBtn3.setText("Create Author");
         ConfirmBtn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConfirmBtn3ActionPerformed(evt);
@@ -403,9 +403,9 @@ public class StaffPublisherView extends javax.swing.JFrame {
         CreateModal.setLocationRelativeTo(this);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Publishers");
+        setTitle("Author");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Publisher", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Author", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(model);
@@ -419,8 +419,8 @@ public class StaffPublisherView extends javax.swing.JFrame {
         // align center cho cột
         DefaultTableCellRenderer centerer = new DefaultTableCellRenderer();
         centerer.setHorizontalAlignment(JLabel.CENTER);
-        jTable1.getColumnModel().getColumn(StaffPublisherView.ID_COLUMN_INDEX).setCellRenderer(centerer);
-        jTable1.getColumnModel().getColumn(StaffPublisherView.STATUS_COLUMN_INDEX).setCellRenderer(centerer);
+        jTable1.getColumnModel().getColumn(StaffAuthorView.ID_COLUMN_INDEX).setCellRenderer(centerer);
+        jTable1.getColumnModel().getColumn(StaffAuthorView.STATUS_COLUMN_INDEX).setCellRenderer(centerer);
 
         // align center cho header của cột
         ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
@@ -432,7 +432,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
 
         // đổi kiểu edit cột status thành select
-        TableColumn statusColumn = jTable1.getColumnModel().getColumn(StaffPublisherView.STATUS_COLUMN_INDEX);
+        TableColumn statusColumn = jTable1.getColumnModel().getColumn(StaffAuthorView.STATUS_COLUMN_INDEX);
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("ENABLED");
         comboBox.addItem("DISABLED");
@@ -453,7 +453,7 @@ public class StaffPublisherView extends javax.swing.JFrame {
         }
 
         trs.setComparator(0, new IntComparator());
-        trs.setSortable(StaffPublisherView.SELECT_COLUMN_INDEX, false);
+        trs.setSortable(StaffAuthorView.SELECT_COLUMN_INDEX, false);
         jTable1.setRowSorter(trs);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -640,8 +640,8 @@ public class StaffPublisherView extends javax.swing.JFrame {
         }
 
         if (!list.isEmpty()) {
-            PublisherController pc = new PublisherController();
-            List<Long> fail = pc.deleteMany(list);
+            AuthorController ac = new AuthorController();
+            List<Long> fail = ac.deleteMany(list);
 
             setModelData();
 
@@ -655,13 +655,13 @@ public class StaffPublisherView extends javax.swing.JFrame {
 
             String message = "<html>";
             if (fail.size() < list.size()) {
-                message += "Removed " + (list.size() - fail.size()) + " Publisher<br>";
+                message += "Removed " + (list.size() - fail.size()) + " Author<br>";
             }
             if (fail.size() == 1) {
-                message += "Failed to remove " + fail.size() + " Publisher, there could be books belong to this Publisher";
+                message += "Failed to remove " + fail.size() + " Author, there could be books belong to this Author";
             }
             if (fail.size() > 1) {
-                message += "Failed to remove " + fail.size() + " Publisher, there could be books belong to these Publisher";
+                message += "Failed to remove " + fail.size() + " Author, there could be books belong to these Author";
             }
             message += "</html>";
             DeleteModal.setVisible(false);
@@ -681,18 +681,18 @@ public class StaffPublisherView extends javax.swing.JFrame {
 
     private void ConfirmBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmBtn2ActionPerformed
         // TODO add your handling code here:
-        List<Publisher> list = new ArrayList();
+        List<Author> list = new ArrayList();
 
         for (int i = 0; i < model.getRowCount(); i++) {
             if ((Boolean) model.getValueAt(i, SELECT_COLUMN_INDEX)) {
-                Publisher pub = new Publisher(Long.valueOf(model.getValueAt(i, ID_COLUMN_INDEX).toString()), model.getValueAt(i, NAME_COLUMN_INDEX).toString(), PublisherStatus.valueOf(model.getValueAt(i, STATUS_COLUMN_INDEX).toString()));
-                list.add(pub);
+                Author auth = new Author(Long.valueOf(model.getValueAt(i, ID_COLUMN_INDEX).toString()), model.getValueAt(i, NAME_COLUMN_INDEX).toString(), AuthorStatus.valueOf(model.getValueAt(i, STATUS_COLUMN_INDEX).toString()));
+                list.add(auth);
             }
         }
 
         if (!list.isEmpty()) {
-            PublisherController pc = new PublisherController();
-            pc.editMany(list);
+            AuthorController ac = new AuthorController();
+            ac.editMany(list);
 
             setModelData();
 
@@ -722,17 +722,17 @@ public class StaffPublisherView extends javax.swing.JFrame {
         String newStatus = (String) jComboBox1.getSelectedItem();
 
         if (newName.isEmpty()) {
-            CommonModalLabel.setText("Please enter Publisher name");
+            CommonModalLabel.setText("Please enter Author name");
             CommonModal.setVisible(true);
         } else {
-            Publisher pub = new Publisher(newName, PublisherStatus.valueOf(newStatus));
-            PublisherController pc = new PublisherController();
-            pc.create(pub);
+            Author auth = new Author(newName, AuthorStatus.valueOf(newStatus));
+            AuthorController ac = new AuthorController();
+            ac.create(auth);
 
             setModelData();
 
             CreateModal.setVisible(false);
-            CommonModalLabel.setText("Publisher is created");
+            CommonModalLabel.setText("Author is created");
             CommonModal.setVisible(true);
         }
     }//GEN-LAST:event_ConfirmBtn3ActionPerformed
@@ -754,20 +754,23 @@ public class StaffPublisherView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StaffPublisherView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffAuthorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StaffPublisherView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffAuthorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StaffPublisherView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffAuthorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StaffPublisherView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffAuthorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StaffPublisherView().setVisible(true);
+                new StaffAuthorView().setVisible(true);
             }
         });
     }
@@ -824,13 +827,13 @@ public class StaffPublisherView extends javax.swing.JFrame {
     private static final int SELECT_COLUMN_INDEX = 3;
 
     private void getModel() {
-        model = new DefaultTableModel(StaffPublisherView.COLUMN_NAME, 0);
+        model = new DefaultTableModel(StaffAuthorView.COLUMN_NAME, 0);
         setModelData();
     }
 
     private void setModelData() {
-        PublisherController pc = new PublisherController();
-        List<Publisher> list = pc.getAll();
+        AuthorController ac = new AuthorController();
+        List<Author> list = ac.getAll();
 
         model.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {

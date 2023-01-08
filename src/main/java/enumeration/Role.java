@@ -8,6 +8,6 @@ package enumeration;
  *
  * @author Huy
  */
-public enum UserRole {
+public enum Role {
     STAFF, ADMIN
 }

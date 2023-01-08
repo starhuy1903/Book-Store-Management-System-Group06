@@ -16,14 +16,14 @@ public class PublisherDAO extends SystemDAO<Publisher, Long> {
     
     @Override
     public void create(Publisher publisher) {
-        String sql = "INSERT INTO " + TABLE_PUBLISHER + " (" + COLUMN_ID + ", " + COLUMN_NAME + ", " + COLUMN_STATUS + ") VALUES (?, ?, ?)";
-        XJdbc.update(sql, publisher.getId(), publisher.getName(),publisher.getStatus());
+        String sql = "INSERT INTO " + TABLE_PUBLISHER + " (" + COLUMN_NAME + ", " + COLUMN_STATUS + ") VALUES (?, ?)";
+        XJdbc.update(sql, publisher.getName(),publisher.getStatus().name());
     }
     
     @Override
     public void update(Publisher publisher) {
-        String sql = "UPDATE " + TABLE_PUBLISHER + " SET " + COLUMN_NAME + "=?, " + COLUMN_STATUS + "=?";
-        XJdbc.update(sql, publisher.getName(),publisher.getStatus());
+        String sql = "UPDATE " + TABLE_PUBLISHER + " SET " + COLUMN_NAME + "=?, " + COLUMN_STATUS + "=?"+ " WHERE " + COLUMN_ID + " = ?";
+        XJdbc.update(sql, publisher.getName(),publisher.getStatus().name(),publisher.getId());
     }
     
     @Override
@@ -57,7 +57,7 @@ public class PublisherDAO extends SystemDAO<Publisher, Long> {
                 entity.setStatus(PublisherStatus.valueOf(rs.getString(COLUMN_STATUS)));
                 list.add(entity);
             }
-            rs.getStatement().getConnection().close();
+            rs.getStatement().close();
             return list;
         } catch (SQLException e) {
             e.printStackTrace();

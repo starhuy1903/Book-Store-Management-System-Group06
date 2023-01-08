@@ -4,9 +4,8 @@
  */
 package entity;
 
-import enumeration.UserRole;
-import java.util.List;
-import java.util.Objects;
+import enumeration.ActiveStatus;
+import enumeration.Role;
 
 /**
  *
@@ -16,26 +15,26 @@ public class Account {
     private Long id;
     private String username;
     private String password;
-    private String role;
-    private Boolean isActive;
+    private Role role;
+    private ActiveStatus isActive;
     
     public Account() {}
 
-    public Account(String username, String password, String role) {
+    public Account(String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.isActive = true;
+        this.isActive = ActiveStatus.ENABLED;
     }
 
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
-        this.isActive = true;
-        this.role = "STAFF";
+        this.isActive = ActiveStatus.ENABLED;
+        this.role = Role.STAFF;
     }
     
-    public Account(String username, String password, String role, Boolean isActive) {
+    public Account(String username, String password, Role role, ActiveStatus isActive) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -66,19 +65,19 @@ public class Account {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public Boolean getIsActive() {
+    public ActiveStatus getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(Boolean isActive) {
+    public void setIsActive(ActiveStatus isActive) {
         this.isActive = isActive;
     }
     

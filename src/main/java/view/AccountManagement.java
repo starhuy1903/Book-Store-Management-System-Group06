@@ -6,9 +6,14 @@ package view;
 
 import controller.AccountController;
 import entity.Account;
+import enumeration.ActiveStatus;
+import enumeration.Role;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -25,7 +30,10 @@ public class AccountManagement extends javax.swing.JFrame {
     private static final int ROLE_COLUMN = 2;
     private static final int ACTIVE_COLUMN = 3;
     
+    private DefaultTableModel model;
+    
     public AccountManagement() {
+        getModel();
         initComponents();
         refreshTable();
     }
@@ -46,9 +54,10 @@ public class AccountManagement extends javax.swing.JFrame {
         usernameInput = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        activeCheckbox = new javax.swing.JCheckBox();
         roleSelect = new javax.swing.JComboBox<>();
         passInput = new javax.swing.JPasswordField();
+        activeSelect = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
         editBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         createBtn = new javax.swing.JButton();
@@ -63,6 +72,7 @@ public class AccountManagement extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
 
         editModal.setMinimumSize(new java.awt.Dimension(550, 550));
+        editModal.setPreferredSize(new java.awt.Dimension(650, 650));
         editModal.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
@@ -76,7 +86,7 @@ public class AccountManagement extends javax.swing.JFrame {
                 modalCreateBtnActionPerformed(evt);
             }
         });
-        editModal.getContentPane().add(modalCreateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 379, 331, 39));
+        editModal.getContentPane().add(modalCreateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 331, 39));
 
         jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
         jLabel6.setText("Username");
@@ -89,22 +99,28 @@ public class AccountManagement extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
         jLabel9.setText("Role");
-        editModal.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 237, -1, -1));
+        editModal.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
 
-        activeCheckbox.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
-        activeCheckbox.setSelected(true);
-        activeCheckbox.setText("Active");
-        activeCheckbox.setToolTipText("");
-        editModal.getContentPane().add(activeCheckbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 314, -1, -1));
-
-        roleSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "STAFF" }));
+        roleSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "STAFF", "ADMIN" }));
         roleSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 roleSelectActionPerformed(evt);
             }
         });
-        editModal.getContentPane().add(roleSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 331, 36));
+        editModal.getContentPane().add(roleSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 331, 36));
         editModal.getContentPane().add(passInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 330, 40));
+
+        activeSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENABLED", "DISABLED" }));
+        activeSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activeSelectActionPerformed(evt);
+            }
+        });
+        editModal.getContentPane().add(activeSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 331, 36));
+
+        jLabel10.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jLabel10.setText("Active");
+        editModal.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, -1, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(650, 450));
@@ -136,37 +152,25 @@ public class AccountManagement extends javax.swing.JFrame {
             }
         });
 
-        accountTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Username", "Password", "Role", "Active"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        accountTable.setColumnSelectionAllowed(true);
+        accountTable.setModel(model);
+        accountTable.getTableHeader().setReorderingAllowed(false);
         accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 accountTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(accountTable);
-        accountTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableColumn roleColumn = accountTable.getColumnModel().getColumn(2);
+        JComboBox comboBox = new JComboBox();
+        comboBox.addItem("ADMIN");
+        comboBox.addItem("STAFF");
+        roleColumn.setCellEditor(new DefaultCellEditor(comboBox));
+
+        TableColumn activeColumn = accountTable.getColumnModel().getColumn(3);
+        JComboBox activeComboBox = new JComboBox();
+        activeComboBox.addItem("ENABLED");
+        activeComboBox.addItem("DISABLED");
+        activeColumn.setCellEditor(new DefaultCellEditor(activeComboBox));
 
         jScrollPane2.setViewportView(jScrollPane1);
 
@@ -278,10 +282,10 @@ public class AccountManagement extends javax.swing.JFrame {
         int selectedRow = accountTable.getSelectedRow();
         String username = accountTable.getValueAt(selectedRow, USERNAME_COLUMN).toString();
         String password = accountTable.getValueAt(selectedRow, PASSWORD_COLUMN).toString();
-        String role = accountTable.getValueAt(selectedRow, ROLE_COLUMN).toString();
-        Boolean isActive = (Boolean) accountTable.getValueAt(selectedRow, ACTIVE_COLUMN);
+        Role role = Role.valueOf(accountTable.getValueAt(selectedRow, ROLE_COLUMN).toString());
+        ActiveStatus isActive = ActiveStatus.valueOf((String) accountTable.getValueAt(selectedRow, ACTIVE_COLUMN));
         
-        if(username.isEmpty() || password.isEmpty() || role.isEmpty()) {
+        if(username.isEmpty() || password.isEmpty()) {
             // show warning
             return;
         }
@@ -323,8 +327,8 @@ public class AccountManagement extends javax.swing.JFrame {
         // take value from input
         String username = usernameInput.getText();
         String password = new String(passInput.getPassword());
-        String role = (String)roleSelect.getSelectedItem();
-        Boolean isActive = activeCheckbox.isSelected();
+        Role role = Role.valueOf((String) roleSelect.getSelectedItem());
+        ActiveStatus isActive = ActiveStatus.valueOf((String) activeSelect.getSelectedItem());
         
         if(username.isEmpty() || password.isEmpty()) {
             // show warning 
@@ -379,6 +383,10 @@ public class AccountManagement extends javax.swing.JFrame {
         dispose();    
     }//GEN-LAST:event_backBtnMouseClicked
 
+    private void activeSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activeSelectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_activeSelectActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -418,14 +426,13 @@ public class AccountManagement extends javax.swing.JFrame {
     private void resetCreateModal() {
         usernameInput.setText("");
         passInput.setText("");
-        roleSelect.setSelectedIndex(0);
-        activeCheckbox.setSelected(true);
+        roleSelect.setSelectedIndex(1);
+        activeSelect.setSelectedIndex(0);
         
         editModal.setVisible(false);    
     }
     
     private void setDataToTable(List<Account> list) {     
-        DefaultTableModel model = (DefaultTableModel) accountTable.getModel();
         model.setRowCount(0);
         Object[] row;
         for(int i = 0; i < list.size(); i++) {
@@ -444,16 +451,22 @@ public class AccountManagement extends javax.swing.JFrame {
         List<Account> accs = accountController.getAll();
         setDataToTable(accs);
     }
+    
+    private void getModel() {
+        String Columns[] = {"Username", "Password", "Role", "Active"};
+        model = new DefaultTableModel(Columns, 0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accountTable;
-    private javax.swing.JCheckBox activeCheckbox;
+    private javax.swing.JComboBox<String> activeSelect;
     private javax.swing.JButton allBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JButton createBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
     private javax.swing.JDialog editModal;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

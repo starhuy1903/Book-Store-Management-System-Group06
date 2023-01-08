@@ -1,23 +1,23 @@
 package entity;
 
-import enumeration.PublisherStatus;
+import enumeration.CategoryStatus;
 
-public class Publisher implements Comparable<Publisher> {
+public class Category implements Comparable<Category> {
 
     private Long id;
     private String name;
-    private PublisherStatus status;
+    private CategoryStatus status;
 
-    public Publisher() {
+    public Category() {
     }
     
-    public Publisher(Long id, String name, PublisherStatus status) {
+    public Category(Long id, String name, CategoryStatus status) {
         this.id = id;
         this.name = name;
         this.status = status;
     }
 
-    public Publisher(String name, PublisherStatus status) {
+    public Category(String name, CategoryStatus status) {
         this.name = name;
         this.status = status;
     }
@@ -38,11 +38,11 @@ public class Publisher implements Comparable<Publisher> {
         this.name = name;
     }
 
-    public PublisherStatus getStatus() {
+    public CategoryStatus getStatus() {
         return status;
     }
 
-    public void setStatus(PublisherStatus status) {
+    public void setStatus(CategoryStatus status) {
         this.status = status;
     }
 
@@ -52,7 +52,7 @@ public class Publisher implements Comparable<Publisher> {
     }
 
     @Override
-    public int compareTo(Publisher a) {
+    public int compareTo(Category a) {
         return a.name.compareTo(this.name);
     }
 }

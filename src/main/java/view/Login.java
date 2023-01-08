@@ -6,6 +6,7 @@ package view;
 
 import controller.*;
 import entity.*;
+import enumeration.Role;
 
 /**
  *
@@ -132,7 +133,7 @@ public class Login extends javax.swing.JFrame {
 
         boolean checkLogin = passwordString.equals(foundAccount.getPassword());
         if (checkLogin) {
-            if (foundAccount.getRole().equals("ADMIN")) {
+            if (foundAccount.getRole().equals(Role.ADMIN)) {
                 // TODO: implement getAdminByUserId
                 Admin admin = adminController.getAdmin().get(0);
                 ControllScreenAdmin controllScreenAdmin = new ControllScreenAdmin(admin);

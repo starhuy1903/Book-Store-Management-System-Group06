@@ -5,6 +5,8 @@
 package dao;
 
 import entity.Account;
+import enumeration.ActiveStatus;
+import enumeration.Role;
 import util.XJdbc;
 import java.sql.*;
 import java.util.*;
@@ -26,13 +28,13 @@ public class AccountDAO extends SystemDAO<Account, Long> {
     @Override
     public void create(Account acc) {
         String sql = "INSERT INTO " + TABLE_USER + " (" + COLUMN_USERNAME + ", " + COLUMN_PASSWORD + ", " + COLUMN_ROLE + ", " + COLUMN_IS_ACTIVE + ") VALUES (?, ?, ?, ?)";         
-        XJdbc.update(sql, acc.getUsername(), acc.getPassword(), acc.getRole(), acc.getIsActive());
+        XJdbc.update(sql, acc.getUsername(), acc.getPassword(), acc.getRole().name(), acc.getIsActive().name());
     }
 
     @Override
     public void update(Account acc) {
         String sql = "UPDATE " + TABLE_USER + " SET " + COLUMN_PASSWORD + "=?, " + COLUMN_ROLE + "=?, " + COLUMN_IS_ACTIVE + "=? WHERE " + COLUMN_USERNAME + "=?";
-        XJdbc.update(sql,acc.getPassword(), acc.getRole(), acc.getIsActive(), acc.getUsername());
+        XJdbc.update(sql,acc.getPassword(), acc.getRole().name(), acc.getIsActive().name(), acc.getUsername());
     }
 
     @Override
@@ -59,12 +61,6 @@ public class AccountDAO extends SystemDAO<Account, Long> {
         return !list.isEmpty() ? list.get(0) : null;
     }
 
-    public Account getByUsernameAndPassword(String userName, String pass) {
-        String sql = "SELECT * FROM " + TABLE_USER + " WHERE " + COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
-        List<Account> list = this.getBySql(sql, userName, pass);
-        return !list.isEmpty() ? list.get(1) : null;
-    }
-
     public Account getByUsername(String username) {
         String sql = "SELECT * FROM " + TABLE_USER + " WHERE " + COLUMN_USERNAME + " = ?";
         List<Account> list = this.getBySql(sql, username);
@@ -81,8 +77,8 @@ public class AccountDAO extends SystemDAO<Account, Long> {
                 entity.setId(rs.getLong(COLUMN_ID));
                 entity.setUsername(rs.getString(COLUMN_USERNAME));
                 entity.setPassword(rs.getString(COLUMN_PASSWORD));
-                entity.setRole(rs.getString(COLUMN_ROLE));
-                entity.setIsActive(rs.getBoolean(COLUMN_IS_ACTIVE));
+                entity.setRole(Role.valueOf(rs.getString(COLUMN_ROLE)));
+                entity.setIsActive(ActiveStatus.valueOf(rs.getString(COLUMN_IS_ACTIVE)));
                 list.add(entity);
             }
             rs.getStatement().close();

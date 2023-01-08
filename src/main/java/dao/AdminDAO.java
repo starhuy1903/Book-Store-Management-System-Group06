@@ -7,6 +7,8 @@ package dao;
 import util.XJdbc;
 import java.sql.*;
 import entity.*;
+import enumeration.ActiveStatus;
+import enumeration.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,28 @@ public class AdminDAO extends SystemDAO<Admin, Long> {
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_DOB = "date_of_birth";
     private static final String COLUMN_USERID = "user_id";
+    
+    
+    @Override
+    public void create(Admin entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void delete(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Admin> getAll() {
+        String sql = "SELECT * FROM " + TABLE_ADMIN + " JOIN account ON admin.user_id=account.id";
+        return this.getBySql(sql);
+    }
+
+    @Override
+    public Admin getById(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     @Override
     public void update(Admin admin) {
@@ -43,8 +67,8 @@ public class AdminDAO extends SystemDAO<Admin, Long> {
 
                 String username = rs.getString("username");
                 String password = rs.getString("password");
-                String role = rs.getString("role");
-                Boolean isActive = rs.getBoolean("is_active");
+                Role role = Role.valueOf(rs.getString("role"));
+                ActiveStatus isActive = ActiveStatus.valueOf(rs.getString("is_active"));
                 Account acc = new Account(username, password, role, isActive);
 
                 entity.setAccount(acc);
@@ -56,26 +80,5 @@ public class AdminDAO extends SystemDAO<Admin, Long> {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void create(Admin entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void delete(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<Admin> getAll() {
-        String sql = "SELECT * FROM " + TABLE_ADMIN + " JOIN account ON admin.user_id=account.id";
-        return this.getBySql(sql);
-    }
-
-    @Override
-    public Admin getById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

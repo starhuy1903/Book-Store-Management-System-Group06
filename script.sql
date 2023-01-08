@@ -27,9 +27,9 @@ CREATE TABLE `account` (
   `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `role` enum('ADMIN','STAFF') COLLATE utf8mb4_general_ci NOT NULL,
-  `is_active` tinyint NOT NULL,
+  `is_active` enum('ENABLED','DISABLED') COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'huy1903','12341234','ADMIN',1),(2,'huy123','1234','STAFF',1),(3,'huy1234','123412345','ADMIN',0),(4,'huy12345','12341234','STAFF',0),(5,'huy369','123412345','STAFF',1),(6,'hai123','1234','STAFF',1),(7,'kiet123','1234','STAFF',1),(8,'thong','1234','STAFF',1),(9,'kiet','1234','STAFF',1),(11,'huy3691','1234','STAFF',1),(16,'hai','1234','STAFF',1);
+INSERT INTO `account` VALUES (1,'huy1903','12341234','ADMIN','ENABLED'),(2,'huy123','1234','STAFF','ENABLED'),(3,'huy1234','123412345','STAFF','ENABLED'),(4,'huy12345','12341234','STAFF','ENABLED'),(5,'huy369','123412345','STAFF','ENABLED'),(6,'hai123','1234','STAFF','ENABLED'),(7,'kiet123','1234','STAFF','ENABLED'),(8,'thong','1234','STAFF','ENABLED'),(9,'kiet','1234','STAFF','ENABLED'),(11,'huy3691','1234','STAFF','ENABLED'),(16,'hai','1234','STAFF','DISABLED'),(17,'huy333','1234','STAFF','ENABLED'),(18,'huy1305','12345','STAFF','DISABLED');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,4 +399,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-08 10:17:02
+-- Dump completed on 2023-01-08 14:57:21
