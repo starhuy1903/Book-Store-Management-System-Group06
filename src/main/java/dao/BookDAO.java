@@ -93,7 +93,6 @@ public class BookDAO extends SystemDAO<Book, Long> {
 
         return this.getBySql(sql);
     }
-    
     public List<Book> getOutOfStock() {
         String sql = "SELECT "
                 + TABLE_BOOK + ".id, "
@@ -123,6 +122,39 @@ public class BookDAO extends SystemDAO<Book, Long> {
                 + " INNER JOIN " + TABLE_PUBLISHER + " ON " + TABLE_PUBLISHER + ".id = " + TABLE_BOOK + ".publisher_id"
                 + " WHERE " + TABLE_BOOK + ".stock <= 0"
                 + " ORDER BY id";
+
+        return this.getBySql(sql);
+    }
+
+    public List<Book> get10LastedBooks() {
+        String sql = "SELECT "
+                + TABLE_BOOK + ".id, "
+                + TABLE_BOOK + ".title, "
+                + TABLE_BOOK + ".isbn13, "
+                + TABLE_BOOK + ".language_id, "
+                + TABLE_BOOK + ".num_pages, "
+                + TABLE_BOOK + ".publisher_id, "
+                + TABLE_BOOK + ".category_id, "
+                + TABLE_BOOK + ".author_id, "
+                + TABLE_BOOK + ".published_date, "
+                + TABLE_BOOK + ".stock, "
+                + TABLE_BOOK + ".status, "
+                + TABLE_BOOK + ".price, "
+                + TABLE_BOOK_CATEGORY + ".name as book_category_name, "
+                + TABLE_BOOK_CATEGORY + ".status as book_category_status, "
+                + TABLE_BOOK_LANGUAGE + ".language_code as book_language_code, "
+                + TABLE_BOOK_LANGUAGE + ".language_name as book_language_name, "
+                + TABLE_AUTHOR + ".name as author_name, "
+                + TABLE_AUTHOR + ".status as author_status, "
+                + TABLE_PUBLISHER + ".name as publisher_name, "
+                + TABLE_PUBLISHER + ".status as publisher_status "
+                + "FROM " + TABLE_BOOK
+                + " INNER JOIN " + TABLE_BOOK_CATEGORY + " ON " + TABLE_BOOK_CATEGORY + ".id = " + TABLE_BOOK + ".category_id"
+                + " INNER JOIN " + TABLE_BOOK_LANGUAGE + " ON " + TABLE_BOOK_LANGUAGE + ".language_id = " + TABLE_BOOK + ".language_id"
+                + " INNER JOIN " + TABLE_AUTHOR + " ON " + TABLE_AUTHOR + ".id = " + TABLE_BOOK + ".author_id"
+                + " INNER JOIN " + TABLE_PUBLISHER + " ON " + TABLE_PUBLISHER + ".id = " + TABLE_BOOK + ".publisher_id"
+                + " ORDER BY published_date DESC"
+                + " LIMIT 10";
 
         return this.getBySql(sql);
     }
