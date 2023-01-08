@@ -453,8 +453,8 @@ public class AccountManagement extends javax.swing.JFrame {
     }
     
     private void getModel() {
-        String Columns[] = {"Username", "Password", "Role", "Active"};
-        model = new DefaultTableModel(Columns, 0);
+        String[] columns = {"Username", "Password", "Role", "Active"};
+        model = new DefaultTableModel(columns, 0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -27,8 +27,7 @@ public class AdminProfile extends javax.swing.JFrame {
         admin.setDateOfBirth(ad.getDateOfBirth());
         admin.setAccount(ad.getAccount());
 
-        jTextFieldName.setText(admin.getName());
-//        jTextFieldBirth.setText(admin.getDateOfBirth().toString());  
+        jTextFieldName.setText(admin.getName()); 
         dobInput.setDate(admin.getDateOfBirth());
     }
 

@@ -16,17 +16,17 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
      * Creates new form ControllScreen
      */
     Admin adminScreen = new Admin();
-    
+
     public ControllScreenAdmin() {
         initComponents();
     }
-    
+
     public ControllScreenAdmin(Admin ad) {
         adminScreen.setId(ad.getId());
         adminScreen.setName(ad.getName());
         adminScreen.setDateOfBirth(ad.getDateOfBirth());
         adminScreen.setAccount(ad.getAccount());
-        
+
         initComponents();
     }
 
@@ -44,8 +44,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         showAccountTableBtn = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        showStatistic = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnLogout = new javax.swing.JButton();
@@ -75,11 +74,14 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel4.setText("Book");
-
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel3.setText("Author");
+        showStatistic.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        showStatistic.setText("Revenue Statistics");
+        showStatistic.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        showStatistic.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showStatisticMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -88,9 +90,8 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(showAccountTableBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(showAccountTableBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(showStatistic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -99,9 +100,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(showAccountTableBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(showStatistic)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -118,13 +117,13 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnEditProfile)
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(43, 43, 43)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(149, 149, 149))
+                        .addGap(112, 112, 112))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
                         .addComponent(jLabel2)
@@ -135,14 +134,14 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jLabel2)
-                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
                         .addComponent(btnEditProfile))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(96, 96, 96)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -211,14 +210,22 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
 
     private void showAccountTableBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showAccountTableBtnMouseClicked
         // TODO add your handling code here:
-        new AccountManagement().setVisible(true);       
+        new AccountManagement().setVisible(true);
         setVisible(false);
         dispose();
     }//GEN-LAST:event_showAccountTableBtnMouseClicked
 
+    private void showStatisticMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showStatisticMouseClicked
+        // TODO add your handling code here:
+        new RevenueStatistics().setVisible(true);
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_showStatisticMouseClicked
+
     public void backToMainMenu() {
         setVisible(true);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -250,7 +257,7 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ControllScreenAdmin().setVisible(true); 
+                new ControllScreenAdmin().setVisible(true);
             }
         });
     }
@@ -259,12 +266,11 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnEditProfile;
     private javax.swing.JButton btnLogout;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel showAccountTableBtn;
+    private javax.swing.JLabel showStatistic;
     // End of variables declaration//GEN-END:variables
 }
