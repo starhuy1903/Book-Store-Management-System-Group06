@@ -8,6 +8,7 @@ import controller.BookRevenueController;
 import controller.CategoryRevenueController;
 import controller.CustomerRevenueController;
 import controller.EmployeeRevenueController;
+import entity.Admin;
 import entity.BookRevenue;
 import entity.CategoryRevenue;
 import entity.CustomerRevenue;
@@ -24,9 +25,18 @@ public class RevenueStatistics extends javax.swing.JFrame {
     /**
      * Creates new form RevenueStatics
      */
+    
+    private Admin currAdmin;
     private DefaultTableModel model;
 
     public RevenueStatistics() {
+        setToBookRevenueModel();
+        initComponents();
+        setDataToBookRevenue();
+    }
+    
+    public RevenueStatistics(Admin admin) {
+        currAdmin = admin;
         setToBookRevenueModel();
         initComponents();
         setDataToBookRevenue();
@@ -193,6 +203,7 @@ public class RevenueStatistics extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtn1MouseClicked
@@ -204,6 +215,9 @@ public class RevenueStatistics extends javax.swing.JFrame {
 
     private void backBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn1ActionPerformed
         // TODO add your handling code here:
+        new ControllScreenAdmin(currAdmin).backToMainMenu();
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_backBtn1ActionPerformed
 
     private void statisticTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statisticTableMouseClicked
