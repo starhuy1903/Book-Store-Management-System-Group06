@@ -7,6 +7,8 @@ package dao;
 import util.XJdbc;
 import java.sql.*;
 import entity.*;
+import enumeration.ActiveStatus;
+import enumeration.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,8 +79,8 @@ public class EmployeeDAO extends SystemDAO<Employee, Long> {
 
                 String username = rs.getString("username");
                 String password = rs.getString("password");
-                String role = rs.getString("role");
-                Boolean isActive = rs.getBoolean("is_active");
+                Role role = Role.valueOf(rs.getString("role"));
+                ActiveStatus isActive = ActiveStatus.valueOf(rs.getString("is_active"));
                 Account acc = new Account(username, password, role, isActive);
 
                 entity.setAccount(acc);
