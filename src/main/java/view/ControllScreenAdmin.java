@@ -195,13 +195,11 @@ public class ControllScreenAdmin extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-
         System.exit(0);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // TODO add your handling code here:
-
         AdminProfile editProfile = new AdminProfile(adminScreen);
         editProfile.setVisible(true);
         setVisible(false);
