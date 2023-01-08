@@ -32,12 +32,12 @@ public class BooksView extends javax.swing.JFrame {
     public BooksView() {
         getBookSelectDefaultData();
         initComponents();
-        
+
         showLanguage(jComboBox2);
         showCategories(jComboBox3);
         showAuthors(jComboBox4);
         showPublishers(jComboBox5);
-        
+
     }
 
     /**
@@ -86,6 +86,8 @@ public class BooksView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         CreateModal.setModal(true);
 
@@ -269,9 +271,10 @@ public class BooksView extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addComponent(jComboBox2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -438,6 +441,20 @@ public class BooksView extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("See out of stock books");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("See all books");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -445,13 +462,16 @@ public class BooksView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)))
+                        .addComponent(jButton4)
+                        .addGap(164, 164, 164)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39))
         );
         jPanel2Layout.setVerticalGroup(
@@ -462,7 +482,11 @@ public class BooksView extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
 
@@ -526,29 +550,29 @@ public class BooksView extends javax.swing.JFrame {
         int num_pages = Integer.parseInt(jTextField3.getText());
         long publisher_id = jComboBox5.getItemAt(this.jComboBox5.getSelectedIndex()).getValue();
         String publisher_name = jComboBox5.getItemAt(this.jComboBox5.getSelectedIndex()).getLabel();
-        
+
         long category_id = jComboBox3.getItemAt(this.jComboBox3.getSelectedIndex()).getValue();
         String category_name = jComboBox3.getItemAt(this.jComboBox3.getSelectedIndex()).getLabel();
-        
+
         long author_id = jComboBox4.getItemAt(this.jComboBox4.getSelectedIndex()).getValue();
         String author_name = jComboBox4.getItemAt(this.jComboBox4.getSelectedIndex()).getLabel();
-        
+
         LocalDate published_date = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
+
         BookLanguage newBL = new BookLanguage(language_id, "", language_name);
         Publisher newPublisher = new Publisher(publisher_id, publisher_name, PublisherStatus.valueOf("ENABLED"));
         Category newCategory = new Category(category_id, category_name, CategoryStatus.valueOf("ENABLED"));
         Author newAuthor = new Author(author_id, author_name, AuthorStatus.valueOf("ENABLED"));
-        
+
         int stock = Integer.parseInt(jTextField6.getText());
         double price = Double.parseDouble(jTextField6.getText());
         long check = 0;
-        
+
         Book newBook = new Book(check, title, isbn13, newBL, num_pages, newPublisher, newCategory, newAuthor, published_date, stock, BookStatus.valueOf("ENABLED"), price);
-        
+
         BookController bc = new BookController();
         bc.create(newBook);
-        
+
         setModelData();
         CreateModal.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -566,6 +590,16 @@ public class BooksView extends javax.swing.JFrame {
         // TODO add your handling code here:
         CommonModal.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        setModelOutOfStockData();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        setModelData();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -601,91 +635,103 @@ public class BooksView extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private static final String[] COLUMN_NAME = {"Id", "Title", "ISBN13", "LANGUAGE", "NUMBER OF PAGES", "PUBLISHER", "CATEGORY", "AUTHOR", "PUBLISHED DATE", "STOCK", "STATUS", "PRICE"};
     private static final int ID_COLUMN_INDEX = 0;
     private static final int NAME_COLUMN_INDEX = 1;
     private static final int STATUS_COLUMN_INDEX = 2;
     private static final int SELECT_COLUMN_INDEX = 3;
     private DefaultTableModel model;
+    private DefaultTableModel modelOutOfStock;
     private TableRowSorter trs;
     private List<Category> categoryList;
     private List<Author> authorList;
     private List<Publisher> publisherList;
     private List<BookLanguage> languageList;
-    
+
     private void getModel() {
         model = new DefaultTableModel(BooksView.COLUMN_NAME, 0);
         setModelData();
     }
-    
+
     private void getBookSelectDefaultData() {
         CategoryController cc = new CategoryController();
         categoryList = cc.getAll();
-        
+
         PublisherController pc = new PublisherController();
         publisherList = pc.getAll();
-        
+
         AuthorController ac = new AuthorController();
         authorList = ac.getAll();
-        
+
         BookLanguageController blc = new BookLanguageController();
         languageList = blc.getAll();
     }
-    
+
     private void setModelData() {
         BookController bc = new BookController();
         List<Book> list = bc.getAll();
-        
+
         model.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             Object[] obj = {list.get(i).getId(), list.get(i).getTitle(), list.get(i).getIsbn13(), list.get(i).getBookLanguage().getLanguage_name(), list.get(i).getNumPages(), list.get(i).getPublisher().getName(), list.get(i).getCategory().getName(), list.get(i).getAuthor().getName(), list.get(i).getPublishedDate(), list.get(i).getStock(), list.get(i).getStatus(), list.get(i).getPrice()};
             model.addRow(obj);
         }
     }
-    
+
+    private void setModelOutOfStockData() {
+        BookController bc = new BookController();
+        List<Book> list = bc.getOutOfStock();
+
+        model.setRowCount(0);
+        for (int i = 0; i < list.size(); i++) {
+            Object[] obj = {list.get(i).getId(), list.get(i).getTitle(), list.get(i).getIsbn13(), list.get(i).getBookLanguage().getLanguage_name(), list.get(i).getNumPages(), list.get(i).getPublisher().getName(), list.get(i).getCategory().getName(), list.get(i).getAuthor().getName(), list.get(i).getPublishedDate(), list.get(i).getStock(), list.get(i).getStatus(), list.get(i).getPrice()};
+            model.addRow(obj);
+        }
+    }
+
     public void showCategories(JComboBox<ComboItem> comboItems) {
         for (int i = 0; i < categoryList.size(); i++) {
             comboItems.addItem(new ComboItem(categoryList.get(i).getId(), categoryList.get(i).getName()));
         }
     }
-    
+
     public void showPublishers(JComboBox<ComboItem> comboItems) {
         for (int i = 0; i < publisherList.size(); i++) {
             comboItems.addItem(new ComboItem(publisherList.get(i).getId(), publisherList.get(i).getName()));
         }
     }
-    
+
     public void showAuthors(JComboBox<ComboItem> comboItems) {
         for (int i = 0; i < authorList.size(); i++) {
             comboItems.addItem(new ComboItem(authorList.get(i).getId(), authorList.get(i).getName()));
         }
     }
-    
+
     public void showLanguage(JComboBox<ComboItem> comboItems) {
         for (int i = 0; i < languageList.size(); i++) {
             comboItems.addItem(new ComboItem(languageList.get(i).getLanguage_id(), languageList.get(i).getLanguage_name()));
         }
     }
-    
+
     class ComboItem {
-        
+
         private long value;
         private String label;
-        
+
         public ComboItem(long value, String label) {
             this.value = value;
             this.label = label;
         }
-        
+
         public long getValue() {
             return this.value;
         }
-        
+
         public String getLabel() {
             return this.label;
         }
-        
+
         @Override
         public String toString() {
             return label;
@@ -699,6 +745,8 @@ public class BooksView extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<ComboItem> jComboBox2;
     private javax.swing.JComboBox<ComboItem> jComboBox3;

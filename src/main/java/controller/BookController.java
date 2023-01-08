@@ -12,6 +12,11 @@ public class BookController {
         return bd.getAll();
     }
     
+    public List<Book> getOutOfStock() {
+        BookDAO bd = new BookDAO();
+        return bd.getOutOfStock();
+    }
+    
     public void create(Book book){
         BookDAO bd = new BookDAO();
         bd.create(book);
