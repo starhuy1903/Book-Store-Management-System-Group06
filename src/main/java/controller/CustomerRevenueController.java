@@ -4,18 +4,17 @@
  */
 package controller;
 
-import dao.CategoryRevenueDAO;
-import entity.CategoryRevenue;
+import dao.CustomerRevenueDAO;
+import entity.CustomerRevenue;
 import java.util.List;
 
 /**
  *
  * @author huynguyen
  */
-public class CategoryRevenueController {
-
-    public List<CategoryRevenue> get() {
-        CategoryRevenueDAO dao = new CategoryRevenueDAO();
+public class CustomerRevenueController {
+    public List<CustomerRevenue> get() {
+        CustomerRevenueDAO dao = new CustomerRevenueDAO();
         return dao.getAll();
     }
 }

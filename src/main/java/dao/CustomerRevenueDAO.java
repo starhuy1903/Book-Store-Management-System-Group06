@@ -4,7 +4,7 @@
  */
 package dao;
 
-import entity.CategoryRevenue;
+import entity.CustomerRevenue;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,20 +15,22 @@ import util.XJdbc;
  *
  * @author huynguyen
  */
-public class CategoryRevenueDAO {
-    public List<CategoryRevenue> getAll() {
-        String sql = "SELECT bc.name AS category, SUM(li.quantity) AS quantity, SUM(o.actual_total) AS total_price FROM line_item AS li JOIN book_store_g6.order AS o ON (li.order_id =  o.id) JOIN book ON (li.book_id = book.ID) JOIN book_category AS bc ON (book.category_id = bc.id) GROUP BY bc.name;";
+public class CustomerRevenueDAO {
+     public List<CustomerRevenue> getAll() {
+        String sql = "SELECT c.name, c.email, SUM(o.actual_total) AS price FROM book_store_g6.order as o\n" +
+"		JOIN customer AS c ON (o.customer_id = c.id)\n" +
+"        GROUP BY c.name, c.email;";
         return this.getBySql(sql);
     }
     
-    private List<CategoryRevenue> getBySql(String sql, Object... args) {
-        List<CategoryRevenue> list = new ArrayList<>();
+    private List<CustomerRevenue> getBySql(String sql, Object... args) {
+        List<CustomerRevenue> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.query(sql, args);
             while (rs.next()) {
-                CategoryRevenue cr = new CategoryRevenue();
-                cr.setName(rs.getString(1));
-                cr.setQuantity(rs.getInt(2));
+                CustomerRevenue cr = new CustomerRevenue();
+                cr.setCustomerName(rs.getString(1));
+                cr.setPhoneNumber(rs.getString(2));
                 cr.setTotalPrice(rs.getInt(3));              
 
                 list.add(cr);

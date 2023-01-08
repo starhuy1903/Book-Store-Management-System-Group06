@@ -6,8 +6,10 @@ package view;
 
 import controller.BookRevenueController;
 import controller.CategoryRevenueController;
+import controller.CustomerRevenueController;
 import entity.BookRevenue;
 import entity.CategoryRevenue;
+import entity.CustomerRevenue;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -224,6 +226,10 @@ public class RevenueStatistics extends javax.swing.JFrame {
 
     private void showCustomerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCustomerBtnActionPerformed
         // TODO add your handling code here:
+        revenueStatisticTitle.setText("Customer Revenue");
+        setToCustomerRevenueModel();
+        setDataToCustomerRevenue();
+        statisticTable.setModel(model);
     }//GEN-LAST:event_showCustomerBtnActionPerformed
 
     private void showEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showEmployeeBtnActionPerformed
@@ -237,6 +243,11 @@ public class RevenueStatistics extends javax.swing.JFrame {
     
     private void setToCategoryRevenueModel() {
         String[] columns = {"Category", "Quantity", "Total Price"};
+        model = new DefaultTableModel(columns, 0);
+    }
+    
+    private void setToCustomerRevenueModel() {
+        String[] columns = {"Customer Name", "Phone Number", "Total Price"};
         model = new DefaultTableModel(columns, 0);
     }
 
@@ -264,6 +275,21 @@ public class RevenueStatistics extends javax.swing.JFrame {
             row = new Object[3];
             row[0] = list.get(i).getName();
             row[1] = list.get(i).getQuantity();
+            row[2] = list.get(i).getTotalPrice();
+
+            model.addRow(row);
+        }
+    }
+    
+    private void setDataToCustomerRevenue() {
+        CustomerRevenueController con = new CustomerRevenueController();
+        List<CustomerRevenue> list = con.get();
+        model.setRowCount(0);
+        Object[] row;
+        for (int i = 0; i < list.size(); i++) {
+            row = new Object[3];
+            row[0] = list.get(i).getCustomerName();
+            row[1] = list.get(i).getPhoneNumber();
             row[2] = list.get(i).getTotalPrice();
 
             model.addRow(row);
